@@ -39,7 +39,7 @@ CREATE TABLE `cred` (
 --
 
 INSERT INTO `cred` (`roleid`, `email`, `password`) VALUES
-(1, 'admin@school.com', '21232f297a57a5a743894a0e4a801fc3');
+(1, 'admin@school.com', '$2y$10$GLiHdrOH6qmE16lljJCfK.ETWuQwGpRl1dPKkvUXHpWbOZiIkZCSu');
 
 --
 -- Indexes for dumped tables
