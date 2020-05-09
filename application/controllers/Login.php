@@ -20,36 +20,35 @@ class Login extends CI_Controller {
 
     public function validator(){
         if(isset($_POST['login'])){
-            if($this->form_validation->run() == true){
-                $data = array(
-                    'email' => $this->input->post('email'),
-                    'password' => md5($this->input->post('pass')));
-                
-                $check = $this->credentials->getLogin($data);
+            if($this->form_validation->run() == TRUE){
+                $email = $this->input->post('email');
+                $password = $this->db->escape_str($this->input->post('pass'));
+
+                $check = $this->credentials->getLogin($email, $password);
         
-                if(isset($check)){
-                    // echo 'true';
+                if(!($check)){
+                    echo 'false';
+                    print_r($this->db->error());
+                    // $this->form_validation->set_message('invalid', 'Invalid email or password');
+                    redirect(base_url());
+                    
+                }else {
+                    echo 'true';
                     $ses = array(
                         'username' => strtok($check->email,'@'),
                         'role' => $check->roleid
                     );
                     $this->session->set_userdata($ses);
     
-                    var_dump($_SESSION['username']);
-                    
-                }else {
-                    echo 'false';
-                    $this->form_validation->set_message('invalid', 'Invalid email or password');
-                    redirect(base_url());
+                    var_dump($_SESSION);
     
                 }
     
-            }else redirect(base_url());
+            }else $this->load->view('pages/login');
 
         }else {
             redirect(base_url('index.php/register'));
 
         }
     }
-
 }

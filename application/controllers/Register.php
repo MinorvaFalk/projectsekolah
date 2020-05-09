@@ -11,10 +11,10 @@ class Register extends CI_Controller {
 
 		$this->form_validation->set_rules('email','Email','trim|required|max_length[50]|valid_email',
             array('max_length[50]' => 'Input maximum 50 character !'));
-        $this->form_validation->set_rules('role','Role','required');
-        $this->form_validation->set_rules('pass','Password','trim|required');
-        $this->form_validation->set_rules('cpass','CPassword','trim|matches[pass]|required',
-            array('matches[pass]' => "Password didn't match"));
+        // $this->form_validation->set_rules('role','Role','required');
+        $this->form_validation->set_rules('pass','Password','required');
+        // $this->form_validation->set_rules('cpass','CPassword','required|matches[pass]');
+        // $this->form_validation->set_message('cpass', "Password didn't match");
 
     }
 
@@ -30,7 +30,12 @@ class Register extends CI_Controller {
             
         }else{
             if($this->form_validation->run() == true){
-                echo "hello";
+                $email = $this->db->escape_str($this->input->post('email'));
+                $password = $this->db->escape_str($this->input->post('pass'));
+                $role = $this->input->post('role');
+
+                $this->credentials->setCredentials($role ,$email, $password);
+
             }else $this->load->view('pages/register',$data);
 
         }

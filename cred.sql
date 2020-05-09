@@ -31,16 +31,15 @@ SET time_zone = "+00:00";
 CREATE TABLE `cred` (
   `roleid` int(1) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `password` varchar(1000) NOT NULL,
-  `salt` varchar(100) NOT NULL
+  `password` varchar(1000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `cred`
 --
 
-INSERT INTO `cred` (`roleid`, `email`, `password`, `salt`) VALUES
-(1, 'admin@school.com', '21232f297a57a5a743894a0e4a801fc3', 'admin');
+INSERT INTO `cred` (`roleid`, `email`, `password`) VALUES
+(1, 'admin@school.com', '21232f297a57a5a743894a0e4a801fc3');
 
 --
 -- Indexes for dumped tables
