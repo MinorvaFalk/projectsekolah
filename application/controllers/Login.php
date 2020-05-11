@@ -40,7 +40,7 @@ class Login extends CI_Controller {
                     );
                     $this->session->set_userdata($ses);
     
-                    var_dump($_SESSION);
+                    redirect(base_url('index.php/main'));
     
                 }
     
