@@ -15,7 +15,9 @@ class Login extends CI_Controller {
     }
 
 	public function index(){
-		$this->load->view('pages/login');
+        if(!isset($_SESSION['username'])){
+            $this->load->view('pages/login');
+        }else redirect(base_url('index.php/Main'));
     }
 
     public function validator(){
