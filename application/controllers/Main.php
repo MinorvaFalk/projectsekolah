@@ -38,14 +38,18 @@ class Main extends CI_Controller
 
     public function guru()
     {
-        echo 'guru';
-        echo form_open('main/logout') . '<form><button name="ret">Logout</button></form>';
+        $data['js'] = $this->load->view('include/javascript.php', NULL, TRUE);
+        $data['css'] = $this->load->view('include/css.php', NULL, TRUE);
+        $data['datasiswa'] = $this->data->get_data();
+        $this->load->view('pages/guru.php', $data);
     }
 
     public function student()
     {
-        echo 'student';
-        echo form_open('main/logout') . '<form><button name="ret">Logout</button></form>';
+        $data['js'] = $this->load->view('include/javascript.php', NULL, TRUE);
+        $data['css'] = $this->load->view('include/css.php', NULL, TRUE);
+        $data['datasiswa'] = $this->data->get_data();
+        $this->load->view('pages/guru.php', $data);
     }
 
     public function logout()
