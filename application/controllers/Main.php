@@ -10,9 +10,9 @@ class Main extends CI_Controller {
 
 	public function index(){
 		switch($_SESSION['role']){
-            case 1: $this->admin(); break;
-            case 2: $this->guru(); break;
-            case 3: $this->student(); break;
+            case 'A': $this->admin(); break;
+            case 'T': $this->guru(); break;
+            case 'S': $this->student(); break;
             default : redirect(base_url());
         }
     }

@@ -8,29 +8,40 @@ class Credentials extends CI_Model{
     }
 
     public function getLogin($email, $pass){
-        $query = $this->db->get_where('cred',array('email' => $email));
-        $res = $query->row();
+        $this->db->where('email', $email)
+            ->or_where('username', $email);
+        $query = $this->db->get('credentials');
 
-        if(password_verify($pass,$res->password)){
-            return $query->row();
-            
-        }else return $this->db->error();
+        if($query->num_rows()){
+            $res = $query->row();
+
+            if(password_verify($pass,$res->password)){
+                $ses = array(
+                    'uid' => strtok($res->username,'@'),
+                    'role' => substr($res->user_id,0,1)
+                );
+                $this->session->set_userdata($ses); 
+                return true;  
+            }
+        }else return false;
     }
 
     public function getRole(){
-        $query = $this->db->get('role');
+        $query = $this->db->get('credentials');
         return $query->result_array();
     }
 
-    public function setCredentials($role, $email, $pass){
+    public function setApproval($fname, $lname, $address, $contact, $role){
         $values = array(
-            'roleid' => $role,
-            'email' => $email,
-            'password' => password_hash($pass, PASSWORD_BCRYPT)
+            'role' => $role,
+            'first_name' => $fname,
+            'last_name' => $lname,
+            'address' => $address,
+            'contact' => $contact
         );
         
-        if(!$this->db->insert('cred',$values)){
-            echo "error";
-        }else redirect(base_url());
+        if(!$this->db->insert('approval',$values)){
+            return false;
+        }else return true;
     }
 }

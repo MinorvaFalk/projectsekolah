@@ -17,51 +17,55 @@
 				<div class="login-form">
 					<h2 class="text-center">Register</h2>
 
+                    <?php if(!isset($role)):?>
 					<label>Role</label>
 					<select class="roles" name="role">
-                        <option value=''>Select Role</option>
 						<option value='Admin'>Admin</option>
 						<option value='Teacher'>Teacher</option>
 						<option value='Student'>Student</option>
 					</select>
+                    <?php endif;?>
+
+					<?php if(isset($role)):?>
 
 					<div class="grid-x">
 						<div class="medium-6 cell">
 							<label>First Name
-								<input type="text" name="fname" placeholder="First Name">
+								<input type="text" placeholder="First Name">
 							</label>
 						</div>
 						<div class="medium-6 cell">
 							<label>Last Name
-								<input type="text" name="lname" placeholder="Last Name">
+								<input type="text" placeholder="Last Name">
 							</label>
 						</div>
 					</div>
-					<?= form_error('fname','<p class="help-text" style="color:red">','</p>') ?>
+                    <?= form_error('firstname','<p class="help-text" style="color:red">','</p>') ?>
 
-					<label>Contact</label>
+					<!-- <label>Username</label>
 					<div class="input-group">
-						<span class="input-group-label" style="color: grey">+62</span>
-						<input class="input-group-field" type="text" name="contact" placeholder="8xxxxxx">
+						<input class="input-group-field" type="text" name="username" placeholder="Username">
+						<span class="input-group-label" id="spanemail" style="color: grey">@school.admin.com</span>
 					</div>
-					<?= form_error('contact','<p class="help-text" style="color:red">','</p>') ?>
+					<?= form_error('username','<p class="help-text" style="color:red">','</p>') ?>
 
-					<label>Address</label>
-					<textarea name="address" placeholder="Address"></textarea>
-					<?= form_error('address','<p class="help-text" style="color:red">','</p>') ?>
 
-					<?php if(isset($invalid)):?>
-					<p class="text-center" style="color:red">Invalid Email or Password </p>
-					<?php endif;?>
+					<label>Password</label>
+					<input type="password" name="pass" placeholder="Password">
+
+					<label>Confirm Password</label>
+					<input type="password" name="confpass" placeholder="Confirm Password">
+
+					<?= form_error('pass','<p class="help-text" style="color:red">','</p>') ?> -->
+                    <?php endif;?>
 
 					<div class="expanded button-group center">
-						<button type="submit" class="button" name="submit">Next</button>
+						<button type="submit" class="button" name="next">Next</button>
 						<button type="submit" class="alert button" name="cancel">Cancel</button>
 					</div>
+
 				</div>
 			</form>
-			<?= form_close()?>
-
 		</div>
 	</div>
 
@@ -77,21 +81,12 @@
 			$("select.roles").change(function () {
 				var selRole = $(this).children("option:selected").val();
 				if (selRole == 'Admin') {
-					$("#spanemail").text('@admin.school.com');
+					$("#spanemail").text('@school.admin.com');
 				} else if (selRole == 'Teacher') {
-					$("#spanemail").text('@teacher.school.com');
-				} else $("#spanemail").text('@student.school.com');
+					$("#spanemail").text('@school.teacher.com');
+				} else $("#spanemail").text('@school.student.com');
 			});
 		});
-
-		// function hideElements() {
-		// 	var x = document.getElementById("hidden");
-		// 	if (x.style.display === "none") {
-		// 		x.style.display = "block";
-		// 	} else {
-		// 		x.style.display = "none";
-		// 	}
-		// }
 
 	</script>
 
