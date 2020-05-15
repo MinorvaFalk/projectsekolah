@@ -11,12 +11,30 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+.center{
+    margin-bottom: 2rem;
+}
+
 h2{
     margin-top: 1rem;
-    font-weight: 600;
+    font-weight: 300;
     text-transform: uppercase
 }
 a{
     font-weight: 600;
 }
 
+.login-form{
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+}
+
+.bg{
+    background-image: url("https://images.pexels.com/photos/373488/pexels-photo-373488.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+    height: 100%; 
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}

@@ -17,31 +17,36 @@ Jika mau styling selalu ingat :
 -->
 
 <body>
+	<div class="bg">
+		<?= form_open('login/validator')?>
+		<div class="grid-container login fluid">
+			<form>
+			<div class="login-form">
+				<h2 class="text-center">Login</h2>
+				
+				<label>Email / Username</label>
+				<input type="text" name="email" placeholder="example@school.com">
+				<?= form_error('email','<p class="help-text" style="color:red">','</p>'); ?>
 
-	<?= form_open('login/validator')?>
-    <img src="https://images.pexels.com/photos/373488/pexels-photo-373488.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940">
-	<div class="grid-container login fluid">
-		<form>
-			<h2 class="text-center">Login</h2><hr>
-			<label>Email</label>
-			<input type="text" name="email" placeholder="example@school.com">
-			<?= form_error('email','<p class="help-text"','</small>'); ?>
+				<label>Password</label>
+				<input type="password" name="pass" placeholder="Password">
+				<?= form_error('pass','<p class="help-text" style="color:red">','</p>'); ?>
 
-			<label>Password</label>
-			<input type="password" name="pass" placeholder="Password">
-			<?= form_error('pass','<small style="color:red";>','</small>'); ?>
+				<?php if(isset($invalid)):?>
+				<p class="text-center" style="color:red">Invalid Email or Password </p>
+				<?php endif;?>
 
-			<?= form_error('invalid','<small style="color:red";>','</small>'); ?>
-
-			<button type="submit" class="button expanded" name="login">Login</button>
-
-			<p class="text-center">Not a user ? <?=anchor('register', 'Register Here')?></p>
-			<!-- <button type="submit" class="button" name="register">Register</button> -->
-		</form>
+				<button type="submit" class="button expanded" name="login">Login</button>
+				<p class="text-center">Not a user ? <?=anchor('register', 'Register Here')?></p>
+				</div>
+			</form>
+		</div>
+		<?= form_close()?>
 	</div>
-    <?= form_close()?>
-    
-    <footer></footer>
+
+	<footer>
+		
+	</footer>
 
 	<script type="text/javascript" href="<?= base_url('assets/js/vendor/jquery.js')?>"></script>
 	<script type="text/javascript" href="<?= base_url('assets/js/vendor/what-input.js')?>"></script>
