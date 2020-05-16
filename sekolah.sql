@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 16, 2020 at 09:27 PM
+-- Generation Time: May 15, 2020 at 03:11 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.3.2
 
@@ -41,14 +41,6 @@ CREATE TABLE `approval` (
   `contact` varchar(255) NOT NULL,
   `address` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `approval`
---
-
-INSERT INTO `approval` (`approve_id`, `approve`, `email`, `password`, `first_name`, `last_name`, `contact`, `address`) VALUES
-('A5ebfd66becdc3', 1, 'hello.new@admin.school.com', '$2y$10$5J1jONY2YxtIF2Yyki51P.0HpXbopGKWQX/odyJVN8GQcLpkNAUSu', 'Hello', 'New World', '85922112000', 'Jl. Kenangan Mantan'),
-('A5ec050dec6661', NULL, 'hello.world@admin.school.com', '$2y$10$uoi/aMgTDPK4Uqsv5Y2jpu7hPDKNWdXgYRUQQRgx1YX3LrgX3C2ma', 'Hello', 'World', '85922112000', 'afafafa');
 
 -- --------------------------------------------------------
 
@@ -240,6 +232,12 @@ ALTER TABLE `subject`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `approval`
+--
+ALTER TABLE `approval`
+  MODIFY `approve_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `nilai_siswa`
