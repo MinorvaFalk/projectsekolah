@@ -35,6 +35,8 @@ class Main extends CI_Controller {
 
     public function logout(){
         if(isset($_POST['ret'])){
+            // $this->session->unset_userdata('uid');
+            // unset($_SESSION['role']);
             session_destroy();
             redirect();
         }

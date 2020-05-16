@@ -26,20 +26,33 @@ class Credentials extends CI_Model{
         }else return false;
     }
 
-    public function getRole(){
-        $query = $this->db->get('credentials');
-        return $query->result_array();
+    public function getApproval($query){
+        $this->db->select('');
+        $this->db->from("approval");
+
+        if($query != ''){
+            $this->db->like('first_name',$query);
+            $this->db->or_like('last_name',$query);
+            $this->db->or_like('email',$query);
+            $this->db->or_like('approve_id',$query);
+        }
+        $this->db->order_by('approve_id','DESC');
+        return $this->db->get();
     }
 
-    public function setApproval($fname, $lname, $address, $contact, $role){
+    public function setApproval($email, $password, $fname, $lname, $address, $contact, $role){
+        $a = 'A'.uniqid();
+        
         $values = array(
-            'role' => $role,
+            'approve_id' => $a,
+            'email' => $email,
+            'password' => password_hash($password, PASSWORD_BCRYPT),
             'first_name' => $fname,
             'last_name' => $lname,
             'address' => $address,
             'contact' => $contact
         );
-        
+
         if(!$this->db->insert('approval',$values)){
             return false;
         }else return true;

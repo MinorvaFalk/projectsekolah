@@ -15,9 +15,9 @@ class Login extends CI_Controller {
     }
 
 	public function index(){
-        if(isset($_SESSION['username'])){
+        if(isset($_SESSION['uid'])){
             redirect(base_url('index.php/Main'));
-        }else $this->load->view('pages/login');
+        }else $this->load->view('pages/loginv2');
     }
 
     public function validator(){
@@ -29,14 +29,14 @@ class Login extends CI_Controller {
     
             if(!($check)){
                 $data['invalid'] = TRUE;
-                $this->load->view('pages/login',$data);
+                $this->load->view('pages/loginv2',$data);
                 
             }else {
                 redirect(base_url('index.php/main'));
 
             }
     
-        }else $this->load->view('pages/login');
+        }else $this->load->view('pages/loginv2');
 
     }
 }
