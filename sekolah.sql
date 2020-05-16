@@ -32,8 +32,10 @@ USE `sekolah`;
 
 DROP TABLE IF EXISTS `approval`;
 CREATE TABLE `approval` (
-  `approve_id` int(11) NOT NULL,
-  `role` varchar(255) NOT NULL,
+  `approve_id` varchar(255) NOT NULL,
+  `approve` int(1) DEFAULT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) DEFAULT NULL,
   `contact` varchar(255) NOT NULL,

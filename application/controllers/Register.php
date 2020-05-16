@@ -22,18 +22,66 @@ class Register extends CI_Controller {
     }
 
 	public function index(){
-		$this->load->view('pages/register');
+        if(isset($_SESSION['approval'])) {
+            $this->register_user();
+        }else$this->load->view('pages/registerv2');
+    }
+
+    public function register_user(){
+        $this->load->view('pages/register_verify');
+    }
+
+    public function search(){
+        $output = '';
+        $query = '';
+        if($this->input->post('query')){
+            $query = $this->input->post('query');
+        }
+
+        $data = $this->credentials->getApproval($query);
+        $output .= '
+            <table class="ui celled table">
+                <thead>    
+                    <tr>
+                        <th>Approval ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Status</th>
+                    </tr>
+                </thead> <tbody>
+        ';
+        if($data->num_rows() >0){
+            foreach($data->result() as $row){
+                if($row->approve != NULL){
+                    $status = '<a class="ui teal tag label" >Approved</a>';    
+                } else $status = '<a class="ui red tag label">Waiting</a>';
+                $output .='<tr>
+                        <td>'.$row->approve_id.'</td>
+                        <td>'.$row->first_name.'</td>
+                        <td>'.$row->last_name.'</td>
+                        <td>'.$row->email.'</td>
+                        <td>'.$status.'</td>
+                        </tr>
+                        ';
+            }
+        }else{
+            $output .= '<tr>
+                            <td colspan="5">No Data Found</td>
+                        </tr>';
+        }
+        $output .= '</tbody></table>';
+        echo $output;
     }
     
     public function validator(){
         if(isset($_POST['cancel'])){
-            // session_destroy();
             redirect(base_url());
             
         }else{
             if($this->form_validation->run() == true){
-                // $username = $this->db->escape_str(strip_tags($this->input->post('username')));
-                // $password = $this->db->escape_str(strip_tags($this->input->post('pass')));
+                $email = $this->db->escape_str(strip_tags($this->input->post('email')));
+                $password = $this->db->escape_str(strip_tags($this->input->post('pass')));
                 $fname = strip_tags($this->input->post('fname'));
                 $lname = strip_tags($this->input->post('lname'));
                 $address = strip_tags($this->input->post('address'));
@@ -41,14 +89,15 @@ class Register extends CI_Controller {
                 $role = strip_tags($this->input->post('role'));
                 var_dump($role);
 
-                $query = $this->credentials->setApproval($fname, $lname, $address, $contact, $role);
+                $query = $this->credentials->setApproval($email, $password, $fname, $lname, $address, $contact, $role);
 
                 if($query == false){
-                    $data['invalid'] = 1;
-                    $this->load->view('pages/register',$data);
-                }else redirect();
+                    $this->load->view('pages/registerv2');
+                }else{
+                    $this->load->view('pages/register_verify');
+                } 
                 
-            }else $this->load->view('pages/register');
+            }else $this->load->view('pages/registerv2');
 
         }
     }
