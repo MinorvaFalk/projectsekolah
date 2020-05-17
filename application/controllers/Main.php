@@ -11,20 +11,12 @@ class Main extends CI_Controller
         $this->load->model('data');
     }
 
-    public function index()
-    {
-        switch ($_SESSION['role']) {
-            case 1:
-                $this->admin();
-                break;
-            case 2:
-                $this->guru();
-                break;
-            case 3:
-                $this->student();
-                break;
-            default:
-                redirect(base_url());
+	public function index(){
+		switch($_SESSION['role']){
+            case 'A': $this->admin(); break;
+            case 'T': $this->guru(); break;
+            case 'S': $this->student(); break;
+            default : redirect(base_url());
         }
     }
 
@@ -52,9 +44,10 @@ class Main extends CI_Controller
         $this->load->view('pages/guru.php', $data);
     }
 
-    public function logout()
-    {
-        if (isset($_POST['ret'])) {
+    public function logout(){
+        if(isset($_POST['ret'])){
+            // $this->session->unset_userdata('uid');
+            // unset($_SESSION['role']);
             session_destroy();
             redirect();
         }

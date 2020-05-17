@@ -1,8 +1,11 @@
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Login</title>
+	<link rel="stylesheet" href="<?=base_url('assets/css/foundation.css')?>" />
+	<link rel="stylesheet" href="<?=base_url('assets/css/main.scss')?>" />
 
 </head>
 
@@ -14,25 +17,47 @@ Jika mau styling selalu ingat :
 -->
 
 <body>
-    <h1>Login Page</h1>
+	<div class="bg">
+		<?= form_open('login/validator')?>
+		<div class="grid-container login fluid">
+			<form>
+			<div class="login-form">
+				<h2 class="text-center">Login</h2>
+				
+				<label>Email / Username</label>
+				<input type="text" name="email" placeholder="example@school.com">
+				<?= form_error('email','<p class="help-text" style="color:red">','</p>'); ?>
 
-    <?= form_open('login/validator')?>
+				<label>Password</label>
+				<input type="password" name="pass" placeholder="Password">
+				<?= form_error('pass','<p class="help-text" style="color:red">','</p>'); ?>
 
-    <label>Email</label>
-    <input type="text" name="email">
-    <?= form_error('email','<small style="color:red";>','</small>'); ?>
+				<?php if(isset($invalid)):?>
+				<p class="text-center" style="color:red">Invalid Email or Password </p>
+				<?php endif;?>
 
-    <br>
-    <label>Password</label>
-    <input type="password" name="pass">
-    <?= form_error('pass','<small style="color:red";>','</small>'); ?>
+				<button type="submit" class="button expanded" name="login">Login</button>
+				<p class="text-center">Not a user ? <?=anchor('register', 'Register Here')?></p>
+				</div>
+			</form>
+		</div>
+		<?= form_close()?>
+	</div>
 
-    <?= form_error('invalid','<small style="color:red";>','</small>'); ?>
+	<footer>
+		
+	</footer>
 
-    <br>
-    <button type="submit" name="login">Login</button>
-    <button type="submit" name="register">Register</button>
+	<!-- <script type="text/javascript" href="<?= base_url('assets/js/vendor/jquery.js')?>"></script>
+	<script type="text/javascript" href="<?= base_url('assets/js/vendor/what-input.js')?>"></script>
+	<script type="text/javascript" href="<?= base_url('assets/js/vendor/foundation.min.js')?>"></script> -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/what-input/4.2.0/what-input.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.1/js/foundation.min.js"></script>
+	<script>
+		$(document).foundation();
 
-    <?= form_close()?>
+	</script>
 </body>
+
 </html>

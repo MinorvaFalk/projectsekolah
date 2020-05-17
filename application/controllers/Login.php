@@ -8,49 +8,35 @@ class Login extends CI_Controller {
         $this->load->model('credentials');
         $this->load->library('form_validation');
 
-		$this->form_validation->set_rules('email','Email','trim|required|max_length[50]|valid_email',
+		$this->form_validation->set_rules('email','Email','trim|required|max_length[50]',
 			array('max_length[50]' => 'Input maximum 50 character !'));
 		$this->form_validation->set_rules('pass','Password','trim|required');
 
     }
 
 	public function index(){
-        if(!isset($_SESSION['username'])){
-            $this->load->view('pages/login');
-        }else redirect(base_url('index.php/Main'));
+        if(isset($_SESSION['uid'])){
+            redirect(base_url('index.php/Main'));
+        }else $this->load->view('pages/loginv2');
     }
 
     public function validator(){
-        if(isset($_POST['login'])){
-            if($this->form_validation->run() == TRUE){
-                $email = $this->input->post('email');
-                $password = $this->db->escape_str($this->input->post('pass'));
-
-                $check = $this->credentials->getLogin($email, $password);
-        
-                if(!($check)){
-                    echo 'false';
-                    print_r($this->db->error());
-                    // $this->form_validation->set_message('invalid', 'Invalid email or password');
-                    redirect(base_url());
-                    
-                }else {
-                    echo 'true';
-                    $ses = array(
-                        'username' => strtok($check->email,'@'),
-                        'role' => $check->roleid
-                    );
-                    $this->session->set_userdata($ses);
+        if($this->form_validation->run() == TRUE){
+            $email = $this->input->post('email');
+            $password = $this->db->escape_str($this->input->post('pass'));
     
-                    redirect(base_url('index.php/main'));
+            $check = $this->credentials->getLogin($email, $password);
     
-                }
+            if(!($check)){
+                $data['invalid'] = TRUE;
+                $this->load->view('pages/loginv2',$data);
+                
+            }else {
+                redirect(base_url('index.php/main'));
+
+            }
     
-            }else $this->load->view('pages/login');
+        }else $this->load->view('pages/loginv2');
 
-        }else {
-            redirect(base_url('index.php/register'));
-
-        }
     }
 }

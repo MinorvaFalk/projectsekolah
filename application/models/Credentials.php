@@ -8,29 +8,53 @@ class Credentials extends CI_Model{
     }
 
     public function getLogin($email, $pass){
-        $query = $this->db->get_where('cred',array('email' => $email));
-        $res = $query->row();
+        $this->db->where('email', $email)
+            ->or_where('username', $email);
+        $query = $this->db->get('credentials');
 
-        if(password_verify($pass,$res->password)){
-            return $query->row();
-            
-        }else return $this->db->error();
+        if($query->num_rows()){
+            $res = $query->row();
+
+            if(password_verify($pass,$res->password)){
+                $ses = array(
+                    'uid' => strtok($res->username,'@'),
+                    'role' => substr($res->user_id,0,1)
+                );
+                $this->session->set_userdata($ses); 
+                return true;  
+            }
+        }else return false;
     }
 
-    public function getRole(){
-        $query = $this->db->get('role');
-        return $query->result_array();
+    public function getApproval($query){
+        $this->db->select('');
+        $this->db->from("approval");
+
+        if($query != ''){
+            $this->db->like('first_name',$query);
+            $this->db->or_like('last_name',$query);
+            $this->db->or_like('email',$query);
+            $this->db->or_like('approve_id',$query);
+        }
+        $this->db->order_by('approve_id','DESC');
+        return $this->db->get();
     }
 
-    public function setCredentials($role, $email, $pass){
-        $values = array(
-            'roleid' => $role,
-            'email' => $email,
-            'password' => password_hash($pass, PASSWORD_BCRYPT)
-        );
+    public function setApproval($email, $password, $fname, $lname, $address, $contact, $role){
+        $a = 'A'.uniqid();
         
-        if(!$this->db->insert('cred',$values)){
-            echo "error";
-        }else redirect(base_url());
+        $values = array(
+            'approve_id' => $a,
+            'email' => $email,
+            'password' => password_hash($password, PASSWORD_BCRYPT),
+            'first_name' => $fname,
+            'last_name' => $lname,
+            'address' => $address,
+            'contact' => $contact
+        );
+
+        if(!$this->db->insert('approval',$values)){
+            return false;
+        }else return true;
     }
 }
