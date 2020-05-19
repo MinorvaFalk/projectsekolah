@@ -14,7 +14,7 @@ class Main extends CI_Controller
 	public function index(){
 		switch($_SESSION['role']){
             case 'A': $this->admin(); break;
-            case 'T': $this->guru(); break;
+            case 'G': $this->guru(); break;
             case 'S': $this->student(); break;
             default : redirect(base_url());
         }
@@ -24,7 +24,7 @@ class Main extends CI_Controller
     {
         $data['js'] = $this->load->view('include/javascript.php', NULL, TRUE);
         $data['css'] = $this->load->view('include/css.php', NULL, TRUE);
-        $data['datasiswa'] = $this->data->get_data();
+        $data['siswa'] = $this->data->get_data();
         $this->load->view('pages/admin.php', $data);
     }
 
@@ -32,7 +32,7 @@ class Main extends CI_Controller
     {
         $data['js'] = $this->load->view('include/javascript.php', NULL, TRUE);
         $data['css'] = $this->load->view('include/css.php', NULL, TRUE);
-        $data['datasiswa'] = $this->data->get_data();
+        $data['siswa'] = $this->data->get_data();
         $this->load->view('pages/guru.php', $data);
     }
 
@@ -40,8 +40,8 @@ class Main extends CI_Controller
     {
         $data['js'] = $this->load->view('include/javascript.php', NULL, TRUE);
         $data['css'] = $this->load->view('include/css.php', NULL, TRUE);
-        $data['datasiswa'] = $this->data->get_data();
-        $this->load->view('pages/guru.php', $data);
+        $data['siswa'] = $this->data->get_data();
+        $this->load->view('pages/siswa.php', $data);
     }
 
     public function logout(){

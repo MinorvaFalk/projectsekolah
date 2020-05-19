@@ -24,11 +24,11 @@
                 <thead>
                     <tr>
                         <td>NIS</td>
-                        <td>Nama Depan</td>
-                        <td>Nama Belakang</td>
-                        <td>No. Telephone</td>
-                        <td>Kelas</td>
-                        <td>Nilai</td>
+                        <td>Nama Siswa</td>
+                        <td>Mata Pelajaran</td>
+                        <td>Nilai Tugas</td>
+                        <td>Nilai UTS</td>
+                        <td>Nilai UAS</td>
                         <td>Keterangan</td>
                         <td>Actions</td>
                     </tr>
@@ -38,14 +38,13 @@
                     <tr>
                         <td><?php echo $row['id_siswa']; ?></td>
                         <td><?php echo $row['first_name']; ?></td>
-                        <td><?php echo $row['last_name']; ?></td>
-                        <td><?php echo $row['contact']; ?></td>
-                        <td><?php echo $row['id_kelas']; ?></td>
-                        <td><?php echo "<a href='update.php?id=" . $row['id_siswa'] . "' class='btn btn-info'>View</a>";?></td>
-                        <td><?php echo $row['keterangan']; ?></td>
+                        <td><?php echo $nilai_siswa['nama_subject']; ?></td>
+                        <td><?php echo $nilai_siswa['nilai_tugas']; ?></td>
+                        <td><?php echo $nilai_siswa['nilai_uts']; ?></td>
+                        <td><?php echo $nilai_siswa['nilai_uas']; ?></td>
                         <td>
-                            <?php 
-                            echo "<a href='read.php?id=" . $row['id_siswa'] . "' class='btn btn-primary'>Read</a>";
+                            <?php
+                            echo "<a href='update.php?id=" . $row['id_siswa'] . "' class='btn btn-info'>Komplain</a>"; 
                             echo "<a href='update.php?id=" . $row['id_siswa'] . "' class='btn btn-info'>Update</a>";
                             echo "<a href='delete.php?id=" . $row['id_siswa'] . "' class='btn btn-danger'>Delete</a>";
                             ?>

@@ -5,7 +5,7 @@
   <?php
   echo $js;
   echo $css;
-  echo 'guru';
+  echo 'Welcome,<br>' . $_SESSION['uid'] . '<br>Role : Guru';
   echo form_open('main/logout') . '<form><button name="ret">Logout</button></form>';
   ?>
   <title>Project Sekolah</title>
@@ -26,13 +26,9 @@
             <td>NIS</td>
             <td>Nama Depan</td>
             <td>Nama Belakang</td>
-            <td>Tanggal Lahir</td>
-            <td>No. Telephone Orang Tua</td>
+            <td>No. Telephone</td>
             <td>Kelas</td>
-            <td>Nilai Tugas</td>
-            <td>Nilai UTS</td>
-            <td>Nilai UAS</td>
-            <td>Nilai Akhir</td>
+            <td>Nilai</td>
             <td>Keterangan</td>
             <td>Actions</td>
           </tr>
@@ -40,17 +36,20 @@
         <?php
         foreach ($datasiswa as $row) { ?>
           <tr>
-            <td><?php echo $row['nis']; ?></td>
-            <td><?php echo $row['namadepan']; ?></td>
-            <td><?php echo $row['namablkg']; ?></td>
-            <td><?php echo $row['tgllahir']; ?></td>
-            <td><?php echo $row['telportu']; ?></td>
-            <td><?php echo $row['kelas']; ?></td>
-            <td><?php echo $row['nilaitugas']; ?></td>
-            <td><?php echo $row['nilaiuts']; ?></td>
-            <td><?php echo $row['nilaiuas']; ?></td>
-            <td><?php echo $row['nilaiakhir']; ?></td>
+            <td><?php echo $row['id_siswa']; ?></td>
+            <td><?php echo $row['first_name']; ?></td>
+            <td><?php echo $row['last_name']; ?></td>
+            <td><?php echo $row['contact']; ?></td>
+            <td><?php echo $row['id_kelas']; ?></td>
+            <td><?php echo "<a href='update.php?id=" . $row['id_siswa'] . "' class='btn btn-info'>View</a>";?></td>
             <td><?php echo $row['keterangan']; ?></td>
+            <td>
+              <?php 
+              echo "<a href='read.php?id=" . $row['id_siswa'] . "' class='btn btn-primary'>Read</a>";
+              echo "<a href='update.php?id=" . $row['id_siswa'] . "' class='btn btn-info'>Update</a>";
+              echo "<a href='delete.php?id=" . $row['id_siswa'] . "' class='btn btn-danger'>Delete</a>";
+              ?>
+            </td>
           </tr>
         <?php } ?>
       </table>
