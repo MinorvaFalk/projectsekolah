@@ -16,7 +16,7 @@ class Data extends CI_Model
 
   public function get_nilaisiswa()
   {
-    $query = $this->db->query("SELECT * FROM subject NATURAL JOIN nilai_siswa NATURAL JOIN guru");
+    $query = $this->db->query("SELECT * FROM subject NATURAL JOIN nilai_siswa NATURAL JOIN siswa");
     return $query->result_array();
   }
 }
