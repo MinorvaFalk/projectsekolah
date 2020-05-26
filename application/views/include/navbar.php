@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 	<a class="navbar-brand" href="#">
         <?php 
         if($_SESSION['role'] == 'A'){
@@ -37,7 +37,7 @@
 			</li>
 		</ul>
 		<form class="form-inline my-2 my-lg-0">
-            <?=anchor('/main/logout', 'Logout', 'class="btn btn-outline-success my-2 my-sm-0" name="ret"');?>
+            <?=anchor('/main/logout', 'Logout', 'class="btn btn-outline-light my-2 my-sm-0" name="ret"');?>
 			<!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</button> -->
 		</form>
 	</div>
