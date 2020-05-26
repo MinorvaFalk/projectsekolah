@@ -10,14 +10,10 @@ class Register extends CI_Controller {
         $this->load->helper('string');
 
         $this->form_validation->set_rules('fname','Firstname','trim|required');
+        $this->form_validation->set_rules('lname','Firstname','trim|required');
         $this->form_validation->set_rules('address','Address','trim|required');
-        $this->form_validation->set_rules('contact','Contact','trim|required|numeric');
-        // $this->form_validation->set_rules('username','Username','trim|required|max_length[50]',
-        //     array('max_length[50]' => 'Input maximum 50 character !'));
-        // $this->form_validation->set_rules('role','Role','required');
-        // $this->form_validation->set_rules('pass','Password','required');
-        // $this->form_validation->set_rules('cpass','CPassword','required|matches[pass]');
-        // $this->form_validation->set_message('cpass', "Password didn't match");
+        $this->form_validation->set_rules('contact','Contact','trim|required|numeric|minLength[10]|maxLength[11]');
+        $this->form_validation->set_rules('pass','Password','required|min_length[8]');
 
     }
 
