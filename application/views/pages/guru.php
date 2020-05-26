@@ -2,21 +2,12 @@
 <html>
 
 <head>
-  <?php
-  echo $js;
-  echo $css;
-  echo 'Welcome,<br>' . $_SESSION['uid'] . '<br>Role : Guru';
-  echo form_open('main/logout') . '<form><button name="ret">Logout</button></form>';
-  ?>
+  <?= $css?>
   <title>Project Sekolah</title>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-  <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />
 </head>
 
 <body>
+<?= $nav?>
   <div class="container">
     <h1>Manage Students</h1>
     <div class="table-responsive">
@@ -59,3 +50,4 @@
     $('#students').DataTable();
   });
 </script>
+<?= $js?>
