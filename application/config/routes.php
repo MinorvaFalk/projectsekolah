@@ -52,3 +52,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'login';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+$route['main'] = 'Main';
+$route['nilaisiswa'] = 'Nilaisiswa_siswa';
+$route['nilai_siswa'] = 'Nilai_siswa';
+$route['infosiswa'] = 'Infosiswa_siswa';
+$route['info_siswa'] = 'Siswa';

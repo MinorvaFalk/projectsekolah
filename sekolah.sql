@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.8.4
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: May 15, 2020 at 03:11 PM
--- Server version: 5.7.24
--- PHP Version: 7.3.2
+-- Host: 127.0.0.1
+-- Generation Time: May 22, 2020 at 07:14 AM
+-- Server version: 10.1.37-MariaDB
+-- PHP Version: 5.6.39
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -21,8 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `sekolah`
 --
-CREATE DATABASE IF NOT EXISTS `sekolah` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `sekolah`;
 
 -- --------------------------------------------------------
 
@@ -30,7 +28,6 @@ USE `sekolah`;
 -- Table structure for table `approval`
 --
 
-DROP TABLE IF EXISTS `approval`;
 CREATE TABLE `approval` (
   `approve_id` varchar(255) NOT NULL,
   `approve` int(1) DEFAULT NULL,
@@ -42,13 +39,19 @@ CREATE TABLE `approval` (
   `address` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `approval`
+--
+
+INSERT INTO `approval` (`approve_id`, `approve`, `email`, `password`, `first_name`, `last_name`, `contact`, `address`) VALUES
+('A5ec1b163ca6f2', NULL, 'pecorino.romano@admin.school.com', '$2y$10$cYsePfpx8rs9tWYPUOnBW.NmzplTbppBQd/bC54KJ/g2N8COUWJi.', 'Pecorino', 'Romano', '1269696969', 'Rumah Bordil');
+
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `credentials`
 --
 
-DROP TABLE IF EXISTS `credentials`;
 CREATE TABLE `credentials` (
   `user_id` varchar(10) NOT NULL,
   `username` varchar(255) NOT NULL,
@@ -71,7 +74,6 @@ INSERT INTO `credentials` (`user_id`, `username`, `email`, `password`) VALUES
 -- Table structure for table `guru`
 --
 
-DROP TABLE IF EXISTS `guru`;
 CREATE TABLE `guru` (
   `id_pengajar` varchar(5) NOT NULL,
   `user_id` varchar(10) NOT NULL,
@@ -95,11 +97,10 @@ INSERT INTO `guru` (`id_pengajar`, `user_id`, `first_name`, `last_name`, `contac
 -- Table structure for table `kelas`
 --
 
-DROP TABLE IF EXISTS `kelas`;
 CREATE TABLE `kelas` (
   `id_kelas` varchar(5) NOT NULL,
   `nama_kelas` varchar(255) NOT NULL,
-  `id_pengajar` varchar(5) NOT NULL
+  `id_pengajar` varchar(5) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -115,22 +116,22 @@ INSERT INTO `kelas` (`id_kelas`, `nama_kelas`, `id_pengajar`) VALUES
 -- Table structure for table `nilai_siswa`
 --
 
-DROP TABLE IF EXISTS `nilai_siswa`;
 CREATE TABLE `nilai_siswa` (
   `id` int(11) NOT NULL,
   `id_subject` varchar(5) NOT NULL,
   `id_siswa` varchar(5) NOT NULL,
   `nilai_tugas` int(3) NOT NULL,
   `nilai_uts` int(3) NOT NULL,
-  `nilai_uas` int(3) NOT NULL
+  `nilai_uas` int(3) NOT NULL,
+  `komplain` varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `nilai_siswa`
 --
 
-INSERT INTO `nilai_siswa` (`id`, `id_subject`, `id_siswa`, `nilai_tugas`, `nilai_uts`, `nilai_uas`) VALUES
-(2, 'BIO1', 'S0001', 100, 76, 87);
+INSERT INTO `nilai_siswa` (`id`, `id_subject`, `id_siswa`, `nilai_tugas`, `nilai_uts`, `nilai_uas`, `komplain`) VALUES
+(2, 'BIO1', 'S0001', 100, 76, 87, NULL);
 
 -- --------------------------------------------------------
 
@@ -138,7 +139,6 @@ INSERT INTO `nilai_siswa` (`id`, `id_subject`, `id_siswa`, `nilai_tugas`, `nilai
 -- Table structure for table `siswa`
 --
 
-DROP TABLE IF EXISTS `siswa`;
 CREATE TABLE `siswa` (
   `id_siswa` varchar(5) NOT NULL,
   `user_id` varchar(10) NOT NULL,
@@ -146,15 +146,16 @@ CREATE TABLE `siswa` (
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) DEFAULT NULL,
   `contact` varchar(255) NOT NULL,
-  `address` varchar(255) NOT NULL
+  `address` varchar(255) NOT NULL,
+  `keterangan` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `siswa`
 --
 
-INSERT INTO `siswa` (`id_siswa`, `user_id`, `id_kelas`, `first_name`, `last_name`, `contact`, `address`) VALUES
-('S0001', 'S000000001', 'A', 'Harvard', 'Harsono Junior', '6280000000000', 'Jl. Yang saya gatau');
+INSERT INTO `siswa` (`id_siswa`, `user_id`, `id_kelas`, `first_name`, `last_name`, `contact`, `address`, `keterangan`) VALUES
+('S0001', 'S000000001', 'A', 'Harvard', 'Harsono Junior', '6280000000000', 'Jl. Yang saya gatau', '');
 
 -- --------------------------------------------------------
 
@@ -162,7 +163,6 @@ INSERT INTO `siswa` (`id_siswa`, `user_id`, `id_kelas`, `first_name`, `last_name
 -- Table structure for table `subject`
 --
 
-DROP TABLE IF EXISTS `subject`;
 CREATE TABLE `subject` (
   `id_subject` varchar(5) NOT NULL,
   `id_pengajar` varchar(5) NOT NULL,
@@ -232,12 +232,6 @@ ALTER TABLE `subject`
 --
 -- AUTO_INCREMENT for dumped tables
 --
-
---
--- AUTO_INCREMENT for table `approval`
---
-ALTER TABLE `approval`
-  MODIFY `approve_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `nilai_siswa`

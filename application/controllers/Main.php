@@ -1,36 +1,47 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Main extends CI_Controller {
+class Main extends CI_Controller
+{
 
-    public function __construct(){
+    public function __construct()
+    {
         parent::__construct();
         $this->load->helper('html');
+        $this->load->model('data');
     }
 
 	public function index(){
 		switch($_SESSION['role']){
             case 'A': $this->admin(); break;
-            case 'T': $this->guru(); break;
+            case 'G': $this->guru(); break;
             case 'S': $this->student(); break;
             default : redirect(base_url());
         }
     }
-    
-    public function admin(){
-        echo 'admin';
-        echo form_open('main/logout').'<form><button name="ret">Logout</button></form>';
-        
+
+    public function admin()
+    {
+        $data['js'] = $this->load->view('include/javascript.php', NULL, TRUE);
+        $data['css'] = $this->load->view('include/css.php', NULL, TRUE);
+        $data['siswa'] = $this->data->get_data();
+        $this->load->view('pages/admin.php', $data);
     }
 
-    public function guru(){
-        echo 'guru';
-        echo form_open('main/logout').'<form><button name="ret">Logout</button></form>';
+    public function guru()
+    {
+        $data['js'] = $this->load->view('include/javascript.php', NULL, TRUE);
+        $data['css'] = $this->load->view('include/css.php', NULL, TRUE);
+        $data['siswa'] = $this->data->get_data();
+        $this->load->view('pages/guru.php', $data);
     }
 
-    public function student(){
-        echo 'student';
-        echo form_open('main/logout').'<form><button name="ret">Logout</button></form>';
+    public function student()
+    {
+        $data['js'] = $this->load->view('include/javascript.php', NULL, TRUE);
+        $data['css'] = $this->load->view('include/css.php', NULL, TRUE);
+        $data['siswa'] = $this->data->get_data();
+        $this->load->view('pages/siswa.php', $data);
     }
 
     public function logout(){
