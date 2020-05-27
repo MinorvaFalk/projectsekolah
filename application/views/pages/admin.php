@@ -46,7 +46,6 @@
 
 	function manage(a) {
 		var menu = (a.value || a.options[a.selectedIndex].value);
-		$
 		$.ajax({
 			url: "<?=base_url('index.php/tables')?>",
 			method: "POST",

@@ -24,7 +24,7 @@ class Data extends CI_Model
   }
 
   public function get_guru(){
-    $query = $this->db->query("SELECT * FROM guru NATURAL JOIN credentials NATURAL JOIN kelas");
+    $query = $this->db->query("SELECT * FROM guru NATURAL JOIN credentials LEFT JOIN kelas USING (id_pengajar)");
     return $query->result_array();
   }
 
@@ -39,7 +39,15 @@ class Data extends CI_Model
   }
 
   public function get_nilai(){
-    $query = $this->db->query("SELECT id_subject, CONCAT(s.first_name,' ',s.last_name) AS namasiswa, CONCAT(g.first_name,' ',g.last_name) AS namaguru, nilai_tugas, nilai_uts, nilai_uas FROM nilai_siswa n INNER JOIN guru g ON n.id_pengajar = g.id_pengajar INNER JOIN siswa s ON n.id_siswa = s.id_siswa");
+    $query = $this->db->query("SELECT id_subject, CONCAT(s.first_name,' ',s.last_name) AS namasiswa, CONCAT(g.first_name,' ',g.last_name) AS namaguru, nilai_tugas, nilai_uts, nilai_uas 
+    FROM nilai_siswa n 
+    INNER JOIN guru g ON n.id_pengajar = g.id_pengajar 
+    INNER JOIN siswa s ON n.id_siswa = s.id_siswa");
     return $query->result_array();
+  }
+
+  public function get_notif(){
+    $query = $this->db->query("SELECT * FROM approval WHERE approve IS NULL");
+    return $query->num_rows();
   }
 }

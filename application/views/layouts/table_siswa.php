@@ -4,7 +4,8 @@
 			<td>NIS</td>
 			<td>Nama</td>
 			<td>Email</td>
-			<td>No. Telephone</td>
+			<td>Kelas</td>
+			<td>No. HP</td>
 			<td>Alamat</td>
 			<td>Keterangan</td>
 			<td>Action</td>
@@ -15,7 +16,8 @@
             echo '<tr>
             <td>'.$row['id_siswa'].'</td>
             <td>'.$row['first_name'].' '.$row['last_name'].'</td>
-            <td>'.$row['email'].'</td>
+			<td>'.$row['email'].'</td>
+			<td>'.$row['id_kelas'].'</td>
             <td>'.$row['contact'].'</td>
             <td>'.$row['address'].'</td>
             <td>'.$row['keterangan'].'</td>
@@ -28,6 +30,7 @@
 			<th>NIS</th>
 			<th>Nama</th>
 			<th>Email</th>
+			<th>Kelas</th>
 			<th>No. Telephone</th>
 			<th>Alamat</th>
 			<th>Keterangan</th>

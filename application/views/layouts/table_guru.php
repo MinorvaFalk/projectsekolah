@@ -1,11 +1,11 @@
 <table id="example" class="table table-striped table-bordered" style="width:100%">
 	<thead>
 		<tr>
-			<td>NI</td>
+			<td>ID</td>
 			<td>Nama</td>
             <td>Email</td>
             <td>Kelas</td>
-			<td>No. Telephone</td>
+			<td>No. HP</td>
 			<td>Alamat</td>
 			<td>Keterangan</td>
 			<td>Action</td>
@@ -13,6 +13,7 @@
 	</thead>
 	<tbody>
 		<?php foreach ($data as $row) {
+			if($row['id_kelas'] == NULL) $row['id_kelas'] = 'Admin';
             echo '<tr>
             <td>'.$row['id_pengajar'].'</td>
             <td>'.$row['first_name'].' '.$row['last_name'].'</td>

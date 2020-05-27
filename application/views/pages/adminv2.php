@@ -1,4 +1,4 @@
-<?php $kategori = $this->uri->segment(2);?>
+<?php $kategori = $this->uri->segment(3);?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,7 +21,7 @@
 
 		<!-- Sidebar -->
 		<div class="bg-light border-right" id="sidebar-wrapper">
-			<div class="sidebar-heading">Welcome, <?= ucfirst(strtok($_SESSION['uid'],'.'))?></div>
+			<div class="sidebar-heading">Welcome, Admin</div>
 
 			<div class="list-group list-group-flush">
 				<a href="<?=base_url()?>" class="list-group-item list-group-item-action 
@@ -29,27 +29,27 @@
                   echo 'active';
                 }else echo 'bg-light';?>">Dashboard</a>
 
-				<a href="<?=base_url('index.php/admin/teacher')?>" class="list-group-item list-group-item-action 
+				<a href="<?=base_url('index.php/admin/menu/teacher')?>" class="list-group-item list-group-item-action 
                 <?php if($kategori == 'teacher'){
                   echo 'active';
                 }else echo 'bg-light';?>">Teacher</a>
 
-				<a href="<?=base_url('index.php/admin/student')?>" class="list-group-item list-group-item-action 
+				<a href="<?=base_url('index.php/admin/menu/student')?>" class="list-group-item list-group-item-action 
                 <?php if($kategori == 'student'){
                   echo 'active';
                 }else echo 'bg-light';?>">Student</a>
 
-				<a href="<?=base_url('index.php/admin/subject')?>" class="list-group-item list-group-item-action 
+				<a href="<?=base_url('index.php/admin/menu/subject')?>" class="list-group-item list-group-item-action 
                 <?php if($kategori == 'subject'){
                   echo 'active';
                 }else echo 'bg-light';?>">Subject</a>
 
-				<a href="<?=base_url('index.php/admin/class')?>" class="list-group-item list-group-item-action 
+				<a href="<?=base_url('index.php/admin/menu/class')?>" class="list-group-item list-group-item-action 
                 <?php if($kategori == 'class'){
                   echo 'active';
                 }else echo 'bg-light';?>">Class</a>
 
-				<a href="<?=base_url('index.php/admin/grade')?>" class="list-group-item list-group-item-action 
+				<a href="<?=base_url('index.php/admin/menu/grade')?>" class="list-group-item list-group-item-action 
                 <?php if($kategori == 'grade'){
                   echo 'active';
                 }else echo 'bg-light';?>">Grade</a>
@@ -80,10 +80,12 @@
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
 								data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								Menu
+								<?= ucfirst(strtok($_SESSION['uid'],'.'))?>
 							</a>
 							<div class="dropdown-menu dropdown-menu-right">
-								<a class="dropdown-item" href="#">Notification<span class="badge badge-light">9</span></a>
+								<a class="dropdown-item " data-toggle="modal"
+									data-target="#exampleModalLong">Notification<span id="notif"
+										class="badge badge-light"> </span></a>
 								<a class="dropdown-item" href="#">Another action</a>
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="<?=base_url('index.php/admin/logout')?>">Logout</a>
@@ -100,23 +102,6 @@
                 }else echo 'Manage '.ucfirst($kategori);?>
 				</h1>
 				<hr>
-
-				<div class="row">
-					<div class="col">
-
-					</div>
-					<!-- <div class="shadow p-3 mb-5 bg-white rounded col-3 float-right">
-						<h5>Notification</h5>
-						<hr>
-						<button type="button" class="btn btn-primary btn-block">
-							Approval <span class="badge badge-light">4</span>
-						</button>
-						<button type="button" class="btn btn-warning btn-block">
-							Profile Change <span class="badge badge-light">4</span>
-						</button>
-					</div> -->
-				</div>
-
 				<?php if(isset($table)) echo $table?>
 			</div>
 		</div>
@@ -134,8 +119,15 @@
 		});
 		$(document).ready(function () {
 			$('#example').DataTable({
-				// responsive: true
+				responsive: true
 			});
+			$.ajax({
+				url: "<?=base_url('index.php/admin/getnotif')?>",
+				method: "GET",
+				success: function (data) {
+					$('#notif').text(data);
+				}
+			})
 		});
 
 	</script>
