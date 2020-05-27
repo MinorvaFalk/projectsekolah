@@ -4,26 +4,26 @@
  * www.crudigniter.com
  */
  
-class Siswa extends CI_Controller{
+class Guru extends CI_Controller{
     function __construct()
     {
         parent::__construct();
-        $this->load->model('Siswa_model');
+        $this->load->model('Guru_model');
     } 
 
     /*
-     * Listing of siswa
+     * Listing of guru
      */
     function index()
     {
-        $data['siswa'] = $this->Siswa_model->get_all_siswa();
+        $data['guru'] = $this->Guru_model->get_all_guru();
         
-        $data['_view'] = 'siswa/index';
+        $data['_view'] = 'guru/index';
         $this->load->view('layouts/main',$data);
     }
 
     /*
-     * Adding a new siswa
+     * Adding a new guru
      */
     function add()
     {   
@@ -31,74 +31,70 @@ class Siswa extends CI_Controller{
         {   
             $params = array(
 				'user_id' => $this->input->post('user_id'),
-				'id_kelas' => $this->input->post('id_kelas'),
 				'first_name' => $this->input->post('first_name'),
 				'last_name' => $this->input->post('last_name'),
 				'contact' => $this->input->post('contact'),
 				'address' => $this->input->post('address'),
-				'keterangan' => $this->input->post('keterangan'),
             );
             
-            $siswa_id = $this->Siswa_model->add_siswa($params);
+            $guru_id = $this->Guru_model->add_guru($params);
             redirect('main');
         }
         else
         {            
-            $data['_view'] = 'siswa/add';
+            $data['_view'] = 'guru/add';
             $this->load->view('layouts/main',$data);
         }
     }  
 
     /*
-     * Editing a siswa
+     * Editing a guru
      */
-    function edit($id_siswa)
+    function edit($id_pengajar)
     {   
-        // check if the siswa exists before trying to edit it
-        $data['siswa'] = $this->Siswa_model->get_siswa($id_siswa);
+        // check if the guru exists before trying to edit it
+        $data['guru'] = $this->Guru_model->get_guru($id_pengajar);
         
-        if(isset($data['siswa']['id_siswa']))
+        if(isset($data['guru']['id_pengajar']))
         {
             if(isset($_POST) && count($_POST) > 0)     
             {   
                 $params = array(
 					'user_id' => $this->input->post('user_id'),
-					'id_kelas' => $this->input->post('id_kelas'),
 					'first_name' => $this->input->post('first_name'),
 					'last_name' => $this->input->post('last_name'),
 					'contact' => $this->input->post('contact'),
 					'address' => $this->input->post('address'),
-					'keterangan' => $this->input->post('keterangan'),
                 );
 
-                $this->Siswa_model->update_siswa($id_siswa,$params);            
+                $this->Guru_model->update_guru($id_pengajar,$params);            
                 redirect('main');
             }
             else
             {
-                $data['_view'] = 'siswa/edit';
+                $data['_view'] = 'guru/edit';
                 $this->load->view('layouts/main',$data);
             }
         }
         else
-            show_error('The siswa you are trying to edit does not exist.');
+            show_error('The guru you are trying to edit does not exist.');
     } 
 
     /*
-     * Deleting siswa
+     * Deleting guru
      */
-    function remove($id_siswa)
+    function remove($id_pengajar)
     {
-        $siswa = $this->Siswa_model->get_siswa($id_siswa);
+        $guru = $this->Guru_model->get_guru($id_pengajar);
 
-        // check if the siswa exists before trying to delete it
-        if(isset($siswa['id_siswa']))
+        // check if the guru exists before trying to delete it
+        if(isset($guru['id_pengajar']))
         {
-            $this->Siswa_model->delete_siswa($id_siswa);
+            $this->Guru_model->delete_guru($id_pengajar);
             redirect('main');
         }
         else
-            show_error('The siswa you are trying to delete does not exist.');
+            show_error('The guru you are trying to delete does not exist.');
     }
     
 }

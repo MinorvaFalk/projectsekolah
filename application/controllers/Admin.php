@@ -47,7 +47,7 @@ class Admin extends CI_Controller{
         
         $this->load->view('pages/adminv2.php', $data);
     }
-    public function class(){
+    public function kelas(){
         $data['js'] = $this->load->view('include/javascript.php', NULL, TRUE);
         $data['css'] = $this->load->view('include/css.php', NULL, TRUE);
         $data['nav'] = $this->load->view('include/navbar.php', NULL, TRUE);

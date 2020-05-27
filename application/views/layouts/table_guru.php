@@ -1,10 +1,14 @@
+<div class="pull-right">
+	<a href="<?php echo site_url('guru/add'); ?>" class="btn btn-success">Add</a> 
+</div>
+
 <table id="example" class="table table-striped table-bordered" style="width:100%">
 	<thead>
 		<tr>
-			<td>NI</td>
+			<td>NIG</td>
 			<td>Nama</td>
-            <td>Email</td>
-            <td>Kelas</td>
+      <td>Email</td>
+      <td>Kelas</td>
 			<td>No. Telephone</td>
 			<td>Alamat</td>
 			<td>Keterangan</td>
@@ -21,13 +25,16 @@
             <td>'.$row['contact'].'</td>
             <td>'.$row['address'].'</td>
             <td>'.$row['keterangan'].'</td>
-            <td></td>
-            </tr>';
-        }?>
+						<td>' ?> 
+							<a href="<?php echo site_url('guru/edit/'.$row['id_pengajar']); ?>" class="btn btn-info btn-xs">Edit</a> 
+            	<a href="<?php echo site_url('guru/remove/'.$row['id_pengajar']); ?>" class="btn btn-danger btn-xs">Delete</a>
+						<?php	'</td>
+						</tr>';
+		} ?>
 	</tbody>
 	<tfoot>
 		<tr>
-			<th>NI</th>
+			<th>NIG</th>
 			<th>Nama</th>
 			<th>Email</th>
 			<th>Kelas</th>

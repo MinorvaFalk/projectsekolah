@@ -1,3 +1,7 @@
+<div class="pull-right">
+	<a href="<?php echo site_url('kela/add'); ?>" class="btn btn-success">Add</a> 
+</div>
+
 <table id="example" class="table table-striped table-bordered" style="width:100%">
 	<thead>
 		<tr>
@@ -13,7 +17,10 @@
             <td>'.$row['id_kelas'].'</td>
             <td>'.$row['nama_kelas'].'</td>
             <td>'.$row['first_name'].' '.$row['last_name'].'</td>
-            <td></td>
+						<td>'?>
+							<a href="<?php echo site_url('kela/edit/'.$row['id_kelas']); ?>" class="btn btn-info btn-xs">Edit</a> 
+            	<a href="<?php echo site_url('kela/remove/'.$row['id_kelas']); ?>" class="btn btn-danger btn-xs">Delete</a>
+						<?php '</td>
             </tr>';
         }?>
 	</tbody>

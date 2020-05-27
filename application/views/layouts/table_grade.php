@@ -1,3 +1,7 @@
+<div class="pull-right">
+	<a href="<?php echo site_url('nilai_siswa/add'); ?>" class="btn btn-success">Add</a> 
+</div>
+
 <table id="example" class="table table-striped table-bordered" style="width:100%">
 	<thead>
 		<tr>
@@ -19,7 +23,10 @@
             <td>'.$row['nilai_tugas'].'</td>
             <td>'.$row['nilai_uts'].'</td>
             <td>'.$row['nilai_uas'].'</td>
-            <td></td>
+            <td>' ?>
+                <a href="<?php echo site_url('nilai_siswa/edit/'.$row['id']); ?>" class="btn btn-info btn-xs">Edit</a> 
+                <a href="<?php echo site_url('nilai_siswa/remove/'.$row['id']); ?>" class="btn btn-danger btn-xs">Delete</a>
+            <?php '</td>
             </tr>';
         }?>
 	</tbody>

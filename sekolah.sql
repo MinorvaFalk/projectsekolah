@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.8.4
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: May 26, 2020 at 10:20 AM
--- Server version: 5.7.24
--- PHP Version: 7.3.2
+-- Host: 127.0.0.1
+-- Generation Time: May 27, 2020 at 06:17 AM
+-- Server version: 10.1.37-MariaDB
+-- PHP Version: 5.6.39
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -21,8 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `sekolah`
 --
-CREATE DATABASE IF NOT EXISTS `sekolah` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `sekolah`;
 
 -- --------------------------------------------------------
 
@@ -30,7 +28,6 @@ USE `sekolah`;
 -- Table structure for table `approval`
 --
 
-DROP TABLE IF EXISTS `approval`;
 CREATE TABLE `approval` (
   `approve_id` varchar(255) NOT NULL,
   `approve` int(1) DEFAULT NULL,
@@ -56,7 +53,6 @@ INSERT INTO `approval` (`approve_id`, `approve`, `email`, `password`, `first_nam
 -- Table structure for table `credentials`
 --
 
-DROP TABLE IF EXISTS `credentials`;
 CREATE TABLE `credentials` (
   `user_id` varchar(10) NOT NULL,
   `username` varchar(255) NOT NULL,
@@ -79,7 +75,6 @@ INSERT INTO `credentials` (`user_id`, `username`, `email`, `password`) VALUES
 -- Table structure for table `guru`
 --
 
-DROP TABLE IF EXISTS `guru`;
 CREATE TABLE `guru` (
   `id_pengajar` varchar(5) NOT NULL,
   `user_id` varchar(10) NOT NULL,
@@ -95,7 +90,7 @@ CREATE TABLE `guru` (
 --
 
 INSERT INTO `guru` (`id_pengajar`, `user_id`, `first_name`, `last_name`, `contact`, `address`, `keterangan`) VALUES
-('G0002', 'G000000001', 'Budi', 'Sutedjo', '6285911003300', 'Jl. Kemana saja saya suka', ''),
+('G0002', 'G000000001', 'Budi', 'Sutedjo', '6285911003300', 'Jl. jalan ke luar rumah', ''),
 ('GA001', 'A000000001', 'James', 'Bondan Prasetyo', '6282911301696', 'JL. Everything is gonna be alright', '');
 
 -- --------------------------------------------------------
@@ -104,7 +99,6 @@ INSERT INTO `guru` (`id_pengajar`, `user_id`, `first_name`, `last_name`, `contac
 -- Table structure for table `kelas`
 --
 
-DROP TABLE IF EXISTS `kelas`;
 CREATE TABLE `kelas` (
   `id_kelas` varchar(5) NOT NULL,
   `nama_kelas` varchar(255) NOT NULL,
@@ -124,7 +118,6 @@ INSERT INTO `kelas` (`id_kelas`, `nama_kelas`, `id_pengajar`) VALUES
 -- Table structure for table `nilai_siswa`
 --
 
-DROP TABLE IF EXISTS `nilai_siswa`;
 CREATE TABLE `nilai_siswa` (
   `id` int(11) NOT NULL,
   `id_subject` varchar(5) NOT NULL,
@@ -149,7 +142,6 @@ INSERT INTO `nilai_siswa` (`id`, `id_subject`, `id_siswa`, `id_pengajar`, `nilai
 -- Table structure for table `siswa`
 --
 
-DROP TABLE IF EXISTS `siswa`;
 CREATE TABLE `siswa` (
   `id_siswa` varchar(5) NOT NULL,
   `user_id` varchar(10) NOT NULL,
@@ -166,7 +158,7 @@ CREATE TABLE `siswa` (
 --
 
 INSERT INTO `siswa` (`id_siswa`, `user_id`, `id_kelas`, `first_name`, `last_name`, `contact`, `address`, `keterangan`) VALUES
-('S0001', 'S000000001', 'A', 'Harvard', 'Harsono Junior', '6280000000000', 'Jl. Yang saya gatau', '');
+('S0001', 'S000000001', 'A', 'Harvard', 'Harsono Junior', '6280000000000', 'Jl. Yang saya gatau', 'bandingin');
 
 -- --------------------------------------------------------
 
@@ -174,7 +166,6 @@ INSERT INTO `siswa` (`id_siswa`, `user_id`, `id_kelas`, `first_name`, `last_name
 -- Table structure for table `subject`
 --
 
-DROP TABLE IF EXISTS `subject`;
 CREATE TABLE `subject` (
   `id_subject` varchar(5) NOT NULL,
   `nama_subject` varchar(255) NOT NULL
