@@ -30,7 +30,7 @@ class Siswa extends CI_Controller{
         if(isset($_POST) && count($_POST) > 0)     
         {   
             $params = array(
-				'user_id' => $this->input->post('user_id'),
+                'id_siswa' => $this->input->post('id_siswa'),
 				'id_kelas' => $this->input->post('id_kelas'),
 				'first_name' => $this->input->post('first_name'),
 				'last_name' => $this->input->post('last_name'),
@@ -40,7 +40,7 @@ class Siswa extends CI_Controller{
             );
             
             $siswa_id = $this->Siswa_model->add_siswa($params);
-            redirect('main');
+            redirect('admin/menu/student');
         }
         else
         {            
@@ -62,7 +62,6 @@ class Siswa extends CI_Controller{
             if(isset($_POST) && count($_POST) > 0)     
             {   
                 $params = array(
-					'user_id' => $this->input->post('user_id'),
 					'id_kelas' => $this->input->post('id_kelas'),
 					'first_name' => $this->input->post('first_name'),
 					'last_name' => $this->input->post('last_name'),
@@ -72,7 +71,7 @@ class Siswa extends CI_Controller{
                 );
 
                 $this->Siswa_model->update_siswa($id_siswa,$params);            
-                redirect('main');
+                redirect('admin/menu/student');
             }
             else
             {
@@ -95,7 +94,7 @@ class Siswa extends CI_Controller{
         if(isset($siswa['id_siswa']))
         {
             $this->Siswa_model->delete_siswa($id_siswa);
-            redirect('main');
+            redirect('admin/menu/student');
         }
         else
             show_error('The siswa you are trying to delete does not exist.');

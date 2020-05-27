@@ -35,7 +35,7 @@ class Subject extends CI_Controller{
             );
             
             $subject_id = $this->Subject_model->add_subject($params);
-            redirect('main');
+            redirect('admin/menu/subject');
         }
         else
         {            
@@ -51,18 +51,17 @@ class Subject extends CI_Controller{
     {   
         // check if the subject exists before trying to edit it
         $data['subject'] = $this->Subject_model->get_subject($id_subject);
-        
+
         if(isset($data['subject']['id_subject']))
         {
             if(isset($_POST) && count($_POST) > 0)     
             {   
                 $params = array(
-					'id_subject' => $this->input->post('id_subject'),
 					'nama_subject' => $this->input->post('nama_subject'),
                 );
 
                 $this->Subject_model->update_subject($id_subject,$params);            
-                redirect('main');
+                redirect('admin/menu/subject');
             }
             else
             {
@@ -85,7 +84,7 @@ class Subject extends CI_Controller{
         if(isset($subject['id_subject']))
         {
             $this->Subject_model->delete_subject($id_subject);
-            redirect('main');
+            redirect('admin/menu/subject');
         }
         else
             show_error('The subject you are trying to delete does not exist.');

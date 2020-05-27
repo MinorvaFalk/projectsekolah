@@ -29,8 +29,8 @@ class Guru extends CI_Controller{
     {   
         if(isset($_POST) && count($_POST) > 0)     
         {   
+            $id = $this->Guru_model->get_IDguru();
             $params = array(
-				'user_id' => $this->input->post('user_id'),
 				'first_name' => $this->input->post('first_name'),
 				'last_name' => $this->input->post('last_name'),
 				'contact' => $this->input->post('contact'),
@@ -60,7 +60,6 @@ class Guru extends CI_Controller{
             if(isset($_POST) && count($_POST) > 0)     
             {   
                 $params = array(
-					'user_id' => $this->input->post('user_id'),
 					'first_name' => $this->input->post('first_name'),
 					'last_name' => $this->input->post('last_name'),
 					'contact' => $this->input->post('contact'),

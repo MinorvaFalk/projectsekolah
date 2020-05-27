@@ -40,7 +40,7 @@ class Nilai_siswa extends CI_Controller{
             );
             
             $nilai_siswa_id = $this->Nilai_siswa_model->add_nilai_siswa($params);
-            redirect('main');
+            redirect('admin/menu/grade');
         }
         else
         {            
@@ -72,7 +72,7 @@ class Nilai_siswa extends CI_Controller{
                 );
 
                 $this->Nilai_siswa_model->update_nilai_siswa($id,$params);            
-                redirect('main');
+                redirect('admin/menu/grade');
             }
             else
             {
@@ -95,7 +95,7 @@ class Nilai_siswa extends CI_Controller{
         if(isset($nilai_siswa['id']))
         {
             $this->Nilai_siswa_model->delete_nilai_siswa($id);
-            redirect('main');
+            redirect('admin/menu/grade');
         }
         else
             show_error('The nilai_siswa you are trying to delete does not exist.');

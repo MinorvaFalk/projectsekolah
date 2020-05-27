@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.4
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: May 27, 2020 at 06:17 AM
--- Server version: 10.1.37-MariaDB
--- PHP Version: 5.6.39
+-- Host: localhost:3306
+-- Generation Time: May 27, 2020 at 02:57 PM
+-- Server version: 5.7.24
+-- PHP Version: 7.3.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -21,6 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `sekolah`
 --
+CREATE DATABASE IF NOT EXISTS `sekolah` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `sekolah`;
 
 -- --------------------------------------------------------
 
@@ -28,6 +30,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `approval`
 --
 
+DROP TABLE IF EXISTS `approval`;
 CREATE TABLE `approval` (
   `approve_id` varchar(255) NOT NULL,
   `approve` int(1) DEFAULT NULL,
@@ -53,6 +56,7 @@ INSERT INTO `approval` (`approve_id`, `approve`, `email`, `password`, `first_nam
 -- Table structure for table `credentials`
 --
 
+DROP TABLE IF EXISTS `credentials`;
 CREATE TABLE `credentials` (
   `user_id` varchar(10) NOT NULL,
   `username` varchar(255) NOT NULL,
@@ -67,7 +71,9 @@ CREATE TABLE `credentials` (
 INSERT INTO `credentials` (`user_id`, `username`, `email`, `password`) VALUES
 ('A000000001', 'james.bondan', 'james.bondan@admin.school.com', '$2y$10$GLiHdrOH6qmE16lljJCfK.ETWuQwGpRl1dPKkvUXHpWbOZiIkZCSu'),
 ('G000000001', 'budi.sutejo', 'budi.sutejo@teacher.school.com', '$2y$10$/PTC517RIFJ17cfAaTIFjuUoESUOIFJxYhFIU3/Qe.6FqZFeKrSQW'),
-('S000000001', 'harvard.harsono', 'harvard.harsono@student.school.com', '$2y$10$kwbpEgBcRcaxcriBmz893.IgvMv.WByDp1MdAeEiPNTHXJ3CTXWU6');
+('G000000003', 'ecnp.hcna', 'ecnp.hcna@teacher.school.com', '$2y$12$TTzF.kcYRSAVf0PxCFuZl.mGLLqF6yv94KUKZ55lvJCBHVZnGcAmK'),
+('S000000001', 'harvard.harsono', 'harvard.harsono@student.school.com', '$2y$10$kwbpEgBcRcaxcriBmz893.IgvMv.WByDp1MdAeEiPNTHXJ3CTXWU6'),
+('S000000002', 'pig.benis', 'pig.benis@student.school.com', '$2y$04$GKS8YJwiJzSZyMruBWchWu59ZrjRD9LIBmUXbWdfU0mzwjFIKHH46');
 
 -- --------------------------------------------------------
 
@@ -75,8 +81,9 @@ INSERT INTO `credentials` (`user_id`, `username`, `email`, `password`) VALUES
 -- Table structure for table `guru`
 --
 
+DROP TABLE IF EXISTS `guru`;
 CREATE TABLE `guru` (
-  `id_pengajar` varchar(5) NOT NULL,
+  `id_pengajar` varchar(255) NOT NULL,
   `user_id` varchar(10) NOT NULL,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) DEFAULT NULL,
@@ -90,7 +97,8 @@ CREATE TABLE `guru` (
 --
 
 INSERT INTO `guru` (`id_pengajar`, `user_id`, `first_name`, `last_name`, `contact`, `address`, `keterangan`) VALUES
-('G0002', 'G000000001', 'Budi', 'Sutedjo', '6285911003300', 'Jl. jalan ke luar rumah', ''),
+('G0002', 'G000000001', 'Budi', 'Sutedjo', '6285911003300', 'Jl. Kemana saja saya suka', ''),
+('G0003', 'G000000003', 'CCNA', 'HCNA', '084949949', 'Jl. Makmur', NULL),
 ('GA001', 'A000000001', 'James', 'Bondan Prasetyo', '6282911301696', 'JL. Everything is gonna be alright', '');
 
 -- --------------------------------------------------------
@@ -99,6 +107,7 @@ INSERT INTO `guru` (`id_pengajar`, `user_id`, `first_name`, `last_name`, `contac
 -- Table structure for table `kelas`
 --
 
+DROP TABLE IF EXISTS `kelas`;
 CREATE TABLE `kelas` (
   `id_kelas` varchar(5) NOT NULL,
   `nama_kelas` varchar(255) NOT NULL,
@@ -110,7 +119,8 @@ CREATE TABLE `kelas` (
 --
 
 INSERT INTO `kelas` (`id_kelas`, `nama_kelas`, `id_pengajar`) VALUES
-('A', 'IPA', 'G0002');
+('A', 'IPA', 'G0002'),
+('B', 'IPA3', 'GA001');
 
 -- --------------------------------------------------------
 
@@ -118,6 +128,7 @@ INSERT INTO `kelas` (`id_kelas`, `nama_kelas`, `id_pengajar`) VALUES
 -- Table structure for table `nilai_siswa`
 --
 
+DROP TABLE IF EXISTS `nilai_siswa`;
 CREATE TABLE `nilai_siswa` (
   `id` int(11) NOT NULL,
   `id_subject` varchar(5) NOT NULL,
@@ -126,7 +137,7 @@ CREATE TABLE `nilai_siswa` (
   `nilai_tugas` int(3) NOT NULL,
   `nilai_uts` int(3) NOT NULL,
   `nilai_uas` int(3) NOT NULL,
-  `komplain` int(255) DEFAULT NULL
+  `komplain` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -134,7 +145,9 @@ CREATE TABLE `nilai_siswa` (
 --
 
 INSERT INTO `nilai_siswa` (`id`, `id_subject`, `id_siswa`, `id_pengajar`, `nilai_tugas`, `nilai_uts`, `nilai_uas`, `komplain`) VALUES
-(1, 'BIO1', 'S0001', 'G0002', 60, 76, 66, NULL);
+(2, 'BIO1', 'A0001', 'G0002', 100, 40, 60, NULL),
+(3, 'BIO1', 'A0002', 'GA001', 100, 105, 100, ''),
+(5, 'CALC2', 'A0001', 'G0003', 0, 0, 0, '');
 
 -- --------------------------------------------------------
 
@@ -142,8 +155,9 @@ INSERT INTO `nilai_siswa` (`id`, `id_subject`, `id_siswa`, `id_pengajar`, `nilai
 -- Table structure for table `siswa`
 --
 
+DROP TABLE IF EXISTS `siswa`;
 CREATE TABLE `siswa` (
-  `id_siswa` varchar(5) NOT NULL,
+  `id_siswa` varchar(255) NOT NULL,
   `user_id` varchar(10) NOT NULL,
   `id_kelas` varchar(5) NOT NULL,
   `first_name` varchar(255) NOT NULL,
@@ -158,7 +172,8 @@ CREATE TABLE `siswa` (
 --
 
 INSERT INTO `siswa` (`id_siswa`, `user_id`, `id_kelas`, `first_name`, `last_name`, `contact`, `address`, `keterangan`) VALUES
-('S0001', 'S000000001', 'A', 'Harvard', 'Harsono Junior', '6280000000000', 'Jl. Yang saya gatau', 'bandingin');
+('A0001', 'S000000001', 'A', 'Harvard', 'Harsono', '08696966969', 'Jl Gatau', ''),
+('A0002', 'S000000002', 'A', 'Pig', 'Benis', '0890601020', 'Jl. Bawah Jembatan Layang', NULL);
 
 -- --------------------------------------------------------
 
@@ -166,6 +181,7 @@ INSERT INTO `siswa` (`id_siswa`, `user_id`, `id_kelas`, `first_name`, `last_name
 -- Table structure for table `subject`
 --
 
+DROP TABLE IF EXISTS `subject`;
 CREATE TABLE `subject` (
   `id_subject` varchar(5) NOT NULL,
   `nama_subject` varchar(255) NOT NULL
@@ -176,7 +192,10 @@ CREATE TABLE `subject` (
 --
 
 INSERT INTO `subject` (`id_subject`, `nama_subject`) VALUES
-('BIO1', 'Biologi 1');
+('ALIN1', 'Aljabar Linear 1'),
+('BIO1', 'Biologi 2'),
+('CALC2', 'Calculus 2'),
+('KIM1', 'Kimia 1');
 
 --
 -- Indexes for dumped tables
@@ -239,7 +258,7 @@ ALTER TABLE `subject`
 -- AUTO_INCREMENT for table `nilai_siswa`
 --
 ALTER TABLE `nilai_siswa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables

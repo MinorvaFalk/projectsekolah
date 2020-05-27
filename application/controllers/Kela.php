@@ -30,12 +30,13 @@ class Kela extends CI_Controller{
         if(isset($_POST) && count($_POST) > 0)     
         {   
             $params = array(
+                'id_kelas' => $this->input->post('id_kelas'),
 				'nama_kelas' => $this->input->post('nama_kelas'),
 				'id_pengajar' => $this->input->post('id_pengajar'),
             );
             
             $kela_id = $this->Kela_model->add_kela($params);
-            redirect('main');
+            redirect('admin/menu/class');
         }
         else
         {            
@@ -62,7 +63,7 @@ class Kela extends CI_Controller{
                 );
 
                 $this->Kela_model->update_kela($id_kelas,$params);            
-                redirect('main');
+                redirect('admin/menu/class');
             }
             else
             {
@@ -85,7 +86,7 @@ class Kela extends CI_Controller{
         if(isset($kela['id_kelas']))
         {
             $this->Kela_model->delete_kela($id_kelas);
-            redirect('main');
+            redirect('admin/menu/class');
         }
         else
             show_error('The kela you are trying to delete does not exist.');
