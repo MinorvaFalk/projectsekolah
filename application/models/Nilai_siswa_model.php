@@ -22,8 +22,7 @@ class Nilai_siswa_model extends CI_Model
     function get_all_nilai_siswa()
     {
         $this->db->order_by('id', 'desc');
-        $query = $this->db->query("SELECT * FROM subject NATURAL JOIN nilai_siswa NATURAL JOIN siswa");
-        return $query->result_array();
+        return $this->db->get('nilai_siswa')->result_array();
     }
         
     /*

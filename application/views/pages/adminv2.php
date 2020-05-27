@@ -44,7 +44,7 @@
                   echo 'active';
                 }else echo 'bg-light';?>">Subject</a>
 
-				<a href="<?=base_url('index.php/admin/class')?>" class="list-group-item list-group-item-action 
+				<a href="<?=base_url('index.php/admin/kelas')?>" class="list-group-item list-group-item-action 
                 <?php if($kategori == 'class'){
                   echo 'active';
                 }else echo 'bg-light';?>">Class</a>

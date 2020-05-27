@@ -39,7 +39,7 @@ class Data extends CI_Model
   }
 
   public function get_nilai(){
-    $query = $this->db->query("SELECT id_subject, CONCAT(s.first_name,' ',s.last_name) AS namasiswa, CONCAT(g.first_name,' ',g.last_name) AS namaguru, nilai_tugas, nilai_uts, nilai_uas FROM nilai_siswa n INNER JOIN guru g ON n.id_pengajar = g.id_pengajar INNER JOIN siswa s ON n.id_siswa = s.id_siswa");
+    $query = $this->db->query("SELECT id, id_subject, CONCAT(s.first_name,' ',s.last_name) AS namasiswa, CONCAT(g.first_name,' ',g.last_name) AS namaguru, nilai_tugas, nilai_uts, nilai_uas FROM nilai_siswa n INNER JOIN guru g ON n.id_pengajar = g.id_pengajar INNER JOIN siswa s ON n.id_siswa = s.id_siswa");
     return $query->result_array();
   }
 }
