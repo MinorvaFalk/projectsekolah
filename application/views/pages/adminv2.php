@@ -12,6 +12,7 @@
 	<title>Admin Dashboard</title>
 	<?=$css?>
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url('/assets/css/simple-sidebar.css') ?>">
+	<?=$js?>
 
 </head>
 
@@ -109,9 +110,7 @@
 
 	</div>
 	<!-- /#wrapper -->
-
-	<?= $js?>
-
+	
 	<script>
 		$("#menu-toggle").click(function (e) {
 			e.preventDefault();

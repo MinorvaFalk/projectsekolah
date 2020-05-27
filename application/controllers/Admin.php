@@ -24,15 +24,20 @@ class Admin extends CI_Controller{
             $data['table'] = $this->load->view('layouts/table_guru',$guru, TRUE);
         }elseif($table == 'student'){
             $siswa['data'] = $this->data->get_data();
+            $siswa['kelas'] = $this->data->get_class();
             $data['table'] = $this->load->view('layouts/table_siswa',$siswa, TRUE);
         }elseif($table == 'subject'){
             $subject['data'] = $this->data->get_subject();
             $data['table'] = $this->load->view('layouts/table_subject',$subject, TRUE);
         }elseif($table == 'class'){
+            $class['guru'] = $this->data->get_availableGuru();
             $class['data'] = $this->data->get_class();
             $data['table'] = $this->load->view('layouts/table_class',$class, TRUE);
         }elseif($table == 'grade'){
+            $grade['siswa'] = $this->data->get_data();
             $grade['data'] = $this->data->get_nilai();
+            $grade['guru'] = $this->data->get_guru();
+            $grade['subject'] = $this->data->get_subject();
             $data['table'] = $this->load->view('layouts/table_grade',$grade, TRUE);
         }
 

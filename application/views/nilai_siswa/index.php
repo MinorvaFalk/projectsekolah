@@ -7,6 +7,7 @@
 		<th>ID</th>
 		<th>Id Subject</th>
 		<th>Id Siswa</th>
+		<th>Id Pengajar</th>
 		<th>Nilai Tugas</th>
 		<th>Nilai Uts</th>
 		<th>Nilai Uas</th>
@@ -18,6 +19,7 @@
 		<td><?php echo $n['id']; ?></td>
 		<td><?php echo $n['id_subject']; ?></td>
 		<td><?php echo $n['id_siswa']; ?></td>
+		<td><?php echo $n['id_pengajar']; ?></td>
 		<td><?php echo $n['nilai_tugas']; ?></td>
 		<td><?php echo $n['nilai_uts']; ?></td>
 		<td><?php echo $n['nilai_uas']; ?></td>
@@ -29,4 +31,3 @@
     </tr>
 	<?php } ?>
 </table>
-<p><a href="<?php echo site_url('main');?>" class="btn btn-primary">Back</a></p>
