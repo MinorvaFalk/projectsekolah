@@ -2,11 +2,14 @@
 
 class Profile extends CI_Controller
 {
-    public function index($nama = '')
+    public function index()
     {
-        $data['judul'] = "Profile - UAS Penilaian Siswa";
-        $this->load->view('include/navbar', $data);
-        $this->load->view('profile/index');
-        $this->load->view('include/footer');
+        
+        $this->load->view('include/navbar.php');
+        $this->load->view('pages/profile');
+    }
+
+    public function getNotif(){
+        echo $this->data->get_notif();
     }
 }
