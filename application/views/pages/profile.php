@@ -1,6 +1,8 @@
 <head>
     <title>Profile - Project Sekolah</title>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<?=$css?>
+	
 	<style>
 		.card {
 			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -40,7 +42,9 @@
 		}
 
 	</style>
+	<?=$js?>
 </head>
+<?=$nav?>
 <h2 style="text-align:center">User Profile Card</h2>
 
 <div class="card">
