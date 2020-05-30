@@ -24,78 +24,40 @@ class Siswa extends CI_Controller{
      */
     function add()
     {   
-        $this->load->library('form_validation');
-
-		$this->form_validation->set_rules('contact','Contact','integer|max_length[14]|min_length[10]');
-		$this->form_validation->set_rules('first_name','First Name','alpha');
-		$this->form_validation->set_rules('last_name','Last Name','alpha');
-		$this->form_validation->set_rules('address','Address','alpha');
-		
-		if($this->form_validation->run())     
-        {   
-            $params = array(
-				'user_id' => $this->input->post('user_id'),
-				'id_kelas' => $this->input->post('id_kelas'),
-				'first_name' => $this->input->post('first_name'),
-				'last_name' => $this->input->post('last_name'),
-				'contact' => $this->input->post('contact'),
-				'address' => $this->input->post('address'),
-				'keterangan' => $this->input->post('keterangan'),
-            );
-            
-            $siswa_id = $this->Siswa_model->add_siswa($params);
-            redirect('main');
-        }
-        else
-        {            
-            $this->load->view('layouts/table_siswa',$data);
-        }
+        
+        $params = array(
+            'id_kelas' => $this->input->post('id_kelas'),
+            'first_name' => $this->input->post('first_name'),
+            'last_name' => $this->input->post('last_name'),
+            'contact' => $this->input->post('contact'),
+            'address' => $this->input->post('address'),
+            'keterangan' => $this->input->post('keterangan'),
+        );
+        
+        $siswa_id = $this->Siswa_model->add_siswa($params);
+        echo json_encode(array("status" => TRUE, "redirect" => site_url('/admin/menu/class')));
+        
     }  
 
     /*
      * Editing a siswa
      */
-    function edit($id_siswa)
-    {   
-        // check if the siswa exists before trying to edit it
-        $data['siswa'] = $this->Siswa_model->get_siswa($id_siswa);
-        
-        if(isset($data['siswa']['id_siswa']))
-        {
-            $this->load->library('form_validation');
+    function edit($id_siswa){   
+        $this->validate();
+        $params = array(
+            'id_kelas' => $this->input->post('id_kelas'),
+            'first_name' => $this->input->post('first_name'),
+            'last_name' => $this->input->post('last_name'),
+            'contact' => $this->input->post('contact'),
+            'address' => $this->input->post('address'),
+            'keterangan' => $this->input->post('keterangan'),
+        );
 
-			$this->form_validation->set_rules('contact','Contact','integer|max_length[14]|min_length[10]');
-			$this->form_validation->set_rules('first_name','First Name','alpha');
-			$this->form_validation->set_rules('last_name','Last Name','alpha');
-			$this->form_validation->set_rules('address','Address','alpha');
-		
-			if($this->form_validation->run())     
-            {   
-                $params = array(
-					'user_id' => $this->input->post('user_id'),
-					'id_kelas' => $this->input->post('id_kelas'),
-					'first_name' => $this->input->post('first_name'),
-					'last_name' => $this->input->post('last_name'),
-					'contact' => $this->input->post('contact'),
-					'address' => $this->input->post('address'),
-					'keterangan' => $this->input->post('keterangan'),
-                );
-
-                $this->Siswa_model->update_siswa($id_siswa,$params);            
-                redirect('main');
-            }
-            else
-            {
-                $this->load->view('layouts/table_siswa',$data);
-            }
-        }
-        else
-            show_error('The siswa you are trying to edit does not exist.');
+        $this->Siswa_model->update_siswa($id_siswa,$params);            
+        echo json_encode(array("status" => TRUE, "redirect" => site_url('/admin/menu/student')));
+           
     } 
 
-    /*
-     * Deleting siswa
-     */
     function remove($id_siswa)
     {
         $siswa = $this->Siswa_model->get_siswa($id_siswa);
@@ -104,10 +66,68 @@ class Siswa extends CI_Controller{
         if(isset($siswa['id_siswa']))
         {
             $this->Siswa_model->delete_siswa($id_siswa);
-            redirect('main');
+            redirect('admin/menu/student');
         }
         else
             show_error('The siswa you are trying to delete does not exist.');
     }
     
+    function get_siswa($id){
+        $data = $this->Siswa_model->get_siswa($id);
+        echo json_encode($data);
+    }
+
+    private function validate(){
+        $data = array();
+        $data['error_string'] = array();
+        $data['inputerror'] = array();
+        $data['status'] = TRUE;
+
+        if($this->input->post('id_kelas') == ''){
+            $data['inputerror'][] = 'id_kelas';
+            $data['error_string'][] = 'Required';
+            $data['status'] = FALSE;
+        }
+
+        if($this->input->post('first_name') == '')
+        {
+            $data['inputerror'][] = 'first_name';
+            $data['error_string'][] = 'Required';
+            $data['status'] = FALSE;
+        }elseif($this->check($this->input->post('first_name'))>0){
+            $data['inputerror'][] = 'first_name';
+            $data['error_string'][] = 'No number allowed';
+            $data['status'] = FALSE;
+        }
+
+        if($this->check($this->input->post('last_name'))>0){
+            $data['inputerror'][] = 'last_name';
+            $data['error_string'][] = 'No number allowed';
+            $data['status'] = FALSE;
+        }
+
+        if($this->input->post('address') == '')
+        {
+            $data['inputerror'][] = 'address';
+            $data['error_string'][] = 'Required';
+            $data['status'] = FALSE;
+        }
+
+        if($this->input->post('contact') == '')
+        {
+            $data['inputerror'][] = 'contact';
+            $data['error_string'][] = 'Required';
+            $data['status'] = FALSE;
+        }
+
+        if($data['status'] == FALSE)
+        {
+            echo json_encode($data);
+            exit();
+        }
+    }
+
+    private function check($string){
+        return preg_match('/\\d/', $string);
+    }
 }

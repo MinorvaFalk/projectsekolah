@@ -1,5 +1,6 @@
 <div style="float:right">
-	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal">Add New Subject</button>
+	<button type="button" class="btn btn-primary" data-toggle="modal" onclick="add_data()" data-target="#editmodal">Add
+		New Subject</button>
 	<!-- <a href="<?php echo site_url('subject/add'); ?>" class="btn btn-success">Add New Subject</a> -->
 </div>
 <br><br>
@@ -17,8 +18,8 @@
             <td>'.$row['id_subject'].'</td>
             <td>'.$row['nama_subject'].'</td>
 						<td>' ?>
-		<button type="button" class="btn btn-primary" data-toggle="modal"
-			data-target="#editmodal<?=$row['id_subject']?>">Edit</button>
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editmodal"
+			onclick="edit_data('<?=$row['id_subject']?>')">Edit</button>
 		<a href="<?php echo site_url('subject/remove/'.$row['id_subject']); ?>" class="btn btn-danger btn-xs">Delete</a>
 		<?php '</td>
             </tr>';
@@ -33,67 +34,98 @@
 	</tfoot>
 </table>
 
-<!-- Add Modal -->
-<div class="modal fade" id="addModal" tabindex="-1" role="dialog">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">Add Subject</h5>
-			</div>
-			<div class="modal-body">
-				<?php echo form_open('subject/add'); ?>
-
-				<div class="form-group">
-					<label class="col-md-4 control-label">ID subject</label>
-					<input type="text" name="id_subject" class="form-control" />
-				</div>
-
-				<div class="form-group">
-					<label for="nama_subject" class="col-md-4 control-label">Nama Subject</label>
-					<input type="text" name="nama_subject" class="form-control" id="nama_subject" />
-				</div>
-
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-					<button type="submit" class="btn btn-primary">Save</button>
-				</div>
-				<?php echo form_close(); ?>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- Add Modal -->
-
-<!-- Edit Modal -->
-<?php foreach($data as $row):?>
-<div class="modal fade" id="editmodal<?=$row['id_subject']?>" tabindex="-1" role="dialog">
+<!-- Edit/Add Modal -->
+<div class="modal fade" id="editmodal" tabindex="-1" role="dialog">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="exampleModalLabel">Edit Subject</h5>
 			</div>
 			<div class="modal-body">
-				<?php echo form_open('subject/edit/'.$row['id_subject']); ?>
-
-				<div class="form-group">
-					<label for="id_subject">ID Subject</label>
-					<input type="text" disabled name="id_subject" value="<?=$row['id_subject']?>" class="form-control"
-						id="id_subject" />
-				</div>
-				<div class="form-group">
-					<label for="nama_subject" >Nama Subject</label>
-					<input type="text" name="nama_subject" value="<?=$row['nama_subject']?>" class="form-control"
-						id="nama_subject" />
-				</div>
+				<form id="edit">
+					<div class="form-group">
+						<label for="id_subject">ID Subject</label>
+						<input type="text" disabled name="id_subject" value="" class="form-control" id="id_subject" />
+						<div class="invalid-feedback">
+							Required
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="nama_subject">Nama Subject</label>
+						<input type="text" name="nama_subject" value="" class="form-control" id="nama_subject" />
+						<div class="invalid-feedback">
+							Required
+						</div>
+					</div>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				<button type="submit" class="btn btn-primary">Save</button>
+				<button type="button" class="btn btn-primary" onclick="save()">Save</button>
 			</div>
 
-			<?php echo form_close(); ?>
+			</form>
 		</div>
 	</div>
 </div>
-<?php endforeach;?>
-<!-- Edit Modal -->
+<!-- Edit/Add Modal -->
+
+<script>
+	function edit_data(id) {
+		save_method = 'edit';
+		$('.form-control').removeClass('is-invalid');
+		$('[name="id_subject"]').prop("disabled", true);
+		$.ajax({
+			url: "<?php echo site_url('subject/get_subject')?>/" + id,
+			type: "GET",
+			dataType: "JSON",
+			success: function (data) {
+				$('[name="id_subject"]').val(data.id_subject);
+				$('[name="nama_subject"]').val(data.nama_subject);
+
+			},
+			error: function (jqXHR, textStatus, errorThrown) {
+				alert('Error get data from ajax');
+			}
+		});
+	}
+
+	function add_data() {
+		save_method = 'add';
+		$('#edit')[0].reset();
+		$('.form-control').removeClass('is-invalid');
+		$('[name="id_subject"]').prop("disabled", false);
+	}
+
+	function save() {
+
+		if (save_method == 'edit') {
+			var uri = "<?php echo site_url('subject/edit')?>/" + $('[name="id_subject"]').val();
+		} else var uri = "<?php echo site_url('subject/add')?>";
+
+		$.ajax({
+			url: uri,
+			type: "POST",
+			data: $('#edit').serialize(),
+			dataType: "JSON",
+			success: function (data) {
+
+				if (data.status) {
+					window.location.href = data.redirect;
+				} else {
+					for (var i = 0; i < data.inputerror.length; i++) {
+						$('[name="' + data.inputerror[i] + '"]').addClass(
+							'is-invalid');
+						$('[name="' + data.inputerror[i] + '"]').next().text(data.error_string[i]);
+					}
+				}
+			},
+			error: function (jqXHR, textStatus, errorThrown) {
+				alert('Error adding / update data');
+				$('#btnSave').text('save'); //change button text
+				$('#btnSave').attr('disabled', false); //set button enable 
+
+			}
+		});
+	}
+
+</script>

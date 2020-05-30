@@ -34,7 +34,6 @@ class Guru extends CI_Controller{
 		if($this->form_validation->run())     
         {   
             $params = array(
-				'user_id' => $this->input->post('user_id'),
 				'first_name' => $this->input->post('first_name'),
 				'last_name' => $this->input->post('last_name'),
 				'contact' => $this->input->post('contact'),
@@ -47,7 +46,7 @@ class Guru extends CI_Controller{
         }
         else
         {            
-            $this->load->view('layouts/table_guru',$data);
+            $this->load->view('layouts/table_guru');
         }
     }  
 
@@ -56,39 +55,17 @@ class Guru extends CI_Controller{
      */
     function edit($id_pengajar)
     {   
-        // check if the guru exists before trying to edit it
-        $data['guru'] = $this->Guru_model->get_guru($id_pengajar);
-        
-        if(isset($data['guru']['id_pengajar']))
-        {
-            $this->load->library('form_validation');
+        $this->validate();
+        $params = array(
+            'first_name' => $this->input->post('first_name'),
+            'last_name' => $this->input->post('last_name'),
+            'contact' => $this->input->post('contact'),
+            'address' => $this->input->post('address'),
+            'keterangan' => $this->input->post('keterangan'),
+        );
 
-			$this->form_validation->set_rules('first_name','First Name','alpha');
-			$this->form_validation->set_rules('last_name','Last Name','alpha');
-			$this->form_validation->set_rules('contact','Contact','integer|max_length[14]|min_length[10]');
-			$this->form_validation->set_rules('address','Address','alpha');
-		
-			if($this->form_validation->run())     
-            {   
-                $params = array(
-					'user_id' => $this->input->post('user_id'),
-					'first_name' => $this->input->post('first_name'),
-					'last_name' => $this->input->post('last_name'),
-					'contact' => $this->input->post('contact'),
-					'address' => $this->input->post('address'),
-					'keterangan' => $this->input->post('keterangan'),
-                );
-
-                $this->Guru_model->update_guru($id_pengajar,$params);            
-                redirect('main');
-            }
-            else
-            {
-                $this->load->view('layouts/table_guru',$data);
-            }
-        }
-        else
-            show_error('The guru you are trying to edit does not exist.');
+        $this->Guru_model->update_guru($id_pengajar,$params);            
+        echo json_encode(array("status" => TRUE, "redirect" => site_url('/admin/menu/teacher')));
     } 
 
     /*
@@ -102,10 +79,63 @@ class Guru extends CI_Controller{
         if(isset($guru['id_pengajar']))
         {
             $this->Guru_model->delete_guru($id_pengajar);
-            redirect('main');
+            redirect('admin/menu/teacher');
         }
         else
             show_error('The guru you are trying to delete does not exist.');
     }
     
+    function get_data($id){
+        $data = $this->Guru_model->get_guru($id);
+        echo json_encode($data);
+    }
+
+    private function validate(){
+        $data = array();
+        $data['error_string'] = array();
+        $data['inputerror'] = array();
+        $data['status'] = TRUE;
+
+        if($this->input->post('first_name') == '')
+        {
+            $data['inputerror'][] = 'first_name';
+            $data['error_string'][] = 'Required';
+            $data['status'] = FALSE;
+        }elseif($this->check($this->input->post('first_name'))>0){
+            $data['inputerror'][] = 'first_name';
+            $data['error_string'][] = 'No number allowed';
+            $data['status'] = FALSE;
+        }
+
+        if($this->check($this->input->post('last_name'))>0){
+            $data['inputerror'][] = 'last_name';
+            $data['error_string'][] = 'No number allowed';
+            $data['status'] = FALSE;
+        }
+
+        if($this->input->post('address') == '')
+        {
+            $data['inputerror'][] = 'address';
+            $data['error_string'][] = 'Required';
+            $data['status'] = FALSE;
+        }
+
+        if($this->input->post('contact') == '')
+        {
+            $data['inputerror'][] = 'contact';
+            $data['error_string'][] = 'Required';
+            $data['status'] = FALSE;
+        }
+
+        if($data['status'] == FALSE)
+        {
+            echo json_encode($data);
+            exit();
+        }
+    }
+
+    private function check($string){
+        return preg_match('/\\d/', $string);
+    }
+
 }
