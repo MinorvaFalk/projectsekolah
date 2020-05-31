@@ -17,6 +17,7 @@ class Credentials extends CI_Model{
 
             if(password_verify($pass,$res->password)){
                 $ses = array(
+                    'id' => $res->user_id,
                     'uid' => strtok($res->username,'@'),
                     'role' => substr($res->user_id,0,1)
                 );
