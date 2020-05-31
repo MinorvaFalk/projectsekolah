@@ -15,7 +15,11 @@ class Siswa_model extends CI_Model
     {
         return $this->db->get_where('siswa',array('id_siswa'=>$id_siswa))->row_array();
     }
-        
+
+    function get_info_siswa($id)
+    {
+        return $this->db->get_where('siswa',array('user_id'=>$id))->row_array();
+    }
     /*
      * Get all siswa
      */

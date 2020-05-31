@@ -41,7 +41,7 @@ class Admin extends CI_Controller{
             $grade['subject'] = $this->data->get_subject();
             $data['table'] = $this->load->view('layouts/table_grade',$grade, TRUE);
         }
-        var_dump($_SESSION['id']);
+        
         $this->load->view('pages/adminv2.php', $data);
     }
 
