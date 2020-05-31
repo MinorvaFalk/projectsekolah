@@ -5,9 +5,9 @@ class Profile extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $this->load->model('Siswa_model');
+        $this->load->model('Student_model');
         $this->load->helper('form');
-         $this->load->library('form_validation');
+        $this->load->library('form_validation');
     } 
 
     public function index()
@@ -15,7 +15,7 @@ class Profile extends CI_Controller
         $data['js'] = $this->load->view('include/javascript.php', NULL, TRUE);
         $data['css'] = $this->load->view('include/css.php', NULL, TRUE);
         $data['nav'] = $this->load->view('include/navbar.php', NULL, TRUE);
-        $data['info'] = $this->Siswa_model->get_info_siswa($_SESSION['id']);
+        $data['info'] = $this->Student_model->get_profile($_SESSION['id']);
         // var_dump($_SESSION);
         $this->load->view('pages/profile',$data);
     }
@@ -24,7 +24,7 @@ class Profile extends CI_Controller
         $data['js'] = $this->load->view('include/javascript.php', NULL, TRUE);
         $data['css'] = $this->load->view('include/css.php', NULL, TRUE);
         $data['nav'] = $this->load->view('include/navbar.php', NULL, TRUE);
-        $data['info'] = $this->Siswa_model->get_info_siswa($_SESSION['id']);
+        $data['info'] = $this->Student_model->get_info_siswa($_SESSION['id']);
         $this->load->view('pages/editprofile',$data);
     }
 
@@ -47,7 +47,7 @@ class Profile extends CI_Controller
             'contact' => $this->input->post('contact'),
             'address' => $this->input->post('address'),
             );
-            $this->Siswa_model->edit_siswa($params);
+            $this->Student_model->edit_siswa($params);
             $this->index();
         }
     }

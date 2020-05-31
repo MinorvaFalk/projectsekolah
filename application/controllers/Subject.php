@@ -5,7 +5,7 @@ class Subject extends CI_Controller{
     function __construct()
     {
         parent::__construct();
-        $this->load->model('Subject_model');
+        $this->load->model('CRUD_model');
     } 
 
     /*
@@ -13,7 +13,7 @@ class Subject extends CI_Controller{
      */
     function index()
     {
-        $data['subject'] = $this->Subject_model->get_all_subject();
+        $data['subject'] = $this->CRUD_model->get_all_subject();
         
         $data['_view'] = 'subject/index';
         $this->load->view('layouts/main',$data);
@@ -30,7 +30,7 @@ class Subject extends CI_Controller{
             'nama_subject' => $this->input->post('nama_subject'),
         );
         
-        $subject_id = $this->Subject_model->add_subject($params);
+        $subject_id = $this->CRUD_model->add_subject($params);
         echo json_encode(array("status" => TRUE, "redirect" => site_url('/admin/menu/subject')));
     }  
 
@@ -44,7 +44,7 @@ class Subject extends CI_Controller{
             'nama_subject' => $this->input->post('nama_subject'),
         );
     
-        $this->Subject_model->update_subject($id_subject,$params);            
+        $this->CRUD_model->update_subject($id_subject,$params);            
         echo json_encode(array("status" => TRUE, "redirect" => site_url('/admin/menu/subject')));    
     } 
 
@@ -53,12 +53,12 @@ class Subject extends CI_Controller{
      */
     function remove($id_subject)
     {
-        $subject = $this->Subject_model->get_subject($id_subject);
+        $subject = $this->CRUD_model->get_subject($id_subject);
 
         // check if the subject exists before trying to delete it
         if(isset($subject['id_subject']))
         {
-            $this->Subject_model->delete_subject($id_subject);
+            $this->CRUD_model->delete_subject($id_subject);
             redirect('admin/menu/subject');
         }
         else
@@ -77,7 +77,7 @@ class Subject extends CI_Controller{
         $data['inputerror'] = array();
         $data['status'] = TRUE;
         $id = $this->input->post('id_subject');
-        $primaryid = $this->Subject_model->get_all_subject();
+        $primaryid = $this->CRUD_model->get_all_subject();
         
 
         if(isset($id)){

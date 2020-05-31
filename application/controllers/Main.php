@@ -13,7 +13,7 @@ class Main extends CI_Controller
 		switch($_SESSION['role']){
             case 'A': redirect('admin'); break;
             case 'G': $this->guru(); break;
-            case 'S': $this->student(); break;
+            case 'S': redirect('student'); break;
             default : redirect(base_url());
         }
     }
@@ -27,11 +27,7 @@ class Main extends CI_Controller
     }
 
     public function student(){
-        $data['js'] = $this->load->view('include/javascript.php', NULL, TRUE);
-        $data['css'] = $this->load->view('include/css.php', NULL, TRUE);
-        $data['nav'] = $this->load->view('include/navbar.php', NULL, TRUE);
-        $data['siswa'] = $this->data->get_data();
-        $this->load->view('pages/siswa.php', $data);
+        
     }
 
     public function logout(){

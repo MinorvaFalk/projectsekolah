@@ -7,6 +7,8 @@ class Admin extends CI_Controller{
         parent::__construct();
         $this->load->helper('html');
         $this->load->model('data');
+        
+        if($_SESSION['role'] !== 'A') redirect();
     }
 
     public function index(){

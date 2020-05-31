@@ -42,7 +42,7 @@
 				Menu
 			</button>
 			<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-				<a class="dropdown-item" href="<?= base_url();?>profile ">Profile</a>
+				<a class="dropdown-item" href="<?= site_url('student/menu/profile');?> ">Profile</a>
 				<?=anchor('/main/logout', 'Logout', 'class="dropdown-item"');?>
 			</div>
 		</div>

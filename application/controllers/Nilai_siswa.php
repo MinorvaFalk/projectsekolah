@@ -5,7 +5,7 @@ class Nilai_siswa extends CI_Controller{
     function __construct()
     {
         parent::__construct();
-        $this->load->model('Nilai_siswa_model');
+        $this->load->model('CRUD_model');
     } 
 
     /*
@@ -13,7 +13,7 @@ class Nilai_siswa extends CI_Controller{
      */
     function index()
     {
-        $data['nilai_siswa'] = $this->Nilai_siswa_model->get_all_nilai_siswa();
+        $data['nilai_siswa'] = $this->CRUD_model->get_all_nilai_siswa();
         
         $data['_view'] = 'nilai_siswa/index';
         $this->load->view('layouts/main',$data);
@@ -34,7 +34,7 @@ class Nilai_siswa extends CI_Controller{
             'komplain' => $this->input->post('komplain'),
         );
         
-        $nilai_siswa_id = $this->Nilai_siswa_model->add_nilai_siswa($params);
+        $nilai_siswa_id = $this->CRUD_model->add_nilai_siswa($params);
         echo json_encode(array("status" => TRUE, "redirect" => site_url('/admin/menu/grade')));
     }  
 
@@ -54,18 +54,18 @@ class Nilai_siswa extends CI_Controller{
             'komplain' => $this->input->post('komplain'),
         );
 
-        $this->Nilai_siswa_model->update_nilai_siswa($id,$params);            
+        $this->CRUD_model->update_nilai_siswa($id,$params);            
         echo json_encode(array("status" => TRUE, "redirect" => site_url('/admin/menu/grade')));
     } 
 
     function remove($id){
-        $nilai_siswa = $this->Nilai_siswa_model->get_nilai_siswa($id);
+        $nilai_siswa = $this->CRUD_model->get_nilai_siswa($id);
 
         // check if the nilai_siswa exists before trying to delete it
         if(isset($nilai_siswa['id']))
         {
-            $this->Nilai_siswa_model->delete_nilai_siswa($id);
-            redirect('main');
+            $this->CRUD_model->delete_nilai_siswa($id);
+            redirect('/admin/menu/grade');
         }
         else
             show_error('The nilai_siswa you are trying to delete does not exist.');
@@ -88,7 +88,7 @@ class Nilai_siswa extends CI_Controller{
         $tugas = $this->input->post('nilai_tugas');
         $uts = $this->input->post('nilai_uts');
         $uas = $this->input->post('nilai_uas');
-        $check = $this->Nilai_siswa_model->get_all_nilai_siswa();
+        $check = $this->CRUD_model->get_all_nilai_siswa();
         
         if($this->input->post('id_pengajar') == ''){
             $data['inputerror'][] = 'id_pengajar';

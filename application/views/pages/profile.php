@@ -46,19 +46,14 @@
 </head>
 <?=$nav?>
 
-
+<br>
 <div class="card">
 	<img src="https://www.booksie.com/files/profiles/22/mr-anonymous.png"
 		alt="John" style="width:100%">
-		
-	<h1><?=$info['first_name']." ".$info['last_name']?></h1>
+		<br>
+	<h4><?=$info['first_name']." ".$info['last_name']?></h4>
 	<p class="title">Student</p>
-	<p>Sekolah UAS</p>
-	<div style="margin: 24px 0;">
-		<!-- <a href="#"><i class="fa fa-dribbble"></i></a>
-		<a href="#"><i class="fa fa-twitter"></i></a>
-		<a href="#"><i class="fa fa-linkedin"></i></a>
-		<a href="#"><i class="fa fa-facebook"></i></a> -->
-	</div>
-	<a href="<?= base_url();?>profile/edit"><button >Edit Profile</button></a>
+	<p>NIS : <?=$info['id_siswa']?></p>
+	<p>Kelas : <?=$info['id_kelas']?></p>
+	<a href="<?= site_url('student/menu/editprofile');?>"><button >Edit Profile</button></a>
 </div>
