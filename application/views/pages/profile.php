@@ -60,5 +60,5 @@
 		<a href="#"><i class="fa fa-linkedin"></i></a>
 		<a href="#"><i class="fa fa-facebook"></i></a> -->
 	</div>
-	<a href="<?= base_url();?>profile/edit"><button >Edit Profile</button></a>
+	<a href="<?= base_url();?>profile/edit"><button>Edit Profile</button></a>
 </div>

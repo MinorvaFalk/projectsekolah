@@ -1,6 +1,8 @@
 <?=$css?>
 <?=$js?>
 <?=$nav?>
+
+
 <div class="container">
 	<br>
 
@@ -14,11 +16,7 @@
 						<?= validation_errors(); ?>
 					</div>
 					<?php endif; ?>
-						<!--FORM NAMA-->
-						<!-- <div class="form-group">
-							<label for="nama">Name</label>
-							<input type="text" name="nama" class="form-control" id="nama" placeholder="Nama lengkap...">
-						</div> -->
+
 						<?= form_open('profile/save',array(''));?>
 
 							<div class="form-group">
@@ -53,8 +51,14 @@
 				</div>
 
 				<div class="btn-group" role="group" aria-label="Basic example">
-					<button type="button" class="btn btn-danger">Cancel</button>
+						
+					<a href="<?= base_url();?>">
+					<button type="button" class="btn btn-danger" style="">Cancel</button>
+					</a>
+						
+					
 					<button type="submit" class="btn btn-success">Save</button>
+					
 				</div>
                 <?= form_close()?>
 
