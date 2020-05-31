@@ -99,8 +99,8 @@
 			<div class="container-fluid">
 				<h1 class="mt-4">
 					<?php if($kategori == NULL){
-									echo 'Dashboard';
-									echo '<br>'; ?> </h1>
+									echo 'Dashboard </h1>';
+									echo '<br> <h2>Approval Table</h2>'; ?> </h1>
 									<table border="1" width="100%">
 										<tr>
 										<th>Approve Id</th>
