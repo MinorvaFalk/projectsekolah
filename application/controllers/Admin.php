@@ -7,6 +7,8 @@ class Admin extends CI_Controller{
         parent::__construct();
         $this->load->helper('html');
         $this->load->model('data');
+        
+        if($_SESSION['role'] !== 'A') redirect();
     }
 
     public function index(){
@@ -41,6 +43,7 @@ class Admin extends CI_Controller{
             $grade['subject'] = $this->data->get_subject();
             $data['table'] = $this->load->view('layouts/table_grade',$grade, TRUE);
         }
+        
         $this->load->view('pages/adminv2.php', $data);
     }
 

@@ -5,7 +5,7 @@ class Guru extends CI_Controller{
     function __construct()
     {
         parent::__construct();
-        $this->load->model('Guru_model');
+        $this->load->model('CRUD_model');
     } 
 
     /*
@@ -13,7 +13,7 @@ class Guru extends CI_Controller{
      */
     function index()
     {
-        $data['guru'] = $this->Guru_model->get_all_guru();
+        $data['guru'] = $this->CRUD_model->get_all_guru();
         
         $data['_view'] = 'guru/index';
         $this->load->view('layouts/main',$data);
@@ -22,8 +22,7 @@ class Guru extends CI_Controller{
     /*
      * Adding a new guru
      */
-    function add()
-    {   
+    function add(){   
         $this->load->library('form_validation');
 
 		$this->form_validation->set_rules('first_name','First Name','alpha');
@@ -41,7 +40,7 @@ class Guru extends CI_Controller{
 				'keterangan' => $this->input->post('keterangan'),
             );
             
-            $guru_id = $this->Guru_model->add_guru($params);
+            $guru_id = $this->CRUD_model->add_guru($params);
             redirect('main');
         }
         else
@@ -64,7 +63,7 @@ class Guru extends CI_Controller{
             'keterangan' => $this->input->post('keterangan'),
         );
 
-        $this->Guru_model->update_guru($id_pengajar,$params);            
+        $this->CRUD_model->update_guru($id_pengajar,$params);            
         echo json_encode(array("status" => TRUE, "redirect" => site_url('/admin/menu/teacher')));
     } 
 
@@ -73,12 +72,12 @@ class Guru extends CI_Controller{
      */
     function remove($id_pengajar)
     {
-        $guru = $this->Guru_model->get_guru($id_pengajar);
+        $guru = $this->CRUD_model->get_guru($id_pengajar);
 
         // check if the guru exists before trying to delete it
         if(isset($guru['id_pengajar']))
         {
-            $this->Guru_model->delete_guru($id_pengajar);
+            $this->CRUD_model->delete_guru($id_pengajar);
             redirect('admin/menu/teacher');
         }
         else
@@ -86,7 +85,7 @@ class Guru extends CI_Controller{
     }
     
     function get_data($id){
-        $data = $this->Guru_model->get_guru($id);
+        $data = $this->CRUD_model->get_guru($id);
         echo json_encode($data);
     }
 

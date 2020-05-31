@@ -1,7 +1,6 @@
 <div style="float:right">
 	<button type="button" class="btn btn-primary" data-toggle="modal" onclick="add_data()" data-target="#editmodal">Add
 		New Class</button>
-	<!-- <a href="<?php echo site_url('subject/add'); ?>" class="btn btn-success">Add New Subject</a> -->
 </div>
 <br><br>
 <table id="example" class="table table-striped table-bordered" style="width:100%">
@@ -22,7 +21,7 @@
 						<td>'?>
 		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editmodal"
 			onclick="edit_data('<?=$row['id_kelas']?>')">Edit</button>
-		<a href="<?php echo site_url('kela/remove/'.$row['id_kelas']); ?>" class="btn btn-danger btn-xs">Delete</a>
+		<a href="<?php echo site_url('kelas/remove/'.$row['id_kelas']); ?>" class="btn btn-danger btn-xs">Delete</a>
 		<?php '</td>
             </tr>';
         }?>
@@ -93,7 +92,7 @@
 		$('.form-control').removeClass('is-invalid');
 		$('[name="id_kelas"]').prop("disabled", true);
 		$.ajax({
-			url: "<?php echo site_url('kela/get_kela')?>/" + id,
+			url: "<?php echo site_url('kelas/get_kelas')?>/" + id,
 			type: "GET",
 			dataType: "JSON",
 			success: function (data) {
@@ -122,8 +121,8 @@
 	function save() {
 
 		if (save_method == 'edit') {
-			var uri = "<?php echo site_url('kela/edit')?>/" + $('[name="id_kelas"]').val();
-		} else var uri = "<?php echo site_url('kela/add')?>";
+			var uri = "<?php echo site_url('kelas/edit')?>/" + $('[name="id_kelas"]').val();
+		} else var uri = "<?php echo site_url('kelas/add')?>";
 
 		$.ajax({
 			url: uri,

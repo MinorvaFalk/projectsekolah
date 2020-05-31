@@ -25,32 +25,32 @@
 			<div class="sidebar-heading">Welcome, Admin</div>
 
 			<div class="list-group list-group-flush">
-				<a href="<?=base_url()?>" class="list-group-item list-group-item-action 
+				<a href="<?=site_url()?>" class="list-group-item list-group-item-action 
                 <?php if($kategori == NULL){
                   echo 'active';
                 }else echo 'bg-light';?>">Dashboard</a>
 
-				<a href="<?=base_url('index.php/admin/menu/teacher')?>" class="list-group-item list-group-item-action 
+				<a href="<?=site_url('/admin/menu/teacher')?>" class="list-group-item list-group-item-action 
                 <?php if($kategori == 'teacher'){
                   echo 'active';
                 }else echo 'bg-light';?>">Teacher</a>
 
-				<a href="<?=base_url('index.php/admin/menu/student')?>" class="list-group-item list-group-item-action 
+				<a href="<?=site_url('/admin/menu/student')?>" class="list-group-item list-group-item-action 
                 <?php if($kategori == 'student'){
                   echo 'active';
                 }else echo 'bg-light';?>">Student</a>
 
-				<a href="<?=base_url('index.php/admin/menu/subject')?>" class="list-group-item list-group-item-action 
+				<a href="<?=site_url('/admin/menu/subject')?>" class="list-group-item list-group-item-action 
                 <?php if($kategori == 'subject'){
                   echo 'active';
                 }else echo 'bg-light';?>">Subject</a>
 
-				<a href="<?=base_url('index.php/admin/menu/class')?>" class="list-group-item list-group-item-action 
+				<a href="<?=site_url('/admin/menu/class')?>" class="list-group-item list-group-item-action 
                 <?php if($kategori == 'class'){
                   echo 'active';
                 }else echo 'bg-light';?>">Class</a>
 
-				<a href="<?=base_url('index.php/admin/menu/grade')?>" class="list-group-item list-group-item-action 
+				<a href="<?=site_url('/admin/menu/grade')?>" class="list-group-item list-group-item-action 
                 <?php if($kategori == 'grade'){
                   echo 'active';
                 }else echo 'bg-light';?>">Grade</a>
@@ -86,7 +86,7 @@
 							<div class="dropdown-menu dropdown-menu-right">
 								<a class="dropdown-item" href="#">Another action</a>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="<?=base_url('index.php/admin/logout')?>">Logout</a>
+								<a class="dropdown-item" href="<?=site_url('/admin/logout')?>">Logout</a>
 							</div>
 						</li>
 					</ul>
@@ -142,7 +142,11 @@
 								</a>
 								<?php foreach($notif as $i):?>
 								<a href="#" class="list-group-item list-group-item-action">
-									<p class="mb-1">Approval #<?=strtoupper($i['approve_id'])?></p>
+									<p class="mb-1">
+									<?php if(substr($i['approve_id'],0,1) == 'E'){
+										echo 'Profile';
+									}else echo 'Approval'?>	
+									#<?=strtoupper($i['approve_id'])?></p>
 									<small class="text-muted">
 										<?php if(strpos($i['email'],'admin')){
 											echo 'Admin';
@@ -175,7 +179,7 @@
 				responsive: true
 			});
 			$.ajax({
-				url: "<?=base_url('index.php/admin/getnotif')?>",
+				url: "<?=site_url('/admin/getnotif')?>",
 				method: "GET",
 				success: function (data) {
 					$('#notif').text(data);

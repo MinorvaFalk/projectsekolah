@@ -7,7 +7,12 @@ class Siswa_model extends CI_Model
     {
         parent::__construct();
     }
-    
+    /*buat masukin database*/
+    function edit_siswa($params){
+        $this->db->insert('approval',$params);
+        return $this->db->insert_id();
+    }
+    /*buat masukin database*/
     /*
      * Get siswa by id_siswa
      */
@@ -15,7 +20,11 @@ class Siswa_model extends CI_Model
     {
         return $this->db->get_where('siswa',array('id_siswa'=>$id_siswa))->row_array();
     }
-        
+
+    function get_info_siswa($id)
+    {
+        return $this->db->get_where('siswa',array('user_id'=>$id))->row_array();
+    }
     /*
      * Get all siswa
      */
