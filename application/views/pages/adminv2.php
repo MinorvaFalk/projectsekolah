@@ -84,9 +84,6 @@
 								<?= ucfirst(strtok($_SESSION['uid'],'.'))?>
 							</a>
 							<div class="dropdown-menu dropdown-menu-right">
-								<a class="dropdown-item " data-toggle="modal"
-									data-target="#exampleModalLong">Notification<span id="notif"
-										class="badge badge-light"> </span></a>
 								<a class="dropdown-item" href="#">Another action</a>
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="<?=base_url('index.php/admin/logout')?>">Logout</a>
@@ -103,15 +100,72 @@
                 }else echo 'Manage '.ucfirst($kategori);?>
 				</h1>
 				<hr>
-				<?php if(isset($table)) echo $table?>
+				<?php if(isset($table)){
+					echo $table;
+				}else { ?>
+				<div class="row">
+					<div class="col-sm-8">
+						<!-- <div class="shadow-sm bg-white rounded">
+							<div class="card text-center">
+								<div class="card-header">
+									<ul class="nav nav-pills card-header-pills">
+										<li class="nav-item">
+											<a class="nav-link active" href="#">Active</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="#">Link</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link disabled" href="#" tabindex="-1"
+												aria-disabled="true">Disabled</a>
+										</li>
+									</ul>
+								</div>
+								<div class="card-body">
+									<h5 class="card-title">Special title treatment</h5>
+									<p class="card-text">With supporting text below as a natural lead-in to additional
+										content.
+									</p>
+									<a href="#" class="btn btn-primary">Go somewhere</a>
+								</div>
+							</div>
+						</div> -->
+					</div>
+					<div class="col-sm-4">
+						<div class="shadow-sm bg-white rounded">
+							<div class="list-group">
+								<a href="" class="list-group-item list-group-item-action active">
+									<div class="d-flex w-100 justify-content-between">
+										<h5 class="mb-1">Notification
+											<span id="notif" class="badge badge-warning badge-pill"></span></h5>
+									</div>
+								</a>
+								<?php foreach($notif as $i):?>
+								<a href="#" class="list-group-item list-group-item-action">
+									<p class="mb-1">Approval #<?=strtoupper($i['approve_id'])?></p>
+									<small class="text-muted">
+										<?php if(strpos($i['email'],'admin')){
+											echo 'Admin';
+										}elseif(strpos($i['email'],'teacher')){
+											echo 'Teacher';
+										}else echo 'Student';?>
+									</small>
+								</a>
+								<?php endforeach?>
+							</div>
+						</div>
+					</div>
+				</div>
+				<?php }?>
 			</div>
 		</div>
 		<!-- /#page-content-wrapper -->
 
 	</div>
 	<!-- /#wrapper -->
-	
+
 	<script>
+		$('.collapse').collapse('hide')
 		$("#menu-toggle").click(function (e) {
 			e.preventDefault();
 			$("#wrapper").toggleClass("toggled");
