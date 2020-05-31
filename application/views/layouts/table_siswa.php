@@ -26,9 +26,8 @@
             <td>'.$row['address'].'</td>
             <td>'.$row['keterangan'].'</td>
 						<td>' ?>
-		<button type="button" class="btn btn-primary" data-toggle="modal"
-			data-target="#editmodal<?=$row['id_siswa']?>">Edit</button>
-		<!-- <a href="<?php echo site_url('siswa/edit/'.$row['id_siswa']); ?>" class="btn btn-info btn-xs">Edit</a>  -->
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editmodal"
+			onclick="edit_data('<?=$row['id_siswa']?>')">Edit</button>
 		<a href="<?php echo site_url('siswa/remove/'.$row['id_siswa']); ?>" class="btn btn-danger btn-xs">Delete</a>
 		<?php '</td>
             </tr>';
@@ -48,140 +47,156 @@
 	</tfoot>
 </table>
 
-<!-- Add Modal -->
-<!-- <div class="modal fade" id="addmodal" tabindex="-1" role="dialog">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Add Siswa</h5>
-			</div>
-			<div class="modal-body">
-				<?php echo form_open('siswa/add'); ?>
-
-				<div class="form-group">
-					<label for="user_id">NIS</label>
-					<input type="text" name="id_siswa" class="form-control" id="user_id" />
-				</div>
-
-				<div class="form-group">
-					<div class="form-group">
-						<label for="id_kelas">ID Kelas</label>
-						<select class="form-control" name="id_kelas">
-							<?php foreach($kelas as $i):?>
-							<option><?=$i['id_kelas']?></option>
-							<?php endforeach;?>
-						</select>
-					</div>
-				</div>
-
-				<div class="form-row">
-					<div class="form-group col-md-6">
-						<label for="first_name" class="control-label">First Name</label>
-						<input type="text" name="first_name" class="form-control" id="first_name" />
-					</div>
-
-					<div class="form-group col-md-6">
-						<label for="last_name" class="control-label">Last Name</label>
-						<input type="text" name="last_name" class="form-control" id="last_name" />
-					</div>
-				</div>
-
-				<div class="form-group">
-					<label for="contact">Contact</label>
-					<input type="text" name="contact" class="form-control" id="contact" />
-				</div>
-
-				<div class="form-group">
-					<label for="address">Address</label>
-					<input type="text" name="address" class="form-control" id="address" />
-				</div>
-
-				<div class="form-group">
-					<label for="keterangan">Keterangan</label>
-					<input type="text" name="keterangan" class="form-control" id="keterangan" />
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				<button type="submit" class="btn btn-primary">Save</button>
-			</div>
-
-			<?php echo form_close(); ?>
-		</div>
-	</div>
-</div> -->
-<!-- Add Modal -->
-
 <!-- Edit Modal -->
-<?php foreach($data as $row):?>
-<div class="modal fade" id="editmodal<?=$row['id_siswa']?>" tabindex="-1" role="dialog">
+<div class="modal fade" id="editmodal" tabindex="-1" role="dialog">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="exampleModalLabel">Edit Siswa</h5>
 			</div>
 			<div class="modal-body">
-				<?php echo form_open('siswa/edit/'.$row['id_siswa'],array("class"=>"form-horizontal")); ?>
+				<form id="edit">
 
-				<div class="form-group">
-					<label for="user_id">NIS</label>
-					<input type="text" disabled name="user_id" value="<?=$row['id_siswa']?>" class="form-control"
-						id="user_id" />
-				</div>
-
-				<div class="form-group">
 					<div class="form-group">
-						<label for="id_kelas">ID Kelas</label>
-						<select class="form-control" name="id_kelas">
-							<option selected><?=$row['id_kelas']?></option>
-							<?php foreach($kelas as $i):?>
-							<?php if($i['id_kelas'] != $row['id_kelas']){?>
-							<option><?=$i['id_kelas']?></option>
-							<?php }?>
-							<?php endforeach;?>
-						</select>
-					</div>
-				</div>
-
-				<div class="form-row">
-					<div class="form-group col-md-6">
-						<label for="first_name" class="control-label">First Name</label>
-						<input type="text" name="first_name" value="<?=$row['first_name'] ?>" class="form-control"
-							id="first_name" />
+						<label for="id_siswa">NIS</label>
+						<input type="text" disabled name="id_siswa" value="" class="form-control" id="id_siswa" />
+						<div class="invalid-feedback">
+							Required
+						</div>
 					</div>
 
-					<div class="form-group col-md-6">
-						<label for="last_name" class="control-label">Last Name</label>
-						<input type="text" name="last_name" value="<?=$row['last_name'] ?>" class="form-control"
-							id="last_name" />
+					<div class="form-group">
+						<div class="form-group">
+							<label for="id_kelas">ID Kelas</label>
+							<select class="form-control" name="id_kelas">
+								<?php foreach($kelas as $i):?>
+								<option><?=$i['id_kelas']?></option>
+								<?php endforeach;?>
+							</select>
+							<div class="invalid-feedback">
+								Required
+							</div>
+						</div>
 					</div>
-				</div>
 
-				<div class="form-group">
-					<label for="contact">Contact</label>
-					<input type="text" name="contact" value="<?=$row['contact'] ?>" class="form-control" id="contact" />
-				</div>
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<label for="first_name" class="control-label">First Name</label>
+							<input type="text" name="first_name" value="" class="form-control" id="first_name" />
+							<div class="invalid-feedback">
+								Required
+							</div>		
+						</div>
 
-				<div class="form-group">
-					<label for="address">Address</label>
-					<input type="text" name="address" value="<?=$row['address'] ?>" class="form-control" id="address" />
-				</div>
+						<div class="form-group col-md-6">
+							<label for="last_name" class="control-label">Last Name</label>
+							<input type="text" name="last_name" value="" class="form-control" id="last_name" />
+							<div class="invalid-feedback">
+								Required
+							</div>
+						</div>
+					</div>
 
-				<div class="form-group">
-					<label for="keterangan">Keterangan</label>
-					<input type="text" name="keterangan" value="<?=$row['keterangan'] ?>" class="form-control"
-						id="keterangan" />
-				</div>
+					<div class="form-group">
+						<label for="contact">Contact</label>
+						<input type="text" name="contact" value="" class="form-control" id="contact" />
+						<div class="invalid-feedback">
+							Required
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="address">Address</label>
+						<input type="text" name="address" value="" class="form-control" id="address" />
+						<div class="invalid-feedback">
+							Required
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="keterangan">Keterangan</label>
+						<input type="text" name="keterangan" value="" class="form-control" id="keterangan" />
+
+					</div>
 			</div>
 
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				<button type="submit" class="btn btn-primary">Save</button>
+				<button type="button" onclick="save()" class="btn btn-primary">Save</button>
 			</div>
 
-			<?php echo form_close(); ?>
+			</form>
 		</div>
 	</div>
 </div>
-<?php endforeach;?>
 <!-- Edit Modal -->
+
+<script>
+	function edit_data(id) {
+		$('#edit')[0].reset();
+		save_method = 'edit';
+		$('.form-control').removeClass('is-invalid');
+		$('[name="id_siswa"]').prop("disabled", true);
+		$.ajax({
+			url: "<?php echo site_url('siswa/get_siswa')?>/" + id,
+			type: "GET",
+			dataType: "JSON",
+			success: function (data) {
+				$('[name="id_siswa"]').val(data.id_siswa);
+				$('[name="first_name"]').val(data.first_name);
+				$('[name="last_name"]').val(data.last_name);
+				$('[name="contact"]').val(data.contact);
+				$('[name="address"]').val(data.address);
+				$('[name="id_kelas"] option').each(function () {
+					if ($(this).val() == data.id_kelas) {
+						$(this).attr('selected', 'selected');
+					}
+				});
+
+			},
+			error: function (jqXHR, textStatus, errorThrown) {
+				alert('Error get data from ajax');
+			}
+		});
+	}
+
+	function add_data() {
+		save_method = 'add';
+		$('#edit')[0].reset();
+		$('.form-control').removeClass('is-invalid');
+		$('[name="id_siswa"]').prop("disabled", false);
+	}
+
+	function save() {
+
+		if (save_method == 'edit') {
+			var uri = "<?php echo site_url('siswa/edit')?>/" + $('[name="id_siswa"]').val();
+		} else var uri = "<?php echo site_url('siswa/add')?>";
+
+		$.ajax({
+			url: uri,
+			type: "POST",
+			data: $('#edit').serialize(),
+			dataType: "JSON",
+			success: function (data) {
+
+				if (data.status) {
+					window.location.href = data.redirect;
+				} else {
+					for (var i = 0; i < data.inputerror.length; i++) {
+						$('[name="' + data.inputerror[i] + '"]').addClass(
+							'is-invalid');
+						$('[name="' + data.inputerror[i] + '"]').next().text(data.error_string[i]);
+					}
+				}
+			},
+			error: function (jqXHR, textStatus, errorThrown) {
+				alert('Error adding / update data');
+				$('#btnSave').text('save'); //change button text
+				$('#btnSave').attr('disabled', false); //set button enable 
+
+			}
+		});
+	}
+
+</script>

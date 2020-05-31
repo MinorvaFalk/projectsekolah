@@ -17,6 +17,7 @@ class Credentials extends CI_Model{
 
             if(password_verify($pass,$res->password)){
                 $ses = array(
+                    'id' => $res->user_id,
                     'uid' => strtok($res->username,'@'),
                     'role' => substr($res->user_id,0,1)
                 );
@@ -40,7 +41,7 @@ class Credentials extends CI_Model{
         return $this->db->get();
     }
 
-    public function setApproval($email, $password, $fname, $lname, $address, $contact, $role){
+    public function setApproval($email, $password, $fname, $lname, $address, $contact){
         $a = 'A'.uniqid();
         
         $values = array(
