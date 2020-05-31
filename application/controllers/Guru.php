@@ -124,6 +124,14 @@ class Guru extends CI_Controller{
             $data['inputerror'][] = 'contact';
             $data['error_string'][] = 'Required';
             $data['status'] = FALSE;
+        }else if(!is_numeric($this->input->post('contact'))){
+            $data['inputerror'][] = 'contact';
+            $data['error_string'][] = 'Number Only';
+            $data['status'] = FALSE;
+        }else if(strlen($this->input->post('contact'))<10 || strlen($this->input->post('contact'))>13){
+            $data['inputerror'][] = 'contact';
+            $data['error_string'][] = 'Minimum 10 number & Maximum 13 number';
+            $data['status'] = FALSE;
         }
 
         if($data['status'] == FALSE)
