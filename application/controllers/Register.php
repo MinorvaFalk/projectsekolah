@@ -75,26 +75,22 @@ class Register extends CI_Controller {
             redirect(base_url());
             
         }else{
-            if($this->form_validation->run() == true){
+            
                 $email = $this->db->escape_str(strip_tags($this->input->post('email')));
                 $password = $this->db->escape_str(strip_tags($this->input->post('pass')));
                 $fname = strip_tags($this->input->post('fname'));
                 $lname = strip_tags($this->input->post('lname'));
                 $address = strip_tags($this->input->post('address'));
                 $contact = strip_tags($this->input->post('contact'));
-                $role = strip_tags($this->input->post('role'));
-                var_dump($role);
 
-                $query = $this->credentials->setApproval($email, $password, $fname, $lname, $address, $contact, $role);
+                $query = $this->credentials->setApproval($email, $password, $fname, $lname, $address, $contact);
 
                 if($query == false){
                     $this->load->view('pages/registerv2');
                 }else{
                     $this->load->view('pages/register_verify');
-                } 
-                
-            }else $this->load->view('pages/registerv2');
-
+                }
+            
         }
     }
 
