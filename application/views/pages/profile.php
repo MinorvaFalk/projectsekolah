@@ -1,8 +1,8 @@
 <head>
-    <title>Profile - Project Sekolah</title>
+	<title>Profile - Project Sekolah</title>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<?=$css?>
-	
+
 	<style>
 		.card {
 			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -45,20 +45,20 @@
 	<?=$js?>
 </head>
 <?=$nav?>
-<h2 style="text-align:center">User Profile Card</h2>
+
 
 <div class="card">
 	<img src="https://www.blackxperience.com/assets/img-bx-technews/9336-420-facebook-ceo-mark-zuckerberg-600x600.jpg"
 		alt="John" style="width:100%">
-	<h1>John Doe</h1>
-	<p class="title">CEO & Founder, Example</p>
-	<p>Harvard University</p>
+		
+	<h1><?= ucfirst(strtok($_SESSION['uid'],'.'))?></h1>
+	<p class="title">Student</p>
+	<p>Sekolah UAS</p>
 	<div style="margin: 24px 0;">
-		<a href="#"><i class="fa fa-dribbble"></i></a>
+		<!-- <a href="#"><i class="fa fa-dribbble"></i></a>
 		<a href="#"><i class="fa fa-twitter"></i></a>
 		<a href="#"><i class="fa fa-linkedin"></i></a>
-		<a href="#"><i class="fa fa-facebook"></i></a>
+		<a href="#"><i class="fa fa-facebook"></i></a> -->
 	</div>
-	<p><button>Contact</button></p>
+	<p><button>Edit Profile</button></p>
 </div>
-

@@ -2,6 +2,7 @@
 
 class Profile extends CI_Controller
 {
+    
     public function index()
     {
         $data['js'] = $this->load->view('include/javascript.php', NULL, TRUE);

@@ -33,8 +33,8 @@ class Login extends CI_Controller {
                 
             }else {
                 redirect(base_url('index.php/main'));
-
             }
+            
     
         }else $this->load->view('pages/loginv2');
 
