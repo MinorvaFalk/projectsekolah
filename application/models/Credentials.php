@@ -40,7 +40,7 @@ class Credentials extends CI_Model{
         return $this->db->get();
     }
 
-    public function setApproval($email, $password, $fname, $lname, $address, $contact, $role){
+    public function setApproval($email, $password, $fname, $lname, $address, $contact){
         $a = 'A'.uniqid();
         
         $values = array(
