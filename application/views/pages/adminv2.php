@@ -105,7 +105,6 @@
 										<tr>
 										<th>Approve Id</th>
 										<th>Password</th>
-										<th>Approve</th>
 										<th>Email</th>
 										<th>First Name</th>
 										<th>Last Name</th>
@@ -117,7 +116,6 @@
 										<tr>
 										<td><?php echo $a['approve_id']; ?></td>
 										<td><?php echo $a['password']; ?></td>
-										<td><?php echo $a['approve']; ?></td>
 										<td><?php echo $a['email']; ?></td>
 										<td><?php echo $a['first_name']; ?></td>
 										<td><?php echo $a['last_name']; ?></td>
