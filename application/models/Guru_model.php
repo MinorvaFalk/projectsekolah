@@ -51,8 +51,4 @@ class Guru_model extends CI_Model
         return $this->db->delete('guru',array('id_pengajar'=>$id_pengajar));
     }
 
-    public function get_IDguru(){
-        $query = $this->db->query("SELECT MAX(id_pengajar) FROM guru");
-        return $query->num_rows();
-      }
 }
