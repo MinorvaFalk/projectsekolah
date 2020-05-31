@@ -4,6 +4,12 @@
 
 <head>
 
+		<!-- CSS styles -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+	<!-- JS Libs -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js" type="text/javascript"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="">
@@ -99,8 +105,38 @@
 			<div class="container-fluid">
 				<h1 class="mt-4">
 					<?php if($kategori == NULL){
-                  echo 'Dashboard';
-                }else echo 'Manage '.ucfirst($kategori);?>
+									echo 'Dashboard';
+									echo '<br>'; ?> </h1>
+									<table border="1" width="100%">
+										<tr>
+										<th>Approve Id</th>
+										<th>Password</th>
+										<th>Approve</th>
+										<th>Email</th>
+										<th>First Name</th>
+										<th>Last Name</th>
+										<th>Contact</th>
+										<th>Address</th>
+										<th>Actions</th>
+										</tr>
+									<?php foreach($approval as $a){ ?>
+										<tr>
+										<td><?php echo $a['approve_id']; ?></td>
+										<td><?php echo $a['password']; ?></td>
+										<td><?php echo $a['approve']; ?></td>
+										<td><?php echo $a['email']; ?></td>
+										<td><?php echo $a['first_name']; ?></td>
+										<td><?php echo $a['last_name']; ?></td>
+										<td><?php echo $a['contact']; ?></td>
+										<td><?php echo $a['address']; ?></td>
+										<td>
+														<a class="btn btn-success btn-xs" href="<?php echo site_url('approval/edit/'.$a['approve_id']); ?>">Approve</a> | 
+														<a class="btn btn-danger btn-xs" href="<?php echo site_url('approval/remove/'.$a['approve_id']); ?>">Delete</a>
+												</td>
+										</tr>
+									<?php } ?>
+								</table>
+                <?php }else echo 'Manage '.ucfirst($kategori);?>
 				</h1>
 				<hr>
 				<?php if(isset($table)) echo $table?>
