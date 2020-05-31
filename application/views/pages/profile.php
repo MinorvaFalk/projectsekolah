@@ -48,11 +48,10 @@
 
 
 <div class="card">
-	<img src="https://www.blackxperience.com/assets/img-bx-technews/9336-420-facebook-ceo-mark-zuckerberg-600x600.jpg"
+	<img src="https://www.booksie.com/files/profiles/22/mr-anonymous.png"
 		alt="John" style="width:100%">
 		
-	<h1><?=$info['first_name']." ".$info['last_name']?>
-	</h1>
+	<h1><?=$info['first_name']." ".$info['last_name']?></h1>
 	<p class="title">Student</p>
 	<p>Sekolah UAS</p>
 	<div style="margin: 24px 0;">
@@ -61,5 +60,5 @@
 		<a href="#"><i class="fa fa-linkedin"></i></a>
 		<a href="#"><i class="fa fa-facebook"></i></a> -->
 	</div>
-	<a href="<?= base_url();?>edit_profile"><button >Edit Profile</button></a>
+	<a href="<?= base_url();?>profile/edit"><button >Edit Profile</button></a>
 </div>
