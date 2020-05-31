@@ -18,6 +18,7 @@ class Admin extends CI_Controller{
         $data['js'] = $this->load->view('include/javascript.php', NULL, TRUE);
         $data['css'] = $this->load->view('include/css.php', NULL, TRUE);
         $data['nav'] = $this->load->view('include/navbar.php', NULL, TRUE);
+        $data['notif'] = $this->data->get_list();
 
         if($table == 'teacher'){
             $guru['data'] = $this->data->get_guru();

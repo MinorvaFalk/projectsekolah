@@ -60,4 +60,9 @@ class Data extends CI_Model
     $query = $this->db->query("SELECT * FROM approval WHERE approve IS NULL");
     return $query->num_rows();
   }
+
+  public function get_list(){
+    $query = $this->db->query("SELECT * FROM approval WHERE approve IS NULL");
+    return $query->result_array();
+  }
 }
