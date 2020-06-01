@@ -50,4 +50,17 @@ class Approval_model extends CI_Model
     {
         return $this->db->delete('approval',array('approve_id'=>$approve_id));
     }
+
+    function insert_app($params){
+        $this->db->insert('credentials',$params);
+    }
+
+    function update_guru($params){
+        $this->db->update('guru', $params);
+    }
+
+    function update_siswa($params){
+        $this->db->update('siswa', $params);
+    }
+    
 }
