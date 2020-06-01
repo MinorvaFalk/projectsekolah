@@ -7,6 +7,7 @@ class Admin extends CI_Controller{
         parent::__construct();
         $this->load->helper('html');
         $this->load->model('data');
+        $this->load->model('Approval_model');
         
         if($_SESSION['role'] !== 'A') redirect();
     }
@@ -43,6 +44,7 @@ class Admin extends CI_Controller{
             $grade['subject'] = $this->data->get_subject();
             $data['table'] = $this->load->view('layouts/table_grade',$grade, TRUE);
         }
+        $data['approval'] = $this->Approval_model->get_all_approval();
         
         $this->load->view('pages/adminv2.php', $data);
     }

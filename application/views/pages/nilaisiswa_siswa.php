@@ -5,7 +5,7 @@
     <?php
     echo $js;
     echo $css;
-    echo 'Welcome,<br>' . $_SESSION['uid'] . '<br>Role : Siswa';
+    echo 'Welcome,<br>' . $_SESSION['uid'];
     echo form_open('main/logout') . '<form><button name="ret">Logout</button></form>';
     ?>
     <title>Project Sekolah</title>
@@ -37,7 +37,7 @@
           </tr>
         </thead>
         <?php
-        foreach ($getnilai as $row) { ?>
+        foreach ($siswa as $row) { ?>
           <tr>
             <td><?php echo $row['id_siswa']; ?></td>
             <td><?php echo $row['first_name']; ?></td>
@@ -49,15 +49,14 @@
             <td><?php echo $row['nilai_uas']; ?></td>
             <td><?php echo $row['keterangan']; ?></td>
             <td>
-              <?php 
-              echo "<a href='#komplain' class='btn btn-danger'>Komplain</a>";
-              ?>
+              <a class='btn btn-success' href="<?php echo site_url('siswa2/edit/'.$row['id_siswa']); ?>">Edit</a> 
+              <a class='btn btn-danger' href="<?php echo site_url('siswa2/remove/'.$row['id_siswa']); ?>">Delete</a>
             </td>
           </tr>
         <?php } ?>
       </table>
     </div>
-    <p><a href="main" class="btn btn-primary">Back</a></p>
+    <p><a href="<?php echo site_url('/main/index/'); ?>" class="btn btn-primary">Back</a></p>
   </div>
 </body>
 

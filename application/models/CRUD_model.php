@@ -99,13 +99,13 @@ class CRUD_model extends CI_Model
         return $this->db->insert_id();
     }
     
-     //update nilai siswa
+    //update nilai siswa
     function update_nilai_siswa($id,$params){
         $this->db->where('id',$id);
         return $this->db->update('nilai_siswa',$params);
     }
     
-     //delete nilai siswa
+    //delete nilai siswa
     function delete_nilai_siswa($id){
         return $this->db->delete('nilai_siswa',array('id'=>$id));
     }
