@@ -49,17 +49,19 @@ class Admin extends CI_Controller{
     }
 
     public function get_approval($id){
-        $data = $this->data->get_approval_by($id);
+        $data = $this->data->get_approval_by($id)->row_array();
         echo json_encode($data);
         
     }
 
     public function approve(){
         $id = $this->input->post('approve_id');
-        $data = $this->data->get_approval_by($id);
+        $data = $this->data->get_approval_by($id)->row_array();
 
         if(substr($id,0,1) == 'A'){
-            $userid = crc32(uniqid());
+            if(strpos($data['email'],'admin') || strpos($data['email'],'teacher')){
+                $userid = 'A'.crc32(uniqid());
+            }else $userid = 'S'.crc32(uniqid());
             $params = array(
                 'user_id' => $userid,
                 'username' => strtok($data['email'],'@'),
@@ -67,48 +69,56 @@ class Admin extends CI_Controller{
                 'password' => $data['password']
             );
 
-            $this->data->add_cred($params);
-
-            if(strpos($data['email'],'admin')){
-                $params1 = array(
-                    'id_pengajar' => 'GA'.crc32(uniqid()),
-                    'user_id' => $userid,
-                    'first_name' => $data['first_name'],
-                    'last_name' => $data['last_name'],
-                    'contact' => $data['contact'],
-                    'address' => $data['address']
-                );
-                
-                $this->data->add_guru($params1);
-                echo json_encode(array("status" => TRUE, "redirect" => site_url('/admin')));
-
-            }else if(strpos($data['email'],'teacher')){
-                $params1 = array(
-                    'id_pengajar' => 'G'.crc32(uniqid()),
-                    'user_id' => $userid,
-                    'first_name' => $data['first_name'],
-                    'last_name' => $data['last_name'],
-                    'contact' => $data['contact'],
-                    'address' => $data['address']
-                );
-                $this->data->add_guru($params1);
-                echo json_encode(array("status" => TRUE, "redirect" => site_url('/admin')));
-
-            }else{
-                $params1 = array(
-                    'id_siswa' => 'S'.crc32(uniqid()),
-                    'user_id' => $userid,
-                    'first_name' => $data['first_name'],
-                    'last_name' => $data['last_name'],
-                    'contact' => $data['contact'],
-                    'address' => $data['address']
-                );
-                $this->data->add_siswa($params1);
-                echo json_encode(array("status" => TRUE, "redirect" => site_url('/admin')));
+            if($this->data->add_cred($params)){
+                if(strpos($data['email'],'admin')){
+                    $params1 = array(
+                        'id_pengajar' => 'GA'.crc32(uniqid()),
+                        'user_id' => $userid,
+                        'first_name' => $data['first_name'],
+                        'last_name' => $data['last_name'],
+                        'contact' => $data['contact'],
+                        'address' => $data['address']
+                    );
+                    
+                    $this->data->add_guru($params1);
+    
+                }else if(strpos($data['email'],'teacher')){
+                    $params1 = array(
+                        'id_pengajar' => 'G'.crc32(uniqid()),
+                        'user_id' => $userid,
+                        'first_name' => $data['first_name'],
+                        'last_name' => $data['last_name'],
+                        'contact' => $data['contact'],
+                        'address' => $data['address']
+                    );
+                    $this->data->add_guru($params1);
+                   
+    
+                }else{
+                    $params1 = array(
+                        'id_siswa' => 'A'.crc32(uniqid()),
+                        'user_id' => $userid,
+                        'first_name' => $data['first_name'],
+                        'last_name' => $data['last_name'],
+                        'contact' => $data['contact'],
+                        'address' => $data['address']
+                    );
+                    $this->data->add_siswa($params1);
+                }
             }
-            $this->data->update_cred($id,array('approve' => '1'));
+            $this->data->update_approve($id,array('approve' => '1'));
+            echo json_encode(array("status" => TRUE, "redirect" => site_url('/admin')));
         }else{
             $userid = substr($id,1);
+            $params = array(
+                'first_name' => $this->input->post('first_name'),
+                'last_name' => $this->input->post('last_name'),
+                'contact' => $this->input->post('contact'),
+                'address' => $this->input->post('address'),
+                'keterangan' => $this->input->post('keterangan'),
+            );
+            $this->data->update_profile($userid,$params);
+            echo json_encode(array("status" => TRUE, "redirect" => site_url('/admin')));
         }
     }
 

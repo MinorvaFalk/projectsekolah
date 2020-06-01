@@ -12,14 +12,14 @@ class Data extends CI_Model{
     return $query->result_array();
   }
 
-  function update_cred($id,$params){
+  function update_approve($id,$params){
     $this->db->where('approve_id',$id);
-    return $this->db->update('credentials',$params);
+    return $this->db->update('approval',$params);
 }
 
   function add_cred($params){
     $this->db->insert('credentials',$params);
-    return $this->db->insert_id();
+    return TRUE;
   }
 
   function add_guru($params){
@@ -33,12 +33,19 @@ class Data extends CI_Model{
   }
 
   public function get_approval_by($id){
-    return $this->db->get_where('approval',array('approve_id'=>$id))->row_array();
+    return $this->db->get_where('approval',array('approve_id'=>$id));
   }
 
-  // public function get_email_by($email){
-  //   return $this->db->get_where('credentials',array('email'=>$email))->num_rows();
-  // }
+  function update_profile($userid, $data){
+    if(substr($userid,0,1) == 'S'){
+      $this->db->where('user_id',$userid);
+      $this->db->update('siswa',$data);
+    }else{
+      $this->db->where('user_id',$userid);
+      $this->db->update('guru',$data);
+    }
+    return $this->db->delete('approval',array('approve_id'=>'E'.$userid));
+  }
 
   public function get_nilaisiswa(){
     $query = $this->db->query("SELECT * FROM subject NATURAL JOIN nilai_siswa NATURAL JOIN siswa");
@@ -84,13 +91,13 @@ class Data extends CI_Model{
   }
 
   public function get_notif(){
-    $approval = $this->db->query("SELECT * FROM approval WHERE approve IS NULL")->num_rows();
+    $approval = $this->db->query("SELECT * FROM approval WHERE approve = '0'")->num_rows();
     $total = $this->db->query("SELECT * FROM approval WHERE approve = '2'")->num_rows();
     return $approval+$total;
   }
 
   public function get_list(){
-    $query = $this->db->query("SELECT * FROM approval WHERE approve IS NULL OR approve = '2'");
+    $query = $this->db->query("SELECT * FROM approval WHERE approve = '0' OR approve = '2'");
     return $query->result_array();
   }
 }

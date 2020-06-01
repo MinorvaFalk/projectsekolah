@@ -30,6 +30,7 @@ class Credentials extends CI_Model{
     public function getApproval($query){
         $this->db->select('');
         $this->db->from("approval");
+        $this->db->where("approve !=",2);
 
         if($query != ''){
             $this->db->like('first_name',$query);
@@ -51,7 +52,8 @@ class Credentials extends CI_Model{
             'first_name' => $fname,
             'last_name' => $lname,
             'address' => $address,
-            'contact' => $contact
+            'contact' => $contact,
+            'approve' => '0'
         );
 
         if(!$this->db->insert('approval',$values)){

@@ -256,7 +256,7 @@ function checkRole($email){
 					$('[name="last_name"]').val(data.last_name);
 					$('[name="contact"]').val(data.contact);
 					$('[name="address"]').val(data.address);
-					if (data.approve == null) {
+					if (data.approve == '0') {
 						$('[name="hide"]').show();
 						$('[name="email"]').val(data.email);
 					} else $('[name="hide"]').hide();
