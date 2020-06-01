@@ -133,7 +133,9 @@ function getNilai($tugas, $uts, $uas){
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<div name="remove">
 						<button type="button" onclick="save()" name="save" class="btn btn-primary">Save</button>
+						</div>
 					</div>
 
 				</form>
@@ -167,8 +169,8 @@ function getNilai($tugas, $uts, $uas){
 				$('[name="komplain"]').val(data.komplain);
 				$('[name="nama_subject"]').val(data.nama_subject);
 				if ($('[name="komplain"]').val() != '') {
-					$('[name="save"]').prop('disabled', true);
-				}
+					$('[name="save"]').remove();
+				}else $('[name="remove"]').append('<button type="button" onclick="save()" name="save" class="btn btn-primary">Save</button>');
 
 			},
 			error: function (jqXHR, textStatus, errorThrown) {

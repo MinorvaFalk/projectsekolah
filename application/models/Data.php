@@ -12,6 +12,34 @@ class Data extends CI_Model{
     return $query->result_array();
   }
 
+  function update_cred($id,$params){
+    $this->db->where('approve_id',$id);
+    return $this->db->update('credentials',$params);
+}
+
+  function add_cred($params){
+    $this->db->insert('credentials',$params);
+    return $this->db->insert_id();
+  }
+
+  function add_guru($params){
+    $this->db->insert('guru',$params);
+    return $this->db->insert_id();
+  }
+
+  function add_siswa($params){
+    $this->db->insert('siswa',$params);
+    return $this->db->insert_id();
+  }
+
+  public function get_approval_by($id){
+    return $this->db->get_where('approval',array('approve_id'=>$id))->row_array();
+  }
+
+  // public function get_email_by($email){
+  //   return $this->db->get_where('credentials',array('email'=>$email))->num_rows();
+  // }
+
   public function get_nilaisiswa(){
     $query = $this->db->query("SELECT * FROM subject NATURAL JOIN nilai_siswa NATURAL JOIN siswa");
     return $query->result_array();
