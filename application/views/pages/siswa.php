@@ -41,7 +41,9 @@ function getNilai($tugas, $uts, $uas){
 						<td><?=$row['nilai_uts']?></td>
 						<td><?=$row['nilai_uas']?></td>
 						<td><?= getNilai($row['nilai_tugas'], $row['nilai_uts'], $row['nilai_uas'])?></td>
-						<td></td>
+						<td>
+							<a class='btn btn-danger' href="<?php echo site_url('nilai_siswa/komplain/'.$row['id']); ?>">Komplain</a>
+						</td>
 					</tr>
 					<?php endforeach;?>
 

@@ -7,7 +7,7 @@ class Student_model extends CI_Model{
     }
 
     function get_nilai($id){
-        $query = $this->db->query("SELECT nama_subject, nilai_tugas, nilai_uts, nilai_uas, 
+        $query = $this->db->query("SELECT id, nama_subject, nilai_tugas, nilai_uts, nilai_uas, 
         CONCAT(g.first_name, ' ',g.last_name) as guru
         FROM nilai_siswa n
         JOIN siswa s on n.id_siswa = s.id_siswa
