@@ -9,7 +9,7 @@ class Admin extends CI_Controller{
         $this->load->model('data');
         $this->load->model('Approval_model');
         
-        if($_SESSION['role'] !== 'A') redirect();
+        if($_SESSION['role'] !== 'A') redirect('page404');
     }
 
     public function index(){
