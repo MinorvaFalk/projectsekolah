@@ -95,9 +95,9 @@
 
 			<div class="container-fluid">
 				<h1 class="mt-4">
-					<?php if($kategori == NULL){
-                  echo 'Dashboard';
-                }else echo 'Manage '.ucfirst($kategori);?>
+				<?php if($kategori == NULL){
+				echo 'Dashboard </h1>';?> </h1>
+				<?php }else echo 'Manage '.ucfirst($kategori);?>
 				</h1>
 				<hr>
 				<?php if(isset($table)){
@@ -143,10 +143,10 @@
 								<?php foreach($notif as $i):?>
 								<a href="#" class="list-group-item list-group-item-action">
 									<p class="mb-1">
-									<?php if(substr($i['approve_id'],0,1) == 'E'){
+										<?php if(substr($i['approve_id'],0,1) == 'E'){
 										echo 'Profile';
-									}else echo 'Approval'?>	
-									#<?=strtoupper($i['approve_id'])?></p>
+									}else echo 'Approval'?>
+										#<?=strtoupper($i['approve_id'])?></p>
 									<small class="text-muted">
 										<?php if(strpos($i['email'],'admin')){
 											echo 'Admin';

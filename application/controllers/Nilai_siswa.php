@@ -6,7 +6,7 @@ class Nilai_siswa extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('CRUD_model');
-    } 
+    }
 
     /*
      * Listing of nilai_siswa
@@ -15,7 +15,6 @@ class Nilai_siswa extends CI_Controller{
     {
         $data['nilai_siswa'] = $this->CRUD_model->get_all_nilai_siswa();
         
-        $data['_view'] = 'nilai_siswa/index';
         $this->load->view('layouts/main',$data);
     }
 
@@ -56,8 +55,8 @@ class Nilai_siswa extends CI_Controller{
 
         $this->CRUD_model->update_nilai_siswa($id,$params);            
         echo json_encode(array("status" => TRUE, "redirect" => site_url('/admin/menu/grade')));
-    } 
-
+    }
+    
     function remove($id){
         $nilai_siswa = $this->CRUD_model->get_nilai_siswa($id);
 

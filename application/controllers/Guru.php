@@ -6,7 +6,7 @@ class Guru extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('CRUD_model');
-    } 
+    }
 
     /*
      * Listing of guru
@@ -15,7 +15,6 @@ class Guru extends CI_Controller{
     {
         $data['guru'] = $this->CRUD_model->get_all_guru();
         
-        $data['_view'] = 'guru/index';
         $this->load->view('layouts/main',$data);
     }
 
@@ -47,7 +46,7 @@ class Guru extends CI_Controller{
         {            
             $this->load->view('layouts/table_guru');
         }
-    }  
+    }
 
     /*
      * Editing a guru
@@ -65,7 +64,7 @@ class Guru extends CI_Controller{
 
         $this->CRUD_model->update_guru($id_pengajar,$params);            
         echo json_encode(array("status" => TRUE, "redirect" => site_url('/admin/menu/teacher')));
-    } 
+    }
 
     /*
      * Deleting guru
@@ -123,6 +122,14 @@ class Guru extends CI_Controller{
         {
             $data['inputerror'][] = 'contact';
             $data['error_string'][] = 'Required';
+            $data['status'] = FALSE;
+        }else if(!is_numeric($this->input->post('contact'))){
+            $data['inputerror'][] = 'contact';
+            $data['error_string'][] = 'Number Only';
+            $data['status'] = FALSE;
+        }else if(strlen($this->input->post('contact'))<10 || strlen($this->input->post('contact'))>13){
+            $data['inputerror'][] = 'contact';
+            $data['error_string'][] = 'Minimum 10 number & Maximum 13 number';
             $data['status'] = FALSE;
         }
 

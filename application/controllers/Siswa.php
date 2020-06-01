@@ -13,7 +13,7 @@ class Siswa extends CI_Controller{
      */
     function index()
     {
-        $data['siswa'] = $this->CRUD_model->get_all_siswa();
+        $data['siswa'] = $this->CRUD_model->get_siswa();
         
         $data['_view'] = 'siswa/index';
         $this->load->view('layouts/main',$data);
@@ -55,7 +55,7 @@ class Siswa extends CI_Controller{
 
         $this->CRUD_model->update_siswa($id_siswa,$params);            
         echo json_encode(array("status" => TRUE, "redirect" => site_url('/admin/menu/student')));
-           
+        
     } 
 
     function remove($id_siswa)
@@ -113,10 +113,17 @@ class Siswa extends CI_Controller{
             $data['status'] = FALSE;
         }
 
-        if($this->input->post('contact') == '')
-        {
+        if($this->input->post('contact') == ''){
             $data['inputerror'][] = 'contact';
             $data['error_string'][] = 'Required';
+            $data['status'] = FALSE;
+        }else if(!is_numeric($this->input->post('contact'))){
+            $data['inputerror'][] = 'contact';
+            $data['error_string'][] = 'Number Only';
+            $data['status'] = FALSE;
+        }else if(strlen($this->input->post('contact'))<10 || strlen($this->input->post('contact'))>13){
+            $data['inputerror'][] = 'contact';
+            $data['error_string'][] = 'Minimum 10 number & Maximum 13 number';
             $data['status'] = FALSE;
         }
 
