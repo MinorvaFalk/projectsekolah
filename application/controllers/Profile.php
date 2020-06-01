@@ -20,7 +20,8 @@ class Profile extends CI_Controller
         $this->load->view('pages/profile',$data);
     }
 
-    public function edit(){
+    public function edit()
+    {
         $data['js'] = $this->load->view('include/javascript.php', NULL, TRUE);
         $data['css'] = $this->load->view('include/css.php', NULL, TRUE);
         $data['nav'] = $this->load->view('include/navbar.php', NULL, TRUE);
@@ -29,7 +30,8 @@ class Profile extends CI_Controller
     }
 
     /*buat submit data yang diganti*/
-    public function save(){
+    public function save()
+    {
         $this->form_validation->set_rules('first_name', 'First Name', 'trim|required|alpha');
         // $this->form_validation->set_rules('last_name', 'Last Name', 'alpha');
         $this->form_validation->set_rules('contact', 'Contact', 'trim|required|min_length[10]|max_length[13]');
