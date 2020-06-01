@@ -36,6 +36,7 @@
 				<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
 			</li>
 		</ul>
+
 		<div class="dropdown">
 			<button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton"
 				data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -46,5 +47,6 @@
 				<?=anchor('/main/logout', 'Logout', 'class="dropdown-item"');?>
 			</div>
 		</div>
+		
 	</div>
 </nav>

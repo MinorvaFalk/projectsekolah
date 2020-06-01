@@ -8,7 +8,7 @@ class Admin extends CI_Controller{
         $this->load->helper('html');
         $this->load->model('data');
         
-        if($_SESSION['role'] !== 'A') redirect();
+        if($_SESSION['role'] !== 'A') redirect('page404');
     }
 
     public function index(){

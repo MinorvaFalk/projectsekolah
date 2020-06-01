@@ -9,7 +9,7 @@ class Student extends CI_Controller{
         $this->load->model('Student_model');
         $this->load->library('form_validation');
         
-        if($_SESSION['role'] !== 'S') redirect();
+        if($_SESSION['role'] !== 'S') redirect('page404');
     }
 
     public function index(){
