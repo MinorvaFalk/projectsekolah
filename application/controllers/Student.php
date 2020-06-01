@@ -28,9 +28,27 @@ class Student extends CI_Controller{
             $data['info'] = $this->Student_model->get_profile($_SESSION['id']);
             $this->load->view('pages/editprofile',$data);
         }else{
+            $data['kelas'] = $this->Student_model->get_kelas($_SESSION['id']);
             $data['siswa'] = $this->Student_model->get_nilai($_SESSION['id']);
-            $this->load->view('pages/siswa.php', $data);
+            $data['guru'] = $this->Student_model->get_guru($_SESSION['id']);
+            $this->load->view('pages/siswa.php', $data, NULL);
         }
+    }
+
+    public function komplain($id){
+        $this->validate();
+
+        $params = array(
+            'komplain' => $this->input->post('komplain'),
+        );
+
+        $this->Student_model->komplain_nilai($id,$params);            
+        echo json_encode(array("status" => TRUE, "redirect" => site_url('/student')));
+    }
+
+    public function get_nilai($id){
+        $data = $this->Student_model->get_nilai_by_id($id);
+        echo json_encode($data);
     }
 
     public function save(){
@@ -53,6 +71,24 @@ class Student extends CI_Controller{
             );
             $this->Student_model->update_profile($params);
             $this->index();
+        }
+    }
+
+    private function validate(){
+        $data = array();
+        $data['error_string'] = array();
+        $data['inputerror'] = array();
+        $data['status'] = TRUE;
+        
+        if($this->input->post('komplain') == ''){
+            $data['inputerror'][] = 'komplain';
+            $data['error_string'][] = 'required';
+            $data['status'] = FALSE;
+        }
+
+        if($data['status'] == FALSE){
+            echo json_encode($data);
+            exit();
         }
     }
 

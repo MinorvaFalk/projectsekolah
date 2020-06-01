@@ -95,37 +95,9 @@
 
 			<div class="container-fluid">
 				<h1 class="mt-4">
-					<?php if($kategori == NULL){
-									echo 'Dashboard </h1>';
-									echo '<br> <h2>Approval Table</h2>'; ?> </h1>
-									<table border="1" width="100%">
-										<tr>
-										<th>Approve Id</th>
-										<th>Password</th>
-										<th>Email</th>
-										<th>First Name</th>
-										<th>Last Name</th>
-										<th>Contact</th>
-										<th>Address</th>
-										<th>Actions</th>
-										</tr>
-									<?php foreach($approval as $a){ ?>
-										<tr>
-										<td><?php echo $a['approve_id']; ?></td>
-										<td><?php echo $a['password']; ?></td>
-										<td><?php echo $a['email']; ?></td>
-										<td><?php echo $a['first_name']; ?></td>
-										<td><?php echo $a['last_name']; ?></td>
-										<td><?php echo $a['contact']; ?></td>
-										<td><?php echo $a['address']; ?></td>
-										<td>
-														<a class="btn btn-success btn-xs" href="<?php echo site_url('approval/edit/'.$a['approve_id']); ?>">Approve</a> | 
-														<a class="btn btn-danger btn-xs" href="<?php echo site_url('approval/remove/'.$a['approve_id']); ?>">Delete</a>
-												</td>
-										</tr>
-									<?php } ?>
-								</table>
-                <?php }else echo 'Manage '.ucfirst($kategori);?>
+				<?php if($kategori == NULL){
+				echo 'Dashboard </h1>';?> </h1>
+				<?php }else echo 'Manage '.ucfirst($kategori);?>
 				</h1>
 				<hr>
 				<?php if(isset($table)){
@@ -171,10 +143,10 @@
 								<?php foreach($notif as $i):?>
 								<a href="#" class="list-group-item list-group-item-action">
 									<p class="mb-1">
-									<?php if(substr($i['approve_id'],0,1) == 'E'){
+										<?php if(substr($i['approve_id'],0,1) == 'E'){
 										echo 'Profile';
-									}else echo 'Approval'?>	
-									#<?=strtoupper($i['approve_id'])?></p>
+									}else echo 'Approval'?>
+										#<?=strtoupper($i['approve_id'])?></p>
 									<small class="text-muted">
 										<?php if(strpos($i['email'],'admin')){
 											echo 'Admin';

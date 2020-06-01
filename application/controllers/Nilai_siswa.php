@@ -57,26 +57,6 @@ class Nilai_siswa extends CI_Controller{
         echo json_encode(array("status" => TRUE, "redirect" => site_url('/admin/menu/grade')));
     }
     
-    function komplain($id){
-        $this->validate();
-
-        if(isset($_POST) && count($_POST) > 0)     
-        { 
-            $params = array(
-                'id_pengajar' => $this->input->post('id_pengajar'),
-                'nilai_tugas' => $this->input->post('nilai_tugas'),
-                'nilai_uts' => $this->input->post('nilai_uts'),
-                'nilai_uas' => $this->input->post('nilai_uas'),
-                'komplain' => $this->input->post('komplain'),
-            );
-
-            $this->CRUD_model->update_nilai_siswa($id,$params);  
-        }else{
-            $this->load->view('pages/student');
-        }
-        
-    }
-
     function remove($id){
         $nilai_siswa = $this->CRUD_model->get_nilai_siswa($id);
 
