@@ -69,7 +69,7 @@ class Student extends CI_Controller{
                 'contact' => $this->input->post('contact'),
                 'address' => $this->input->post('address'),
             );
-            $this->Student_model->update_profile($params);
+            $this->Student_model->edit_siswa($params);
             $this->index();
         }
     }
