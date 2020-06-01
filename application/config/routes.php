@@ -57,3 +57,4 @@ $route['nilaisiswa'] = 'Nilaisiswa_siswa';
 $route['nilai_siswa'] = 'Nilai_siswa';
 $route['infosiswa'] = 'Infosiswa_siswa';
 $route['info_siswa'] = 'Siswa';
+$route['guru'] = 'Guru';

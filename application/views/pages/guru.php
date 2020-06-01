@@ -30,10 +30,10 @@
             <td><?php echo $row['first_name']; ?></td>
             <td><?php echo $row['last_name']; ?></td>
             <td><?php echo $row['id_kelas']; ?></td>
-            <td><a href='<?=site_url('/Nilai_siswa/index/')?>' class='btn btn-info'>View</a></td>
+            <td><a class='btn btn-primary' href="<?php echo site_url('/nilai_siswa2/index/'.$row['id']); ?>">View</a> </td>
             <td><?php echo $row['keterangan']; ?></td>
             <td>
-              <a href='<?=site_url('/Siswa2/index/')?>' class='btn btn-primary'>Info</a>
+              <a href='<?=site_url('siswa2')?>' class='btn btn-primary'>Info</a>
             </td>
           </tr>
         <?php } ?>

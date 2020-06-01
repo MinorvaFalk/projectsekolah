@@ -7,6 +7,7 @@ class Main extends CI_Controller
         parent::__construct();
         $this->load->helper('html');
         $this->load->model('data');
+        $this->load->model('Nilai_siswa_model');
     }
 
 	public function index(){
@@ -22,8 +23,8 @@ class Main extends CI_Controller
         $data['js'] = $this->load->view('include/javascript.php', NULL, TRUE);
         $data['css'] = $this->load->view('include/css.php', NULL, TRUE);
         $data['nav'] = $this->load->view('include/navbar.php', NULL, TRUE);
-        $data['siswa'] = $this->data->get_data();
-        $this->load->view('pages/guru.php', $data);
+        $data['nilai_siswa'] = $this->Nilai_siswa_model->get_all_nilai_siswa();
+        $this->load->view('nilai_siswa/index.php', $data);
     }
 
     public function student(){

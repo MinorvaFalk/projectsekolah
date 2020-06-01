@@ -8,7 +8,7 @@ class Data extends CI_Model{
   }
 
   public function get_data(){
-    $query = $this->db->query("SELECT * FROM siswa NATURAL JOIN credentials");
+    $query = $this->db->query("SELECT * FROM siswa NATURAL JOIN credentials NATURAL JOIN nilai_siswa");
     return $query->result_array();
   }
 
