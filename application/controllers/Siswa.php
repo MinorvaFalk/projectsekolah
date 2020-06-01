@@ -5,7 +5,7 @@ class Siswa extends CI_Controller{
     function __construct()
     {
         parent::__construct();
-        $this->load->model('Siswa_model');
+        $this->load->model('CRUD_model');
     } 
 
     /*
@@ -13,7 +13,7 @@ class Siswa extends CI_Controller{
      */
     function index()
     {
-        $data['siswa'] = $this->Siswa_model->get_all_siswa();
+        $data['siswa'] = $this->CRUD_model->get_all_siswa();
         
         $data['_view'] = 'siswa/index';
         $this->load->view('layouts/main',$data);
@@ -34,7 +34,7 @@ class Siswa extends CI_Controller{
             'keterangan' => $this->input->post('keterangan'),
         );
         
-        $siswa_id = $this->Siswa_model->add_siswa($params);
+        $siswa_id = $this->CRUD_model->add_siswa($params);
         echo json_encode(array("status" => TRUE, "redirect" => site_url('/admin/menu/class')));
         
     }  
@@ -53,19 +53,19 @@ class Siswa extends CI_Controller{
             'keterangan' => $this->input->post('keterangan'),
         );
 
-        $this->Siswa_model->update_siswa($id_siswa,$params);            
+        $this->CRUD_model->update_siswa($id_siswa,$params);            
         echo json_encode(array("status" => TRUE, "redirect" => site_url('/admin/menu/student')));
            
     } 
 
     function remove($id_siswa)
     {
-        $siswa = $this->Siswa_model->get_siswa($id_siswa);
+        $siswa = $this->CRUD_model->get_siswa($id_siswa);
 
         // check if the siswa exists before trying to delete it
         if(isset($siswa['id_siswa']))
         {
-            $this->Siswa_model->delete_siswa($id_siswa);
+            $this->CRUD_model->delete_siswa($id_siswa);
             redirect('admin/menu/student');
         }
         else
@@ -73,7 +73,7 @@ class Siswa extends CI_Controller{
     }
     
     function get_siswa($id){
-        $data = $this->Siswa_model->get_siswa($id);
+        $data = $this->CRUD_model->get_siswa($id);
         echo json_encode($data);
     }
 
@@ -113,10 +113,17 @@ class Siswa extends CI_Controller{
             $data['status'] = FALSE;
         }
 
-        if($this->input->post('contact') == '')
-        {
+        if($this->input->post('contact') == ''){
             $data['inputerror'][] = 'contact';
             $data['error_string'][] = 'Required';
+            $data['status'] = FALSE;
+        }else if(!is_numeric($this->input->post('contact'))){
+            $data['inputerror'][] = 'contact';
+            $data['error_string'][] = 'Number Only';
+            $data['status'] = FALSE;
+        }else if(strlen($this->input->post('contact'))<10 || strlen($this->input->post('contact'))>13){
+            $data['inputerror'][] = 'contact';
+            $data['error_string'][] = 'Minimum 10 number & Maximum 13 number';
             $data['status'] = FALSE;
         }
 

@@ -1,11 +1,10 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed !');
 
-class Data extends CI_Model
-{
-  public function __construct()
-  {
+class Data extends CI_Model{
+  public function __construct(){
     parent::__construct();
+
   }
 
   public function get_data(){
@@ -57,7 +56,13 @@ class Data extends CI_Model
   }
 
   public function get_notif(){
-    $query = $this->db->query("SELECT * FROM approval WHERE approve IS NULL");
-    return $query->num_rows();
+    $approval = $this->db->query("SELECT * FROM approval WHERE approve IS NULL")->num_rows();
+    $total = $this->db->query("SELECT * FROM approval WHERE approve = '2'")->num_rows();
+    return $approval+$total;
+  }
+
+  public function get_list(){
+    $query = $this->db->query("SELECT * FROM approval WHERE approve IS NULL OR approve = '2'");
+    return $query->result_array();
   }
 }
