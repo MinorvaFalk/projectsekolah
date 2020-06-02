@@ -10,11 +10,9 @@
 		<tr>
 			<td>ID Subject</td>
 			<td>Nama Siswa</td>
-			<td>Nama Guru</td>
 			<td>Nilai Tugas</td>
 			<td>Nilai UTS</td>
 			<td>Nilai UAS</td>
-			<td>Komplain</td>
 			<td>Action</td>
 		</tr>
 	</thead>
@@ -23,11 +21,9 @@
             echo '<tr>
             <td>'.$row['id_subject'].'</td>
             <td>'.$row['namasiswa'].'</td>
-            <td>'.$row['namaguru'].'</td>
             <td>'.$row['nilai_tugas'].'</td>
             <td>'.$row['nilai_uts'].'</td>
 			<td>'.$row['nilai_uas'].'</td>
-			<td>'.$row['komplain'].'</td>
             <td>' ?>
 		<button type="button" class="btn btn-primary" onclick="edit_data('<?=$row['id']?>')" data-toggle="modal"
 			data-target="#editmodal">Edit</button>
@@ -40,11 +36,9 @@
 		<tr>
 			<th>ID Subject</th>
 			<th>Nama Siswa</th>
-			<th>Nama Guru</th>
 			<th>Nilai Tugas</th>
 			<th>Nilai UTS</th>
 			<th>Nilai UAS</th>
-			<th>Komplain</th>
 			<th>Action</th>
 		</tr>
 	</tfoot>
@@ -64,7 +58,7 @@
 						<label for="id_subject">ID Subject</label>
 						<!-- <input type="text" disabled name="id_subject" value="" class="form-control" id="id_subject" /> -->
 						<select class="form-control" name="id_subject">
-							
+
 							<?php foreach($subject as $i):?>
 							<option value="<?=$i['id_subject']?>"><?=$i['id_subject']?></option>
 							<?php endforeach;?>
@@ -74,32 +68,17 @@
 						</div>
 					</div>
 
-					<div class="form-row">
-						<div class="form-group col-md-6">
-							<label>Nama Siswa</label>
-							<select class="form-control" name="id_siswa">
-								
-								<?php foreach($siswa as $i):?>
-								<option value="<?=$i['id_siswa']?>"><?=$i['first_name'].' '.$i['last_name']?></option>
-								<?php endforeach;?>
-							</select>
-							<div class="invalid-feedback">
-								Required
-							</div>
-						</div>
 
-						<div class="form-group col-md-6">
-							<label>Nama Guru</label>
-							<select class="form-control" name="id_pengajar">
-								
-								<?php foreach($guru as $i):?>
-								<option value="<?=$i['id_pengajar']?>"><?=$i['first_name'].' '.$i['last_name']?>
-								</option>
-								<?php endforeach;?>
-							</select>
-							<div class="invalid-feedback">
-								Required
-							</div>
+					<div class="form-group">
+						<label>Nama Siswa</label>
+						<select class="form-control" name="id_siswa">
+
+							<?php foreach($siswa as $i):?>
+							<option value="<?=$i['id_siswa']?>"><?=$i['first_name'].' '.$i['last_name']?></option>
+							<?php endforeach;?>
+						</select>
+						<div class="invalid-feedback">
+							Required
 						</div>
 					</div>
 
@@ -129,11 +108,6 @@
 						</div>
 					</div>
 
-					<div class="form-group">
-						<label for="komplain">Komplain</label>
-						<input type="text" name="komplain" value="" class="form-control" id="komplain" />
-
-					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 						<button type="button" onclick="save()" class="btn btn-primary">Save</button>
@@ -158,26 +132,19 @@
 			success: function (data) {
 				$('[name="id_siswa"] option').each(function () {
 					if ($(this).val() == data.id_siswa) {
-						$(this).attr('selected','selected');
+						$(this).attr('selected', 'selected');
 					}
 				});
 				$('[name="id_subject"] option').each(function () {
 					$(this).show();
 					if ($(this).val() == data.id_subject) {
-						$(this).attr('selected','selected');
-					}
-				});
-				$('[name="id_pengajar"] option').each(function () {
-					if ($(this).val() == data.id_pengajar) {
-						$(this).attr('selected','selected');
+						$(this).attr('selected', 'selected');
 					}
 				});
 				$('[name="id"]').val(data.id);
 				$('[name="nilai_tugas"]').val(data.nilai_tugas);
 				$('[name="nilai_uts"]').val(data.nilai_uts);
 				$('[name="nilai_uas"]').val(data.nilai_uas);
-				
-
 
 			},
 			error: function (jqXHR, textStatus, errorThrown) {

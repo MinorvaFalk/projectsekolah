@@ -11,11 +11,16 @@ class Student_model extends CI_Model{
         CONCAT(g.first_name, ' ',g.last_name) as guru, komplain
         FROM nilai_siswa n
         JOIN siswa s on n.id_siswa = s.id_siswa
-        JOIN guru g on n.id_pengajar = g.id_pengajar
-        NATURAL JOIN subject
+        NATURAL JOIN subject sub
+        JOIN guru g on sub.id_pengajar = g.id_pengajar
         WHERE s.user_id = '$id'");
         return $query->result_array();
         
+    }
+
+    function get_subject(){
+        $query = $this->db->query("SELECT * FROM subject");
+        return $query->result_array();
     }
 
     function get_guru($id){
@@ -46,9 +51,19 @@ class Student_model extends CI_Model{
         return $query->row_array();
     }
 
+    function get_nilai_siswa($id){
+        $query = $this->db->get_where('nilai_siswa', array('id_siswa' => $id));
+        return $query->result_array();
+    }
+
     function get_profile($id){
         $query = $this->db->get_where('siswa', array('user_id' => $id));
         return $query->row_array();
+    }
+
+    function take_subject($params){
+        $this->db->insert('nilai_siswa',$params);
+        return $this->db->insert_id();
     }
 
     function edit_siswa($params){

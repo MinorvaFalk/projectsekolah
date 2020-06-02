@@ -49,7 +49,7 @@ class Register extends CI_Controller {
         ';
         if($data->num_rows() >0){
             foreach($data->result() as $row){
-                if($row->approve != NULL){
+                if($row->approve != 0 && $row->approve != 2){
                     $status = '<a class="ui teal tag label" >Approved</a>';    
                 } else $status = '<a class="ui red tag label">Waiting</a>';
                 $output .='<tr>
