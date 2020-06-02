@@ -68,7 +68,7 @@ function getNilai($tugas, $uts, $uas){
 			<div class="col-sm-4">
 				<div class="shadow-sm bg-white rounded">
 					<div class="list-group">
-						<a href="" class="list-group-item list-group-item-action active">
+						<a class="list-group-item list-group-item-action list-group-item-warning">
 							<div class="d-flex w-100 justify-content-between">
 								<h5 class="mb-1">Notification
 									<span id="notif" class="badge badge-warning badge-pill"></span></h5>
