@@ -30,6 +30,7 @@ class Admin extends CI_Controller{
             $siswa['kelas'] = $this->data->get_class();
             $data['table'] = $this->load->view('layouts/table_siswa',$siswa, TRUE);
         }elseif($table == 'subject'){
+            $subject['guru'] = $this->data->get_guru();
             $subject['data'] = $this->data->get_subject();
             $data['table'] = $this->load->view('layouts/table_subject',$subject, TRUE);
         }elseif($table == 'class'){
@@ -39,7 +40,6 @@ class Admin extends CI_Controller{
         }elseif($table == 'grade'){
             $grade['siswa'] = $this->data->get_data();
             $grade['data'] = $this->data->get_nilai();
-            $grade['guru'] = $this->data->get_guru();
             $grade['subject'] = $this->data->get_subject();
             $data['table'] = $this->load->view('layouts/table_grade',$grade, TRUE);
         }

@@ -58,7 +58,7 @@ class Data extends CI_Model{
   }
 
   public function get_guru(){
-    $query = $this->db->query("SELECT * FROM guru NATURAL JOIN credentials LEFT JOIN kelas USING (id_pengajar)");
+    $query = $this->db->query("SELECT * FROM guru");
     return $query->result_array();
   }
 
@@ -77,15 +77,18 @@ class Data extends CI_Model{
   }
 
   public function get_subject(){
-    $query = $this->db->query("SELECT id_subject, nama_subject
-    FROM subject");
+    $query = $this->db->query("SELECT *,
+    CONCAT(first_name,' ',last_name) as guru
+    FROM subject
+    NATURAL JOIN guru");
     return $query->result_array();
   }
 
   public function get_nilai(){
-    $query = $this->db->query("SELECT *, CONCAT(s.first_name,' ',s.last_name) AS namasiswa, CONCAT(g.first_name,' ',g.last_name) AS namaguru, nilai_tugas, nilai_uts, nilai_uas 
+    $query = $this->db->query("SELECT *, 
+    CONCAT(s.first_name,' ',s.last_name) AS namasiswa, nilai_tugas, nilai_uts, nilai_uas 
     FROM nilai_siswa n 
-    INNER JOIN guru g ON n.id_pengajar = g.id_pengajar 
+    NATURAL JOIN subject
     INNER JOIN siswa s ON n.id_siswa = s.id_siswa");
     return $query->result_array();
   }

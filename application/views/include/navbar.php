@@ -1,11 +1,21 @@
+<?php
+function roleCheck(){
+	if($_SESSION['role'] == 'A'){
+		echo 'Admin';
+	}elseif($_SESSION['role'] == 'G'){
+		echo 'Teacher';
+	}else echo 'Student';
+}
+
+function profileCheck(){
+	if($_SESSION['role'] == 'G'){
+		echo site_url('teacher/menu/profile');
+	}else echo site_url('student/menu/profile');
+}
+?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 	<a class="navbar-brand" href="#">
-		<?php 
-        if($_SESSION['role'] == 'A'){
-            echo 'Admin';
-        }elseif($_SESSION['role'] == 'G'){
-            echo 'Teacher';
-        }else echo 'Student';?>
+		<?php roleCheck(); ?>
 	</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
 		aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,7 +53,7 @@
 				Menu
 			</button>
 			<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-				<a class="dropdown-item" href="<?= site_url('student/menu/profile');?> ">Profile</a>
+				<a class="dropdown-item" href="<?php profileCheck()?> ">Profile</a>
 				<?=anchor('/main/logout', 'Logout', 'class="dropdown-item"');?>
 			</div>
 		</div>

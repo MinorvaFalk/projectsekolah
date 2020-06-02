@@ -7,10 +7,12 @@ function checkType($id){
 	}else echo 'Approval';
 }
 
-function checkRole($email){
+function checkRole($email,$id){
 	if(strpos($email,'admin')){
 		echo 'Admin';
 	}elseif(strpos($email,'teacher')){
+		echo 'Teacher';
+	}elseif(substr($id,1,1)=='G'){
 		echo 'Teacher';
 	}else echo 'Student';
 }
@@ -143,7 +145,7 @@ function checkRole($email){
 										<p class="mb-1">
 											<?php checkType($i['approve_id']);?> #<?=strtoupper($i['approve_id'])?></p>
 										<small class="text-muted">
-											<?php checkRole($i['email'])?>
+											<?php checkRole($i['email'],$i['approve_id'])?>
 										</small>
 									</a>
 									<?php endforeach?>
@@ -160,7 +162,7 @@ function checkRole($email){
 	</div>
 	<!-- /#wrapper -->
 
-	<!-- Edit Modal -->
+	<!-- Approve Modal -->
 	<div class="modal fade" id="approval" tabindex="-1" role="dialog">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
@@ -168,7 +170,7 @@ function checkRole($email){
 					<h5 class="modal-title" id="exampleModalLabel">Approval</h5>
 				</div>
 				<div class="modal-body">
-					<form id="edit">
+					<form id="approve">
 
 						<div class="form-group">
 							<label for="approve_id">ID Approval</label>
@@ -221,7 +223,7 @@ function checkRole($email){
 			</div>
 		</div>
 	</div>
-	<!-- Edit Modal -->
+	<!-- Approve Modal -->
 
 	<script>
 		$('.collapse').collapse('hide')
@@ -231,7 +233,10 @@ function checkRole($email){
 		});
 		$(document).ready(function () {
 			$('#example').DataTable({
-				responsive: true
+				responsive: true,
+				"scrollY":        "270px",
+        		"scrollCollapse": true,
+        		"paging":         false
 			});
 			$.ajax({
 				url: "<?=site_url('/admin/getnotif')?>",
@@ -243,7 +248,7 @@ function checkRole($email){
 		});
 
 		function view(id) {
-			$('#edit')[0].reset();
+			$('#approve')[0].reset();
 			$('.form-control').removeClass('is-invalid');
 			$.ajax({
 				url: "<?php echo site_url('admin/get_approval')?>/" + id,
@@ -275,7 +280,7 @@ function checkRole($email){
 			$.ajax({
 				url: uri,
 				type: "POST",
-				data: $('#edit').serialize(),
+				data: $('#approve').serialize(),
 				dataType: "JSON",
 				success: function (data) {
 
