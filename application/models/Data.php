@@ -58,7 +58,11 @@ class Data extends CI_Model{
   }
 
   public function get_guru(){
-    $query = $this->db->query("SELECT * FROM guru");
+    $query = $this->db->query("SELECT g.id_pengajar, g.first_name, g.first_name, g.last_name, 
+    g.contact, g.address, email, id_kelas, keterangan
+    FROM guru g
+    LEFT JOIN kelas k ON g.id_pengajar = k.id_pengajar
+    NATURAL JOIN credentials");
     return $query->result_array();
   }
 
