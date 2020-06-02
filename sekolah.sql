@@ -1,19 +1,16 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.4
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 02, 2020 at 01:37 AM
+-- Generation Time: Jun 01, 2020 at 08:51 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.3.2
 
-SET SQL_MODE
-= "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT
-= 0;
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
-SET time_zone
-= "+00:00";
+SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -31,36 +28,24 @@ SET time_zone
 -- Table structure for table `approval`
 --
 
-CREATE TABLE `approval`
-(
-  `approve_id` varchar
-(255) NOT NULL,
-  `approve` int
-(1) DEFAULT NULL,
-  `email` varchar
-(255) DEFAULT NULL,
-  `password` varchar
-(255) DEFAULT NULL,
-  `first_name` varchar
-(255) NOT NULL,
-  `last_name` varchar
-(255) DEFAULT NULL,
-  `contact` varchar
-(255) NOT NULL,
-  `address` varchar
-(255) NOT NULL
+DROP TABLE IF EXISTS `approval`;
+CREATE TABLE `approval` (
+  `approve_id` varchar(255) NOT NULL,
+  `approve` int(1) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `first_name` varchar(255) NOT NULL,
+  `last_name` varchar(255) DEFAULT NULL,
+  `contact` varchar(255) NOT NULL,
+  `address` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `approval`
 --
 
-INSERT INTO `approval` (`
-approve_id`,
-`approve
-`, `email`, `password`, `first_name`, `last_name`, `contact`, `address`) VALUES
-('A5ebfd66becdc3', 0, 'hello.new@admin.school.com', '$2y$10$5J1jONY2YxtIF2Yyki51P.0HpXbopGKWQX/odyJVN8GQcLpkNAUSu', 'Hello', 'New World', '85922112000', 'Jl. Kenangan Mantan'),
-('A5ed5a9c385735', 1, 'satan.ruler@teacher.school.com', '$2y$10$eEO26/BIaCA7Ma5l1aydvuTGOKnyPvisXIYKC/npc06yKWG0ldor2', 'Satan', 'Ruler Of Hell', '85922112000', 'Neraka abadi');
+INSERT INTO `approval` (`approve_id`, `approve`, `email`, `password`, `first_name`, `last_name`, `contact`, `address`) VALUES
+('A5ebfd66becdc3', 0, 'hello.new@admin.school.com', '$2y$10$5J1jONY2YxtIF2Yyki51P.0HpXbopGKWQX/odyJVN8GQcLpkNAUSu', 'Hello', 'New World', '85922112000', 'Jl. Kenangan Mantan');
 
 -- --------------------------------------------------------
 
@@ -68,29 +53,20 @@ approve_id`,
 -- Table structure for table `credentials`
 --
 
-CREATE TABLE `credentials`
-(
-  `user_id` varchar
-(255) NOT NULL,
-  `username` varchar
-(255) NOT NULL,
-  `email` varchar
-(255) NOT NULL,
-  `password` varchar
-(255) NOT NULL
+DROP TABLE IF EXISTS `credentials`;
+CREATE TABLE `credentials` (
+  `user_id` varchar(255) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `credentials`
 --
 
-INSERT INTO `credentials` (`
-user_id`,
-`username
-`, `email`, `password`) VALUES
+INSERT INTO `credentials` (`user_id`, `username`, `email`, `password`) VALUES
 ('A000000001', 'james.bondan', 'james.bondan@admin.school.com', '$2y$10$GLiHdrOH6qmE16lljJCfK.ETWuQwGpRl1dPKkvUXHpWbOZiIkZCSu'),
-('A1411521938', 'satan.king', 'satan.king@teacher.school.com', '$2y$10$qFjfOHHCWGaCFJn3cNGW4uS1uLzTU8gzZO3zUXo2bImoGwNW0URDm'),
-('A2090585970', 'satan.ruler', 'satan.ruler@teacher.school.com', '$2y$10$eEO26/BIaCA7Ma5l1aydvuTGOKnyPvisXIYKC/npc06yKWG0ldor2'),
 ('G000000001', 'budi.sutejo', 'budi.sutejo@teacher.school.com', '$2y$10$/PTC517RIFJ17cfAaTIFjuUoESUOIFJxYhFIU3/Qe.6FqZFeKrSQW'),
 ('G000000002', 'budi.sutarno', 'budi.sutarno@teacher.school.com', '$2y$12$ECkY4FURTstoLmN2UfJI6eBVNolt8oP4jXr54NsRgJOkhLy/v0D0W'),
 ('G000000003', 'rudi.jatmoko', 'rudi.jatmoko@teacher.school.com', '$2y$12$YfHpqujfYZbeuf0RjjGx0.DiBK/9UP1ZPSo5yMCh20Sj7awSCj6We'),
@@ -128,38 +104,27 @@ user_id`,
 -- Table structure for table `guru`
 --
 
-CREATE TABLE `guru`
-(
-  `id_pengajar` varchar
-(255) NOT NULL,
-  `user_id` varchar
-(255) NOT NULL,
-  `first_name` varchar
-(255) NOT NULL,
-  `last_name` varchar
-(255) DEFAULT NULL,
-  `contact` varchar
-(13) NOT NULL,
-  `address` varchar
-(255) NOT NULL,
-  `keterangan` varchar
-(255) DEFAULT NULL
+DROP TABLE IF EXISTS `guru`;
+CREATE TABLE `guru` (
+  `id_pengajar` varchar(255) NOT NULL,
+  `user_id` varchar(255) NOT NULL,
+  `first_name` varchar(255) NOT NULL,
+  `last_name` varchar(255) DEFAULT NULL,
+  `contact` varchar(13) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `keterangan` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `guru`
 --
 
-INSERT INTO `guru` (`
-id_pengajar`,
-`user_id
-`, `first_name`, `last_name`, `contact`, `address`, `keterangan`) VALUES
-('G0001', 'G000000001', 'Budi', 'Sutedjo', '6285911003300', 'Jl. jalan ke luar rumah', NULL),
+INSERT INTO `guru` (`id_pengajar`, `user_id`, `first_name`, `last_name`, `contact`, `address`, `keterangan`) VALUES
+('G0001', 'G000000001', 'Budi', 'Sutedjo', '6285911003300', 'Jl. jalan ke luar rumah', ''),
 ('G0002', 'G000000002', 'Budi', 'Sutarno', '628123551241', 'Jl. kemana hatimu sedih', NULL),
 ('G0003', 'G000000003', 'Rudi', 'Jatmoko', '62124145171', 'Jl. tidur subuh', NULL),
 ('G0004', 'G000000004', 'Ahmad', 'Sutejo', '6291296241', 'Jl. kenangan indah', NULL),
 ('G0005', 'G000000005', 'Bryan', 'McKnight', '1257182624', 'Amsterdam', NULL),
-('G477053', 'A2090585970', 'Satan', 'Ruler Of Hell', '85922112000', 'Neraka abadi', NULL),
 ('GA001', 'A000000001', 'James', 'Bondan Prasetyo', '6282911301696', 'JL. Everything is gonna be alright', '');
 
 -- --------------------------------------------------------
@@ -168,30 +133,23 @@ id_pengajar`,
 -- Table structure for table `kelas`
 --
 
-CREATE TABLE `kelas`
-(
-  `id_kelas` varchar
-(5) NOT NULL,
-  `nama_kelas` varchar
-(255) NOT NULL,
-  `id_pengajar` varchar
-(255) DEFAULT NULL
+DROP TABLE IF EXISTS `kelas`;
+CREATE TABLE `kelas` (
+  `id_kelas` varchar(5) NOT NULL,
+  `nama_kelas` varchar(255) NOT NULL,
+  `id_pengajar` varchar(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `kelas`
 --
 
-INSERT INTO `kelas` (`
-id_kelas`,
-`nama_kelas
-`, `id_pengajar`) VALUES
+INSERT INTO `kelas` (`id_kelas`, `nama_kelas`, `id_pengajar`) VALUES
 ('A', 'IPA', 'G0001'),
 ('B', 'IPA', 'G0002'),
 ('C', 'IPS', 'G0003'),
 ('D', 'IPS', 'G0004'),
-('E', 'IPS', 'G0005'),
-('MAGIC', 'Ilmu Hitam', 'G477053');
+('E', 'IPS', 'G0005');
 
 -- --------------------------------------------------------
 
@@ -199,101 +157,88 @@ id_kelas`,
 -- Table structure for table `nilai_siswa`
 --
 
-CREATE TABLE `nilai_siswa`
-(
-  `id` int
-(11) NOT NULL,
-  `id_subject` varchar
-(5) NOT NULL,
-  `id_siswa` varchar
-(255) NOT NULL,
-  `nilai_tugas` int
-(3) NOT NULL,
-  `nilai_uts` int
-(3) NOT NULL,
-  `nilai_uas` int
-(3) NOT NULL,
-  `komplain` varchar
-(255) DEFAULT NULL
+DROP TABLE IF EXISTS `nilai_siswa`;
+CREATE TABLE `nilai_siswa` (
+  `id` int(11) NOT NULL,
+  `id_subject` varchar(5) NOT NULL,
+  `id_siswa` varchar(5) NOT NULL,
+  `id_pengajar` varchar(5) NOT NULL,
+  `nilai_tugas` int(3) NOT NULL,
+  `nilai_uts` int(3) NOT NULL,
+  `nilai_uas` int(3) NOT NULL,
+  `komplain` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `nilai_siswa`
 --
 
-INSERT INTO `nilai_siswa` (`
-id`,
-`id_subject
-`, `id_siswa`, `nilai_tugas`, `nilai_uts`, `nilai_uas`, `komplain`) VALUES
-(1, 'BIO1', 'S0001', 70, 90, 100, NULL),
-(2, 'BIO1', 'S0002', 76, 49, 55, NULL),
-(3, 'BIO1', 'S0003', 65, 48, 87, NULL),
-(4, 'BIO1', 'S0004', 56, 75, 66, NULL),
-(5, 'BIO1', 'S0005', 76, 84, 69, NULL),
-(6, 'BIO1', 'S0006', 57, 67, 99, NULL),
-(7, 'BIO1', 'S0007', 68, 75, 45, NULL),
-(8, 'BIO1', 'S0008', 76, 87, 73, NULL),
-(9, 'BIO1', 'S0009', 55, 58, 48, NULL),
-(10, 'BIO1', 'S0010', 86, 34, 66, NULL),
-(11, 'FIS1', 'S0001', 68, 75, 64, 'Tolong di cek kembali bu'),
-(12, 'FIS1', 'S0002', 88, 87, 68, NULL),
-(13, 'FIS1', 'S0003', 55, 87, 67, NULL),
-(14, 'FIS1', 'S0004', 68, 83, 69, NULL),
-(15, 'FIS1', 'S0005', 76, 59, 77, NULL),
-(16, 'FIS1', 'S0006', 81, 75, 66, NULL),
-(17, 'FIS1', 'S0007', 81, 55, 59, NULL),
-(18, 'FIS1', 'S0008', 91, 88, 89, NULL),
-(19, 'FIS1', 'S0009', 66, 85, 77, NULL),
-(20, 'FIS1', 'S0010', 91, 90, 84, NULL),
-(21, 'EKO1', 'S0011', 56, 76, 89, NULL),
-(22, 'EKO1', 'S0012', 78, 55, 89, NULL),
-(23, 'EKO1', 'S0013', 88, 88, 99, NULL),
-(24, 'EKO1', 'S0014', 78, 48, 96, NULL),
-(25, 'EKO1', 'S0015', 78, 59, 44, NULL),
-(26, 'EKO1', 'S0016', 77, 88, 99, NULL),
-(27, 'EKO1', 'S0017', 99, 78, 56, NULL),
-(28, 'EKO1', 'S0018', 48, 56, 24, NULL),
-(29, 'EKO1', 'S0019', 78, 59, 64, NULL),
-(30, 'EKO1', 'S0020', 59, 68, 78, NULL),
-(31, 'EKO1', 'S0021', 55, 26, 49, NULL),
-(32, 'EKO1', 'S0022', 84, 86, 75, NULL),
-(33, 'EKO1', 'S0023', 78, 48, 96, NULL),
-(34, 'EKO1', 'S0024', 85, 96, 74, NULL),
-(35, 'EKO1', 'S0025', 85, 74, 96, NULL),
-(36, 'GEO1', 'S0011', 74, 72, 94, NULL),
-(37, 'GEO1', 'S0012', 81, 93, 75, NULL),
-(38, 'GEO1', 'S0013', 85, 96, 74, NULL),
-(39, 'GEO1', 'S0014', 65, 68, 87, NULL),
-(40, 'GEO1', 'S0015', 65, 65, 48, NULL),
-(41, 'GEO1', 'S0016', 78, 52, 96, NULL),
-(42, 'GEO1', 'S0017', 84, 21, 95, NULL),
-(43, 'GEO1', 'S0018', 78, 78, 52, NULL),
-(44, 'GEO1', 'S0019', 48, 59, 67, NULL),
-(45, 'GEO1', 'S0020', 59, 74, 96, NULL),
-(46, 'GEO1', 'S0021', 78, 45, 96, NULL),
-(47, 'GEO1', 'S0022', 78, 95, 62, NULL),
-(48, 'GEO1', 'S0023', 78, 94, 62, NULL),
-(49, 'GEO1', 'S0024', 78, 59, 62, NULL),
-(50, 'GEO1', 'S0025', 78, 95, 64, NULL),
-(51, 'SEJ1', 'S0011', 45, 78, 95, NULL),
-(52, 'SEJ1', 'S0012', 95, 78, 65, NULL),
-(53, 'SEJ1', 'S0013', 78, 95, 95, NULL),
-(54, 'SEJ1', 'S0014', 78, 49, 65, NULL),
-(55, 'SEJ1', 'S0015', 65, 98, 87, NULL),
-(56, 'SEJ1', 'S0016', 95, 68, 79, NULL),
-(57, 'SEJ1', 'S0017', 54, 65, 79, NULL),
-(58, 'SEJ1', 'S0018', 87, 95, 64, NULL),
-(59, 'SEJ1', 'S0019', 87, 94, 68, NULL),
-(60, 'SEJ1', 'S0020', 89, 78, 64, NULL),
-(61, 'SEJ1', 'S0021', 65, 34, 18, NULL),
-(62, 'SEJ1', 'S0022', 98, 65, 79, NULL),
-(63, 'SEJ1', 'S0023', 98, 98, 98, NULL),
-(64, 'SEJ1', 'S0024', 78, 45, 97, NULL),
-(65, 'SEJ1', 'S0025', 78, 94, 65, NULL),
-(66, 'SEJ1', 'S0001', 75, 69, 100, NULL),
-(67, 'EKO1', 'S0001', 75, 69, 100, NULL),
-(68, 'KOM1', 'S0001', 0, 0, 0, NULL),
-(69, 'SU1', 'S0001', 75, 69, 70, NULL);
+INSERT INTO `nilai_siswa` (`id`, `id_subject`, `id_siswa`, `id_pengajar`, `nilai_tugas`, `nilai_uts`, `nilai_uas`, `komplain`) VALUES
+(1, 'BIO1', 'S0001', 'G0001', 60, 76, 66, '0'),
+(2, 'BIO1', 'S0002', 'G0001', 76, 49, 55, NULL),
+(3, 'BIO1', 'S0003', 'G0001', 65, 48, 87, NULL),
+(4, 'BIO1', 'S0004', 'G0001', 56, 75, 66, NULL),
+(5, 'BIO1', 'S0005', 'G0001', 76, 84, 69, NULL),
+(6, 'BIO1', 'S0006', 'G0001', 57, 67, 99, NULL),
+(7, 'BIO1', 'S0007', 'G0001', 68, 75, 45, NULL),
+(8, 'BIO1', 'S0008', 'G0001', 76, 87, 73, NULL),
+(9, 'BIO1', 'S0009', 'G0001', 55, 58, 48, NULL),
+(10, 'BIO1', 'S0010', 'G0001', 86, 34, 66, NULL),
+(11, 'FIS1', 'S0001', 'G0002', 68, 75, 64, NULL),
+(12, 'FIS1', 'S0002', 'G0002', 88, 87, 68, NULL),
+(13, 'FIS1', 'S0003', 'G0002', 55, 87, 67, NULL),
+(14, 'FIS1', 'S0004', 'G0002', 68, 83, 69, NULL),
+(15, 'FIS1', 'S0005', 'G0002', 76, 59, 77, NULL),
+(16, 'FIS1', 'S0006', 'G0002', 81, 75, 66, NULL),
+(17, 'FIS1', 'S0007', 'G0002', 81, 55, 59, NULL),
+(18, 'FIS1', 'S0008', 'G0002', 91, 88, 89, NULL),
+(19, 'FIS1', 'S0009', 'G0002', 66, 85, 77, NULL),
+(20, 'FIS1', 'S0010', 'G0002', 91, 90, 84, NULL),
+(21, 'EKO1', 'S0011', 'G0003', 56, 76, 89, NULL),
+(22, 'EKO1', 'S0012', 'G0003', 78, 55, 89, NULL),
+(23, 'EKO1', 'S0013', 'G0003', 88, 88, 99, NULL),
+(24, 'EKO1', 'S0014', 'G0003', 78, 48, 96, NULL),
+(25, 'EKO1', 'S0015', 'G0003', 78, 59, 44, NULL),
+(26, 'EKO1', 'S0016', 'G0003', 77, 88, 99, NULL),
+(27, 'EKO1', 'S0017', 'G0003', 99, 78, 56, NULL),
+(28, 'EKO1', 'S0018', 'G0003', 48, 56, 24, NULL),
+(29, 'EKO1', 'S0019', 'G0003', 78, 59, 64, NULL),
+(30, 'EKO1', 'S0020', 'G0003', 59, 68, 78, NULL),
+(31, 'EKO1', 'S0021', 'G0003', 55, 26, 49, NULL),
+(32, 'EKO1', 'S0022', 'G0003', 84, 86, 75, NULL),
+(33, 'EKO1', 'S0023', 'G0003', 78, 48, 96, NULL),
+(34, 'EKO1', 'S0024', 'G0003', 85, 96, 74, NULL),
+(35, 'EKO1', 'S0025', 'G0003', 85, 74, 96, NULL),
+(36, 'GEO1', 'S0011', 'G0004', 74, 72, 94, NULL),
+(37, 'GEO1', 'S0012', 'G0004', 81, 93, 75, NULL),
+(38, 'GEO1', 'S0013', 'G0004', 85, 96, 74, NULL),
+(39, 'GEO1', 'S0014', 'G0004', 65, 68, 87, NULL),
+(40, 'GEO1', 'S0015', 'G0004', 65, 65, 48, NULL),
+(41, 'GEO1', 'S0016', 'G0004', 78, 52, 96, NULL),
+(42, 'GEO1', 'S0017', 'G0004', 84, 21, 95, NULL),
+(43, 'GEO1', 'S0018', 'G0004', 78, 78, 52, NULL),
+(44, 'GEO1', 'S0019', 'G0004', 48, 59, 67, NULL),
+(45, 'GEO1', 'S0020', 'G0004', 59, 74, 96, NULL),
+(46, 'GEO1', 'S0021', 'G0004', 78, 45, 96, NULL),
+(47, 'GEO1', 'S0022', 'G0004', 78, 95, 62, NULL),
+(48, 'GEO1', 'S0023', 'G0004', 78, 94, 62, NULL),
+(49, 'GEO1', 'S0024', 'G0004', 78, 59, 62, NULL),
+(50, 'GEO1', 'S0025', 'G0004', 78, 95, 64, NULL),
+(51, 'SEJ1', 'S0011', 'G0005', 45, 78, 95, NULL),
+(52, 'SEJ1', 'S0012', 'G0005', 95, 78, 65, NULL),
+(53, 'SEJ1', 'S0013', 'G0005', 78, 95, 95, NULL),
+(54, 'SEJ1', 'S0014', 'G0005', 78, 49, 65, NULL),
+(55, 'SEJ1', 'S0015', 'G0005', 65, 98, 87, NULL),
+(56, 'SEJ1', 'S0016', 'G0005', 95, 68, 79, NULL),
+(57, 'SEJ1', 'S0017', 'G0005', 54, 65, 79, NULL),
+(58, 'SEJ1', 'S0018', 'G0005', 87, 95, 64, NULL),
+(59, 'SEJ1', 'S0019', 'G0005', 87, 94, 68, NULL),
+(60, 'SEJ1', 'S0020', 'G0005', 89, 78, 64, NULL),
+(61, 'SEJ1', 'S0021', 'G0005', 65, 34, 18, NULL),
+(62, 'SEJ1', 'S0022', 'G0005', 98, 65, 79, NULL),
+(63, 'SEJ1', 'S0023', 'G0005', 98, 98, 98, NULL),
+(64, 'SEJ1', 'S0024', 'G0005', 78, 45, 97, NULL),
+(65, 'SEJ1', 'S0025', 'G0005', 78, 94, 65, NULL);
 
 -- --------------------------------------------------------
 
@@ -301,34 +246,23 @@ id`,
 -- Table structure for table `siswa`
 --
 
-CREATE TABLE `siswa`
-(
-  `id_siswa` varchar
-(255) NOT NULL,
-  `user_id` varchar
-(255) NOT NULL,
-  `id_kelas` varchar
-(5) DEFAULT NULL,
-  `first_name` varchar
-(255) NOT NULL,
-  `last_name` varchar
-(255) DEFAULT NULL,
-  `contact` varchar
-(255) NOT NULL,
-  `address` varchar
-(255) NOT NULL,
-  `keterangan` varchar
-(255) DEFAULT NULL
+DROP TABLE IF EXISTS `siswa`;
+CREATE TABLE `siswa` (
+  `id_siswa` varchar(255) NOT NULL,
+  `user_id` varchar(255) NOT NULL,
+  `id_kelas` varchar(5) DEFAULT NULL,
+  `first_name` varchar(255) NOT NULL,
+  `last_name` varchar(255) DEFAULT NULL,
+  `contact` varchar(255) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `keterangan` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `siswa`
 --
 
-INSERT INTO `siswa` (`
-id_siswa`,
-`user_id
-`, `id_kelas`, `first_name`, `last_name`, `contact`, `address`, `keterangan`) VALUES
+INSERT INTO `siswa` (`id_siswa`, `user_id`, `id_kelas`, `first_name`, `last_name`, `contact`, `address`, `keterangan`) VALUES
 ('S0001', 'S000000001', 'A', 'Kinanti', 'Prima', '6280000000000', 'Jl. Apapun saya oke', NULL),
 ('S0002', 'S000000002', 'A', 'Edgar', 'Christian', '62129481414', 'Jl. jalan ke pulau jawa', NULL),
 ('S0003', 'S000000003', 'A', 'Axel', 'Patria', '62123428174', 'Jl. tekun dan soleh', NULL),
@@ -361,31 +295,22 @@ id_siswa`,
 -- Table structure for table `subject`
 --
 
-CREATE TABLE `subject`
-(
-  `id_subject` varchar
-(5) NOT NULL,
-  `nama_subject` varchar
-(255) NOT NULL,
-  `id_pengajar` varchar
-(255) DEFAULT NULL
+DROP TABLE IF EXISTS `subject`;
+CREATE TABLE `subject` (
+  `id_subject` varchar(5) NOT NULL,
+  `nama_subject` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `subject`
 --
 
-INSERT INTO `subject` (`
-id_subject`,
-`nama_subject
-`, `id_pengajar`) VALUES
-('BIO1', 'Biologi 1', 'G0001'),
-('EKO1', 'Ekonomi', 'G0002'),
-('FIS1', 'Fisika', 'G0003'),
-('GEO1', 'Geografi', 'G0004'),
-('KOM1', 'Computer 1', 'GA001'),
-('SEJ1', 'Sejarah', 'G0005'),
-('SU1', 'Sulap tingkat 1', 'G477053');
+INSERT INTO `subject` (`id_subject`, `nama_subject`) VALUES
+('BIO1', 'Biologi 1'),
+('EKO1', 'Ekonomi'),
+('FIS1', 'Fisika'),
+('GEO1', 'Geografi'),
+('SEJ1', 'Sejarah');
 
 --
 -- Indexes for dumped tables
@@ -395,64 +320,50 @@ id_subject`,
 -- Indexes for table `approval`
 --
 ALTER TABLE `approval`
-ADD PRIMARY KEY
-(`approve_id`);
+  ADD PRIMARY KEY (`approve_id`);
 
 --
 -- Indexes for table `credentials`
 --
 ALTER TABLE `credentials`
-ADD PRIMARY KEY
-(`user_id`);
+  ADD PRIMARY KEY (`user_id`);
 
 --
 -- Indexes for table `guru`
 --
 ALTER TABLE `guru`
-ADD PRIMARY KEY
-(`id_pengajar`),
-ADD KEY `guru_ibfk_1`
-(`user_id`);
+  ADD PRIMARY KEY (`id_pengajar`),
+  ADD KEY `guru_ibfk_1` (`user_id`);
 
 --
 -- Indexes for table `kelas`
 --
 ALTER TABLE `kelas`
-ADD PRIMARY KEY
-(`id_kelas`),
-ADD KEY `kelas_ibfk_1`
-(`id_pengajar`);
+  ADD PRIMARY KEY (`id_kelas`),
+  ADD KEY `kelas_ibfk_1` (`id_pengajar`);
 
 --
 -- Indexes for table `nilai_siswa`
 --
 ALTER TABLE `nilai_siswa`
-ADD PRIMARY KEY
-(`id`),
-ADD KEY `id_siswa`
-(`id_siswa`),
-ADD KEY `id_subject`
-(`id_subject`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_pengajar` (`id_pengajar`),
+  ADD KEY `id_siswa` (`id_siswa`),
+  ADD KEY `id_subject` (`id_subject`);
 
 --
 -- Indexes for table `siswa`
 --
 ALTER TABLE `siswa`
-ADD PRIMARY KEY
-(`id_siswa`),
-ADD KEY `siswa_ibfk_1`
-(`user_id`),
-ADD KEY `siswa_ibfk_2`
-(`id_kelas`);
+  ADD PRIMARY KEY (`id_siswa`),
+  ADD KEY `siswa_ibfk_1` (`user_id`),
+  ADD KEY `siswa_ibfk_2` (`id_kelas`);
 
 --
 -- Indexes for table `subject`
 --
 ALTER TABLE `subject`
-ADD PRIMARY KEY
-(`id_subject`),
-ADD KEY `id_pengajar`
-(`id_pengajar`);
+  ADD PRIMARY KEY (`id_subject`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -462,8 +373,7 @@ ADD KEY `id_pengajar`
 -- AUTO_INCREMENT for table `nilai_siswa`
 --
 ALTER TABLE `nilai_siswa`
-  MODIFY `id` int
-(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- Constraints for dumped tables
@@ -473,67 +383,28 @@ ALTER TABLE `nilai_siswa`
 -- Constraints for table `guru`
 --
 ALTER TABLE `guru`
-ADD CONSTRAINT `guru_ibfk_1` FOREIGN KEY
-(`user_id`) REFERENCES `credentials`
-(`user_id`) ON
-DELETE CASCADE ON
-UPDATE CASCADE;
+  ADD CONSTRAINT `guru_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `credentials` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `kelas`
 --
 ALTER TABLE `kelas`
-ADD CONSTRAINT `kelas_ibfk_1` FOREIGN KEY
-(`id_pengajar`) REFERENCES `guru`
-(`id_pengajar`) ON
-DELETE
-SET NULL
-ON
-UPDATE CASCADE;
+  ADD CONSTRAINT `kelas_ibfk_1` FOREIGN KEY (`id_pengajar`) REFERENCES `guru` (`id_pengajar`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `nilai_siswa`
 --
 ALTER TABLE `nilai_siswa`
-ADD CONSTRAINT `nilai_siswa_ibfk_2` FOREIGN KEY
-(`id_siswa`) REFERENCES `siswa`
-(`id_siswa`) ON
-DELETE CASCADE ON
-UPDATE CASCADE,
-ADD CONSTRAINT `nilai_siswa_ibfk_3` FOREIGN KEY
-(`id_subject`) REFERENCES `subject`
-(`id_subject`) ON
-DELETE CASCADE ON
-UPDATE CASCADE;
+  ADD CONSTRAINT `nilai_siswa_ibfk_1` FOREIGN KEY (`id_pengajar`) REFERENCES `guru` (`id_pengajar`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `nilai_siswa_ibfk_2` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id_siswa`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `nilai_siswa_ibfk_3` FOREIGN KEY (`id_subject`) REFERENCES `subject` (`id_subject`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `siswa`
 --
 ALTER TABLE `siswa`
-ADD CONSTRAINT `siswa_ibfk_1` FOREIGN KEY
-(`user_id`) REFERENCES `credentials`
-(`user_id`) ON
-DELETE CASCADE ON
-UPDATE CASCADE,
-ADD CONSTRAINT `siswa_ibfk_2` FOREIGN KEY
-(`id_kelas`) REFERENCES `kelas`
-(`id_kelas`) ON
-DELETE
-SET NULL
-ON
-UPDATE CASCADE;
-
---
--- Constraints for table `subject`
---
-ALTER TABLE `subject`
-ADD CONSTRAINT `subject_ibfk_1` FOREIGN KEY
-(`id_pengajar`) REFERENCES `guru`
-(`id_pengajar`) ON
-DELETE
-SET NULL
-ON
-UPDATE CASCADE;
+  ADD CONSTRAINT `siswa_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `credentials` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `siswa_ibfk_2` FOREIGN KEY (`id_kelas`) REFERENCES `kelas` (`id_kelas`) ON DELETE SET NULL ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

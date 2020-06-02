@@ -115,7 +115,6 @@ function checkRole($email,$id){
 
 			<div class="container-fluid">
 				<h1 class="mt-4">
-<<<<<<< HEAD
 				<?php if($kategori == NULL){
 				echo 'Dashboard </h1>';
 									echo '<br> <h2>Approval Table</h2>'; ?> </h1>
@@ -147,11 +146,6 @@ function checkRole($email,$id){
 									<?php } ?>
 								</table>
                 <?php }else echo 'Manage '.ucfirst($kategori);?>
-=======
-					<?php if($kategori == NULL){
-				echo 'Dashboard </h1>';?> </h1>
-				<?php }else echo 'Manage '.ucfirst($kategori);?>
->>>>>>> 2b32980d033e7538b5cfddbc06a17bfa3ac892fc
 				</h1>
 				<hr>
 				<?php if(isset($table)){
