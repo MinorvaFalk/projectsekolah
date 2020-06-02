@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 02, 2020 at 12:47 AM
+-- Generation Time: Jun 02, 2020 at 01:37 AM
 -- Server version: 5.7.24
 -- PHP Version: 7.3.2
 
@@ -45,7 +45,8 @@ CREATE TABLE `approval` (
 --
 
 INSERT INTO `approval` (`approve_id`, `approve`, `email`, `password`, `first_name`, `last_name`, `contact`, `address`) VALUES
-('A5ebfd66becdc3', 0, 'hello.new@admin.school.com', '$2y$10$5J1jONY2YxtIF2Yyki51P.0HpXbopGKWQX/odyJVN8GQcLpkNAUSu', 'Hello', 'New World', '85922112000', 'Jl. Kenangan Mantan');
+('A5ebfd66becdc3', 0, 'hello.new@admin.school.com', '$2y$10$5J1jONY2YxtIF2Yyki51P.0HpXbopGKWQX/odyJVN8GQcLpkNAUSu', 'Hello', 'New World', '85922112000', 'Jl. Kenangan Mantan'),
+('A5ed5a9c385735', 1, 'satan.ruler@teacher.school.com', '$2y$10$eEO26/BIaCA7Ma5l1aydvuTGOKnyPvisXIYKC/npc06yKWG0ldor2', 'Satan', 'Ruler Of Hell', '85922112000', 'Neraka abadi');
 
 -- --------------------------------------------------------
 
@@ -67,6 +68,8 @@ CREATE TABLE `credentials` (
 
 INSERT INTO `credentials` (`user_id`, `username`, `email`, `password`) VALUES
 ('A000000001', 'james.bondan', 'james.bondan@admin.school.com', '$2y$10$GLiHdrOH6qmE16lljJCfK.ETWuQwGpRl1dPKkvUXHpWbOZiIkZCSu'),
+('A1411521938', 'satan.king', 'satan.king@teacher.school.com', '$2y$10$qFjfOHHCWGaCFJn3cNGW4uS1uLzTU8gzZO3zUXo2bImoGwNW0URDm'),
+('A2090585970', 'satan.ruler', 'satan.ruler@teacher.school.com', '$2y$10$eEO26/BIaCA7Ma5l1aydvuTGOKnyPvisXIYKC/npc06yKWG0ldor2'),
 ('G000000001', 'budi.sutejo', 'budi.sutejo@teacher.school.com', '$2y$10$/PTC517RIFJ17cfAaTIFjuUoESUOIFJxYhFIU3/Qe.6FqZFeKrSQW'),
 ('G000000002', 'budi.sutarno', 'budi.sutarno@teacher.school.com', '$2y$12$ECkY4FURTstoLmN2UfJI6eBVNolt8oP4jXr54NsRgJOkhLy/v0D0W'),
 ('G000000003', 'rudi.jatmoko', 'rudi.jatmoko@teacher.school.com', '$2y$12$YfHpqujfYZbeuf0RjjGx0.DiBK/9UP1ZPSo5yMCh20Sj7awSCj6We'),
@@ -125,6 +128,7 @@ INSERT INTO `guru` (`id_pengajar`, `user_id`, `first_name`, `last_name`, `contac
 ('G0003', 'G000000003', 'Rudi', 'Jatmoko', '62124145171', 'Jl. tidur subuh', NULL),
 ('G0004', 'G000000004', 'Ahmad', 'Sutejo', '6291296241', 'Jl. kenangan indah', NULL),
 ('G0005', 'G000000005', 'Bryan', 'McKnight', '1257182624', 'Amsterdam', NULL),
+('G477053', 'A2090585970', 'Satan', 'Ruler Of Hell', '85922112000', 'Neraka abadi', NULL),
 ('GA001', 'A000000001', 'James', 'Bondan Prasetyo', '6282911301696', 'JL. Everything is gonna be alright', '');
 
 -- --------------------------------------------------------
@@ -137,7 +141,7 @@ DROP TABLE IF EXISTS `kelas`;
 CREATE TABLE `kelas` (
   `id_kelas` varchar(5) NOT NULL,
   `nama_kelas` varchar(255) NOT NULL,
-  `id_pengajar` varchar(5) NOT NULL
+  `id_pengajar` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -149,7 +153,8 @@ INSERT INTO `kelas` (`id_kelas`, `nama_kelas`, `id_pengajar`) VALUES
 ('B', 'IPA', 'G0002'),
 ('C', 'IPS', 'G0003'),
 ('D', 'IPS', 'G0004'),
-('E', 'IPS', 'G0005');
+('E', 'IPS', 'G0005'),
+('MAGIC', 'Ilmu Hitam', 'G477053');
 
 -- --------------------------------------------------------
 
@@ -161,7 +166,7 @@ DROP TABLE IF EXISTS `nilai_siswa`;
 CREATE TABLE `nilai_siswa` (
   `id` int(11) NOT NULL,
   `id_subject` varchar(5) NOT NULL,
-  `id_siswa` varchar(5) NOT NULL,
+  `id_siswa` varchar(255) NOT NULL,
   `nilai_tugas` int(3) NOT NULL,
   `nilai_uts` int(3) NOT NULL,
   `nilai_uas` int(3) NOT NULL,
@@ -240,7 +245,8 @@ INSERT INTO `nilai_siswa` (`id`, `id_subject`, `id_siswa`, `nilai_tugas`, `nilai
 (65, 'SEJ1', 'S0025', 78, 94, 65, NULL),
 (66, 'SEJ1', 'S0001', 75, 69, 100, NULL),
 (67, 'EKO1', 'S0001', 75, 69, 100, NULL),
-(68, 'KOM1', 'S0001', 0, 0, 0, NULL);
+(68, 'KOM1', 'S0001', 0, 0, 0, NULL),
+(69, 'SU1', 'S0001', 75, 69, 70, NULL);
 
 -- --------------------------------------------------------
 
@@ -314,7 +320,8 @@ INSERT INTO `subject` (`id_subject`, `nama_subject`, `id_pengajar`) VALUES
 ('FIS1', 'Fisika', 'G0003'),
 ('GEO1', 'Geografi', 'G0004'),
 ('KOM1', 'Computer 1', 'GA001'),
-('SEJ1', 'Sejarah', 'G0005');
+('SEJ1', 'Sejarah', 'G0005'),
+('SU1', 'Sulap tingkat 1', 'G477053');
 
 --
 -- Indexes for dumped tables
@@ -377,7 +384,7 @@ ALTER TABLE `subject`
 -- AUTO_INCREMENT for table `nilai_siswa`
 --
 ALTER TABLE `nilai_siswa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
 -- Constraints for dumped tables
@@ -393,7 +400,7 @@ ALTER TABLE `guru`
 -- Constraints for table `kelas`
 --
 ALTER TABLE `kelas`
-  ADD CONSTRAINT `kelas_ibfk_1` FOREIGN KEY (`id_pengajar`) REFERENCES `guru` (`id_pengajar`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `kelas_ibfk_1` FOREIGN KEY (`id_pengajar`) REFERENCES `guru` (`id_pengajar`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Constraints for table `nilai_siswa`
