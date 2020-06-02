@@ -1,4 +1,24 @@
-<?php $kategori = $this->uri->segment(3);?>
+<?php 
+$kategori = $this->uri->segment(3);
+
+function checkType($id){
+	if(substr($id,0,1) == 'E'){
+		echo 'Profile';
+	}else echo 'Approval';
+}
+
+function checkRole($email,$id){
+	if(strpos($email,'admin')){
+		echo 'Admin';
+	}elseif(strpos($email,'teacher')){
+		echo 'Teacher';
+	}elseif(substr($id,1,1)=='G'){
+		echo 'Teacher';
+	}else echo 'Student';
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -95,7 +115,7 @@
 
 			<div class="container-fluid">
 				<h1 class="mt-4">
-				<?php if($kategori == NULL){
+					<?php if($kategori == NULL){
 				echo 'Dashboard </h1>';?> </h1>
 				<?php }else echo 'Manage '.ucfirst($kategori);?>
 				</h1>
@@ -105,32 +125,9 @@
 				}else { ?>
 				<div class="row">
 					<div class="col-sm-8">
-						<!-- <div class="shadow-sm bg-white rounded">
-							<div class="card text-center">
-								<div class="card-header">
-									<ul class="nav nav-pills card-header-pills">
-										<li class="nav-item">
-											<a class="nav-link active" href="#">Active</a>
-										</li>
-										<li class="nav-item">
-											<a class="nav-link" href="#">Link</a>
-										</li>
-										<li class="nav-item">
-											<a class="nav-link disabled" href="#" tabindex="-1"
-												aria-disabled="true">Disabled</a>
-										</li>
-									</ul>
-								</div>
-								<div class="card-body">
-									<h5 class="card-title">Special title treatment</h5>
-									<p class="card-text">With supporting text below as a natural lead-in to additional
-										content.
-									</p>
-									<a href="#" class="btn btn-primary">Go somewhere</a>
-								</div>
-							</div>
-						</div> -->
+
 					</div>
+
 					<div class="col-sm-4">
 						<div class="shadow-sm bg-white rounded">
 							<div class="list-group">
@@ -140,22 +137,19 @@
 											<span id="notif" class="badge badge-warning badge-pill"></span></h5>
 									</div>
 								</a>
-								<?php foreach($notif as $i):?>
-								<a href="#" class="list-group-item list-group-item-action">
-									<p class="mb-1">
-										<?php if(substr($i['approve_id'],0,1) == 'E'){
-										echo 'Profile';
-									}else echo 'Approval'?>
-										#<?=strtoupper($i['approve_id'])?></p>
-									<small class="text-muted">
-										<?php if(strpos($i['email'],'admin')){
-											echo 'Admin';
-										}elseif(strpos($i['email'],'teacher')){
-											echo 'Teacher';
-										}else echo 'Student';?>
-									</small>
-								</a>
-								<?php endforeach?>
+								<div style="max-height: 300px; overflow-y:scroll">
+									<?php foreach($notif as $i):?>
+									<a data-toggle="modal" data-target="#approval"
+										onclick="view('<?=$i['approve_id']?>')"
+										class="list-group-item list-group-item-action">
+										<p class="mb-1">
+											<?php checkType($i['approve_id']);?> #<?=strtoupper($i['approve_id'])?></p>
+										<small class="text-muted">
+											<?php checkRole($i['email'],$i['approve_id'])?>
+										</small>
+									</a>
+									<?php endforeach?>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -168,6 +162,69 @@
 	</div>
 	<!-- /#wrapper -->
 
+	<!-- Approve Modal -->
+	<div class="modal fade" id="approval" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Approval</h5>
+				</div>
+				<div class="modal-body">
+					<form id="approve">
+
+						<div class="form-group">
+							<label for="approve_id">ID Approval</label>
+							<input type="text" readonly name="approve_id" value="" class="form-control"
+								id="approve_id" />
+						</div>
+
+						<div name="hide">
+							<div class="form-group">
+								<label for="email">Email</label>
+								<input type="text" readonly name="email" value="" class="form-control" id="email" />
+							</div>
+						</div>
+
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<label for="first_name" class="control-label">First Name</label>
+								<input type="text" readonly name="first_name" value="" class="form-control"
+									id="first_name" />
+							</div>
+
+							<div class="form-group col-md-6">
+								<label for="last_name" class="control-label">Last Name</label>
+								<input type="text" readonly name="last_name" value="" class="form-control"
+									id="last_name" />
+
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="contact">Contact</label>
+							<input type="text" readonly name="contact" value="" class="form-control" id="contact" />
+
+						</div>
+
+						<div class="form-group">
+							<label for="address">Address</label>
+							<input type="text" readonly name="address" value="" class="form-control" id="address" />
+
+						</div>
+
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="button" onclick="approve()" class="btn btn-primary">Approve</button>
+				</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- Approve Modal -->
+
 	<script>
 		$('.collapse').collapse('hide')
 		$("#menu-toggle").click(function (e) {
@@ -176,7 +233,10 @@
 		});
 		$(document).ready(function () {
 			$('#example').DataTable({
-				responsive: true
+				responsive: true,
+				"scrollY":        "270px",
+        		"scrollCollapse": true,
+        		"paging":         false
 			});
 			$.ajax({
 				url: "<?=site_url('/admin/getnotif')?>",
@@ -184,8 +244,62 @@
 				success: function (data) {
 					$('#notif').text(data);
 				}
-			})
+			});
 		});
+
+		function view(id) {
+			$('#approve')[0].reset();
+			$('.form-control').removeClass('is-invalid');
+			$.ajax({
+				url: "<?php echo site_url('admin/get_approval')?>/" + id,
+				type: "GET",
+				dataType: "JSON",
+				success: function (data) {
+					data.approve_id.substring(1, 0)
+					$('[name="approve_id"]').val(data.approve_id);
+					$('[name="first_name"]').val(data.first_name);
+					$('[name="last_name"]').val(data.last_name);
+					$('[name="contact"]').val(data.contact);
+					$('[name="address"]').val(data.address);
+					if (data.approve == '0') {
+						$('[name="hide"]').show();
+						$('[name="email"]').val(data.email);
+					} else $('[name="hide"]').hide();
+
+				},
+				error: function (jqXHR, textStatus, errorThrown) {
+					alert('Error get data from ajax');
+				}
+			});
+		}
+
+		function approve() {
+
+			var uri = "<?php echo site_url('admin/approve')?>/" + $('[name="approve_id"]').val();
+
+			$.ajax({
+				url: uri,
+				type: "POST",
+				data: $('#approve').serialize(),
+				dataType: "JSON",
+				success: function (data) {
+
+					if (data.status) {
+						window.location.href = data.redirect;
+					} else {
+						for (var i = 0; i < data.inputerror.length; i++) {
+							$('[name="' + data.inputerror[i] + '"]').addClass(
+								'is-invalid');
+							$('[name="' + data.inputerror[i] + '"]').next().text(data.error_string[i]);
+						}
+					}
+				},
+				error: function (jqXHR, textStatus, errorThrown) {
+					alert('Error adding / update data');
+
+				}
+			});
+		}
 
 	</script>
 

@@ -28,11 +28,26 @@ class Student extends CI_Controller{
             $data['info'] = $this->Student_model->get_profile($_SESSION['id']);
             $this->load->view('pages/editprofile',$data);
         }else{
+            $data['subject'] = $this->Student_model->get_subject($_SESSION['id']);
             $data['kelas'] = $this->Student_model->get_kelas($_SESSION['id']);
             $data['siswa'] = $this->Student_model->get_nilai($_SESSION['id']);
             $data['guru'] = $this->Student_model->get_guru($_SESSION['id']);
             $this->load->view('pages/siswa.php', $data, NULL);
         }
+    }
+
+    public function add(){
+        $query = $this->Student_model->get_profile($_SESSION['id']);
+        $this->validate_add($query['id_siswa']);
+        $params = array(
+            'id_subject' => $this->input->post('id_subject'),
+            'nilai_tugas' => 0,
+            'nilai_uts' => 0,
+            'nilai_uas' => 0,
+            'id_siswa' => $query['id_siswa'],
+        );
+        $this->Student_model->take_subject($params);
+        echo json_encode(array("status" => TRUE, "redirect" => site_url('/student')));
     }
 
     public function komplain($id){
@@ -71,6 +86,28 @@ class Student extends CI_Controller{
             );
             $this->Student_model->edit_siswa($params);
             $this->index();
+        }
+    }
+
+    private function validate_add($id_siswa){
+        $data = array();
+        $data['error_string'] = array();
+        $data['inputerror'] = array();
+        $data['status'] = TRUE;
+        $id = $this->input->post('id_subject');
+        $check = $this->Student_model->get_nilai_siswa($id_siswa);
+
+        foreach($check as $i){
+            if($i['id_subject'] == $id){
+                $data['inputerror'][] = 'id_subject';
+                $data['error_string'][] = 'Pelajaran sudah diambil';
+                $data['status'] = FALSE;
+            }
+        }
+
+        if($data['status'] == FALSE){
+            echo json_encode($data);
+            exit();
         }
     }
 

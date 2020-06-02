@@ -26,7 +26,6 @@ class Nilai_siswa extends CI_Controller{
         $params = array(
             'id_subject' => $this->input->post('id_subject'),
             'id_siswa' => $this->input->post('id_siswa'),
-            'id_pengajar' => $this->input->post('id_pengajar'),
             'nilai_tugas' => $this->input->post('nilai_tugas'),
             'nilai_uts' => $this->input->post('nilai_uts'),
             'nilai_uas' => $this->input->post('nilai_uas'),
@@ -46,7 +45,6 @@ class Nilai_siswa extends CI_Controller{
         $params = array(
             // 'id_subject' => $this->input->post('id_subject'),
             'id_siswa' => $this->input->post('id_siswa'),
-            'id_pengajar' => $this->input->post('id_pengajar'),
             'nilai_tugas' => $this->input->post('nilai_tugas'),
             'nilai_uts' => $this->input->post('nilai_uts'),
             'nilai_uas' => $this->input->post('nilai_uas'),
@@ -71,14 +69,16 @@ class Nilai_siswa extends CI_Controller{
     }
 
     function get_grade($id){
-        $data = $this->db->query("SELECT *, CONCAT(s.first_name,' ',s.last_name) AS namasiswa, CONCAT(g.first_name,' ',g.last_name) AS namaguru, nilai_tugas, nilai_uts, nilai_uas 
+        $data = $this->db->query("SELECT *, 
+        CONCAT(s.first_name,' ',s.last_name) AS namasiswa, 
+        nilai_tugas, nilai_uts, nilai_uas 
         FROM nilai_siswa n 
-        INNER JOIN guru g ON n.id_pengajar = g.id_pengajar 
+        NATURAL JOIN subject
         INNER JOIN siswa s ON n.id_siswa = s.id_siswa WHERE id = '$id'")->row_array();
         echo json_encode($data);
     }
 
-    function validate(){
+    private function validate(){
         $data = array();
         $data['error_string'] = array();
         $data['inputerror'] = array();
@@ -88,12 +88,6 @@ class Nilai_siswa extends CI_Controller{
         $uts = $this->input->post('nilai_uts');
         $uas = $this->input->post('nilai_uas');
         $check = $this->CRUD_model->get_all_nilai_siswa();
-        
-        if($this->input->post('id_pengajar') == ''){
-            $data['inputerror'][] = 'id_pengajar';
-            $data['error_string'][] = 'Required';
-            $data['status'] = FALSE;
-        }
 
         if(isset($id)){
             if($id == ''){

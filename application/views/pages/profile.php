@@ -1,3 +1,11 @@
+<?php
+function checkEdit(){
+	if($_SESSION['role'] == 'G'){
+		echo site_url('teacher/menu/editprofile');
+	}else echo site_url('student/menu/editprofile');
+}
+?>
+
 <head>
 	<title>Profile - Project Sekolah</title>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -48,12 +56,22 @@
 
 <br>
 <div class="card">
-	<img src="https://www.booksie.com/files/profiles/22/mr-anonymous.png"
-		alt="John" style="width:100%">
-		<br>
+	<img src="https://www.booksie.com/files/profiles/22/mr-anonymous.png" alt="John" style="width:100%">
+	<br>
 	<h4><?=$info['first_name']." ".$info['last_name']?></h4>
+
+	<?php if($_SESSION['role'] == 'S'){?>
+	
 	<p class="title">Student</p>
 	<p>NIS : <?=$info['id_siswa']?></p>
 	<p>Kelas : <?=$info['id_kelas']?></p>
-	<a href="<?= site_url('student/menu/editprofile');?>"><button >Edit Profile</button></a>
+
+	<?php }else{?>
+
+	<p class="title">Teacher</p>
+	<p>NIS : <?=$info['id_pengajar']?></p>
+	<p>Wali Kelas : <?=$info['nama_kelas'].' '.$info['id_kelas']?></p>
+
+	<?php } ?>
+	<a href="<?php checkEdit()?>"><button>Edit Profile</button></a>
 </div>

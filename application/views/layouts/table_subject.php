@@ -9,6 +9,7 @@
 		<tr>
 			<td>ID Subject</td>
 			<td>Nama Subject</td>
+			<td>Nama Guru</td>
 			<td>Action</td>
 		</tr>
 	</thead>
@@ -16,7 +17,8 @@
 		<?php foreach ($data as $row) {
             echo '<tr>
             <td>'.$row['id_subject'].'</td>
-            <td>'.$row['nama_subject'].'</td>
+			<td>'.$row['nama_subject'].'</td>
+			<td>'.$row['guru'].'</td>
 						<td>' ?>
 		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editmodal"
 			onclick="edit_data('<?=$row['id_subject']?>')">Edit</button>
@@ -29,6 +31,7 @@
 		<tr>
 			<th>ID Subject</th>
 			<th>Nama Subject</th>
+			<th>Nama Guru</th>
 			<th>Action</th>
 		</tr>
 	</tfoot>
@@ -57,6 +60,17 @@
 							Required
 						</div>
 					</div>
+					<div class="form-group">
+						<label>Nama Guru</label>
+						<select class="form-control" name="id_pengajar">
+							<?php foreach($guru as $i):?>
+							<option value="<?=$i['id_pengajar']?>"><?=$i['first_name'].' '.$i['last_name']?></option>
+							<?php endforeach;?>
+						</select>
+						<div class="invalid-feedback">
+							Required
+						</div>
+					</div>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -81,6 +95,11 @@
 			success: function (data) {
 				$('[name="id_subject"]').val(data.id_subject);
 				$('[name="nama_subject"]').val(data.nama_subject);
+				$('[name="id_pengajar"] option').each(function () {
+					if ($(this).val() == data.id_pengajar) {
+						$(this).attr('selected', 'selected');
+					}
+				});
 
 			},
 			error: function (jqXHR, textStatus, errorThrown) {

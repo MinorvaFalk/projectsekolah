@@ -20,7 +20,13 @@ function getNilai($tugas, $uts, $uas){
 		<h1>Grades</h1>
 		<hr>
 		<div class="row">
+
 			<div class="col-8">
+				<div style="float:right">
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addmodal">
+						+ Take Subject</button>
+				</div>
+				<br><br>
 				<div class="table-responsive">
 					<table id="students" class="table table-striped table-bordered">
 						<thead>
@@ -50,9 +56,8 @@ function getNilai($tugas, $uts, $uas){
 										class='btn btn-danger' data-toggle="modal"
 										data-target="#komplainmodal">Komplain</button>
 									<?php }else { ?>
-									<button type="button" onclick="get_komplain('<?=$row['id']?>')"
-										class='btn btn-primary' data-toggle="modal"
-										data-target="#komplainmodal">View</button>
+									<button type="button" class='btn btn-warning btm-sm' disabled>Waiting
+										Feedback</button>
 									<?php } ?>
 								</td>
 							</tr>
@@ -105,6 +110,38 @@ function getNilai($tugas, $uts, $uas){
 	</div>
 </body>
 
+<!-- Add Modal -->
+<div class="modal fade" id="addmodal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Edit Subject</h5>
+			</div>
+			<div class="modal-body">
+				<form id="add">
+					<div class="form-group">
+						<label>Nama Subject</label>
+						<select class="form-control" name="id_subject">
+							<?php foreach($subject as $i):?>
+							<option value="<?=$i['id_subject']?>"><?=$i['nama_subject']?></option>
+							<?php endforeach;?>
+						</select>
+						<div class="invalid-feedback">
+							Required
+						</div>
+					</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button type="button" onclick="add()"class="btn btn-primary">Save</button>
+			</div>
+
+			</form>
+		</div>
+	</div>
+</div>
+<!-- Add Modal -->
+
 <!-- Komplain -->
 <div class="modal fade" id="komplainmodal" tabindex="-1" role="dialog">
 	<div class="modal-dialog" role="document">
@@ -133,7 +170,7 @@ function getNilai($tugas, $uts, $uas){
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-						<button type="button" onclick="save()" name="save" class="btn btn-primary">Save</button>
+						<button type="button" onclick="save()" class="btn btn-primary">Save</button>
 					</div>
 
 				</form>
@@ -155,6 +192,33 @@ function getNilai($tugas, $uts, $uas){
 		});
 	});
 
+	function add() {
+		var uri = "<?php echo site_url('student/add')?>";
+
+		$.ajax({
+			url: uri,
+			type: "POST",
+			data: $('#add').serialize(),
+			dataType: "JSON",
+			success: function (data) {
+
+				if (data.status) {
+					window.location.href = data.redirect;
+				} else {
+					for (var i = 0; i < data.inputerror.length; i++) {
+						$('[name="' + data.inputerror[i] + '"]').addClass(
+							'is-invalid');
+						$('[name="' + data.inputerror[i] + '"]').next().text(data.error_string[i]);
+					}
+				}
+			},
+			error: function (jqXHR, textStatus, errorThrown) {
+				alert('Error adding / update data');
+
+			}
+		});
+	}
+
 	function get_komplain(id) {
 		save_method = 'edit';
 		$('.form-control').removeClass('is-invalid');
@@ -166,9 +230,6 @@ function getNilai($tugas, $uts, $uas){
 				$('[name="id"]').val(data.id);
 				$('[name="komplain"]').val(data.komplain);
 				$('[name="nama_subject"]').val(data.nama_subject);
-				if ($('[name="komplain"]').val() != '') {
-					$('[name="save"]').prop('disabled', true);
-				}
 
 			},
 			error: function (jqXHR, textStatus, errorThrown) {

@@ -28,6 +28,7 @@ class Subject extends CI_Controller{
         $params = array(
             'id_subject' => $this->input->post('id_subject'),
             'nama_subject' => $this->input->post('nama_subject'),
+            'id_pengajar' => $this->input->post('id_pengajar')
         );
         
         $subject_id = $this->CRUD_model->add_subject($params);
@@ -42,6 +43,7 @@ class Subject extends CI_Controller{
         $this->validate();
         $params = array(
             'nama_subject' => $this->input->post('nama_subject'),
+            'id_pengajar' => $this->input->post('id_pengajar')
         );
     
         $this->CRUD_model->update_subject($id_subject,$params);            
@@ -79,6 +81,11 @@ class Subject extends CI_Controller{
         $id = $this->input->post('id_subject');
         $primaryid = $this->CRUD_model->get_all_subject();
         
+        if($this->input->post('id_pengajar') == ''){
+            $data['inputerror'][] = 'id_pengajar';
+            $data['error_string'][] = 'Required';
+            $data['status'] = FALSE;
+        }
 
         if(isset($id)){
             if($id == ''){
