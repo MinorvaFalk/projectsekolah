@@ -236,7 +236,7 @@ function checkRole($email,$id){
 				responsive: true,
 				"scrollY":        "270px",
         		"scrollCollapse": true,
-        		"paging":         false
+        		"paging":         false,
 			});
 			$.ajax({
 				url: "<?=site_url('/admin/getnotif')?>",
